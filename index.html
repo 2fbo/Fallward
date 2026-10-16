@@ -3265,10 +3265,8 @@
             player.pos.set(0, 0, 8);
             player.rotY = Math.PI;
             player.isDead = false;
-            // Persistent health across rounds - wounds carry over (no health reset/refill!)
-            if (player.hp === undefined || player.hp <= 0) {
-                player.hp = player.maxHp;
-            }
+            // Full health restored after each fight and on each round start!
+            player.hp = player.maxHp;
             player.stamina = player.maxStamina;
 
             camYaw = 0;
@@ -3403,19 +3401,27 @@
 
             // =========================================================
             // USER REQUIREMENT: OVERALL HEALTH BAR LIMIT GOES UP BY 25 HP
-            // (NO HEALTH RESTORATION: Current HP is preserved; only the limit expands)
+            // =========================================================
+            // USER REQUIREMENT: FULL HEALTH RESTORED AFTER EACH FIGHT
+            // & OVERALL HEALTH BAR LIMIT GOES UP BY 25 HP
             // =========================================================
             const hpLimitIncrease = 25;
             player.maxHp += hpLimitIncrease;
-            // No healing applied! Current player.hp remains at its wounded value
+            player.hp = player.maxHp; // FULL HEALTH RESTORED AFTER EACH FIGHT!
             updateHUD();
 
-            // Floating indicator: "+25 MAX HP LIMIT!"
+            // Floating indicator: "FULL HEALTH RESTORED!"
             showDamageNumber(
                 player.pos.clone().add(new THREE.Vector3(0, 2.0, 0)),
-                `+25 MAX HP LIMIT! (${player.maxHp} MAX)`,
-                "#00e5ff"
+                `FULL HP RESTORED! (${player.maxHp} HP)`,
+                "#00ff66"
             );
+
+            // Celestial healing chime & radiant particle aura
+            if (audio && audio.playHeal) {
+                audio.playHeal();
+            }
+            spawnHealAura(player.pos);
 
             // Erupt the 1,500 Roman spectators in celebration!
             crowdExcitementTimer = 3.0;
@@ -3566,7 +3572,7 @@
                 titleEl.innerText = isMidWave ? "FOE SLAIN: CHOOSE 1 OF 3 POWER-UPS" : "VICTORY: CHOOSE 1 OF 3 POWER-UPS";
             }
             if (subEl) {
-                subEl.innerHTML = `<span style="color: #00e5ff; font-weight: bold;">Health Limit Expanded: ${player.maxHp} HP (+25 Limit)</span> &mdash; Pick an ancient gladiator boon:`;
+                subEl.innerHTML = `<span style="color: #00ff66; font-weight: bold;">Full Health Restored & Limit Expanded: ${player.maxHp} HP (+25)</span> &mdash; Pick an ancient gladiator boon:`;
             }
 
             const PERKS_POOL = [
