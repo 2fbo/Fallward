@@ -715,6 +715,174 @@
             50% { transform: translateY(-28px) scale(1.15); opacity: 1; }
             100% { transform: translateY(-50px) scale(1); opacity: 0; }
         }
+
+        /* Adrenaline & Ultimate Ability */
+        .adrenaline-bar-wrap {
+            width: 100%;
+            height: 11px;
+            background: rgba(18, 12, 10, 0.85);
+            border: 1px solid rgba(255, 140, 0, 0.4);
+            border-radius: 3px;
+            margin-top: 4px;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+        .adrenaline-bar-wrap:hover {
+            border-color: #ffd700;
+        }
+        .adrenaline-fill {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, #ff5500, #ff9900, #ffd700);
+            transition: width 0.15s ease;
+            box-shadow: 0 0 8px rgba(255, 150, 0, 0.6);
+        }
+        .adrenaline-txt {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            font-size: 8px;
+            font-weight: 800;
+            color: #fff;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.9);
+            pointer-events: none;
+        }
+        .adrenaline-ready {
+            border-color: #ffd700 !important;
+            animation: adrenPulse 0.9s infinite alternate;
+            box-shadow: 0 0 14px rgba(255, 215, 0, 0.8) !important;
+        }
+        @keyframes adrenPulse {
+            0% { transform: scale(1); filter: drop-shadow(0 0 4px #ffaa00); }
+            100% { transform: scale(1.02); filter: drop-shadow(0 0 12px #ffd700); }
+        }
+
+        /* Gladiator Class Selection UI */
+        .class-selection-section {
+            margin-top: 14px;
+            margin-bottom: 12px;
+            width: 100%;
+            max-width: 860px;
+        }
+        .section-title {
+            font-size: 11px;
+            letter-spacing: 2.5px;
+            color: #d4af37;
+            font-weight: 800;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+        .classes-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+        @media (max-width: 768px) {
+            .classes-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        .class-card {
+            background: rgba(22, 18, 26, 0.82);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 6px;
+            padding: 10px 8px;
+            cursor: pointer;
+            transition: all 0.22s ease;
+            text-align: center;
+        }
+        .class-card:hover {
+            border-color: #ffd700;
+            background: rgba(45, 34, 48, 0.88);
+            transform: translateY(-2px);
+        }
+        .class-card.active {
+            border: 2px solid #ffd700;
+            background: linear-gradient(180deg, rgba(70, 52, 20, 0.9), rgba(28, 20, 10, 0.95));
+            box-shadow: 0 0 16px rgba(255, 215, 0, 0.45);
+        }
+        .class-icon { font-size: 24px; margin-bottom: 4px; }
+        .class-name { font-size: 11px; font-weight: 800; color: #ffd700; letter-spacing: 1px; }
+        .class-role { font-size: 9px; color: #bcaea0; margin-top: 3px; line-height: 1.2; }
+        .class-stat-row { display: flex; justify-content: center; gap: 6px; margin-top: 6px; font-size: 8.5px; font-weight: 700; color: #e6dfd5; }
+        .c-stat { background: rgba(0,0,0,0.4); padding: 1px 4px; border-radius: 2px; }
+
+        .btn-armory-trophies {
+            background: rgba(212, 175, 55, 0.15);
+            border: 1px solid #ffd700;
+            color: #ffd700;
+            font-family: 'Cinzel', serif;
+            font-size: 11px;
+            letter-spacing: 2px;
+            padding: 7px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .btn-armory-trophies:hover {
+            background: rgba(212, 175, 55, 0.35);
+            transform: scale(1.03);
+            box-shadow: 0 0 12px rgba(255, 215, 0, 0.5);
+        }
+
+        /* Armory Modal */
+        #armory-modal {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(180deg, rgba(22, 18, 25, 0.98), rgba(10, 8, 12, 0.99));
+            border: 2px solid #ffd700;
+            padding: 24px 30px;
+            border-radius: 8px;
+            box-shadow: 0 20px 80px rgba(0,0,0,0.95);
+            z-index: 35;
+            display: none;
+            max-width: 760px;
+            width: 94%;
+            text-align: center;
+            pointer-events: auto;
+            max-height: 85vh;
+            overflow-y: auto;
+        }
+        #armory-modal.active { display: block; }
+        .armory-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 12px;
+            margin-top: 14px;
+        }
+        .trophy-card {
+            background: rgba(28, 22, 32, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 6px;
+            padding: 12px 10px;
+            text-align: center;
+            transition: all 0.2s ease;
+        }
+        .trophy-card.unlocked {
+            border-color: #ffd700;
+            cursor: pointer;
+        }
+        .trophy-card.unlocked:hover {
+            background: rgba(212, 175, 55, 0.2);
+            transform: translateY(-3px);
+        }
+        .trophy-card.equipped {
+            border: 2px solid #00ffcc;
+            box-shadow: 0 0 12px rgba(0, 255, 204, 0.5);
+            background: rgba(0, 255, 204, 0.12);
+        }
+        .trophy-icon { font-size: 26px; margin-bottom: 6px; }
+        .trophy-title { font-size: 11px; font-weight: 800; color: #ffd700; }
+        .trophy-desc { font-size: 9px; color: #bbb; margin-top: 4px; line-height: 1.3; }
+        .trophy-status { font-size: 9px; font-weight: 700; margin-top: 6px; }
     </style>
 </head>
 <body>
@@ -755,6 +923,10 @@
                     <div class="stamina-bar">
                         <div id="player-stam-bar" class="stamina-fill"></div>
                     </div>
+                    <div class="adrenaline-bar-wrap" id="adren-wrap" title="Ultimate Adrenaline: Press [R] for Spartan War Cry & Meteor Slam!">
+                        <div id="player-adren-bar" class="adrenaline-fill"></div>
+                        <div id="player-adren-txt" class="adrenaline-txt">⚡ ADRENALINE 0% [R]</div>
+                    </div>
                 </div>
             </div>
 
@@ -762,7 +934,10 @@
                 <div id="match-badge" class="match-badge">1v1 COLISEUM DUEL</div>
                 <div id="match-title" class="match-round-title">ROUND 1</div>
                 <div id="score-display" style="font-size: 11px; letter-spacing: 2px; color: #d4af37;">WINS: 0 | STREAK: 0</div>
-                <div id="btn-toggle-controls" class="controls-pill">⚔️ CONTROLS [H]</div>
+                <div style="display: flex; gap: 8px; justify-content: center; margin-top: 4px;">
+                    <div id="btn-toggle-controls" class="controls-pill">⚔️ CONTROLS [H]</div>
+                    <div id="btn-toggle-music" class="controls-pill" style="border-color: #ff9800; color: #ffd700;">🥁 DRUMS: ON</div>
+                </div>
             </div>
 
             <div class="fighter-hud" style="align-items: flex-end;">
@@ -784,10 +959,11 @@
             <button id="btn-close-controls" class="btn-close-modal">&times;</button>
         </div>
         <div class="ctrl-row"><span class="ctrl-key">W A S D / Z Q S D</span><span>Kinematic Walk / Strafe</span></div>
-        <div class="ctrl-row"><span class="ctrl-key">LEFT CLICK / J</span><span>3-Hit Sword Combo (Costs 16 Stamina)</span></div>
-        <div class="ctrl-row"><span class="ctrl-key">RIGHT CLICK / SPACE</span><span>Shield Guard / Perfect Parry (260ms window)</span></div>
+        <div class="ctrl-row"><span class="ctrl-key">LEFT CLICK / J</span><span>Sword Combo (Costs Stamina)</span></div>
+        <div class="ctrl-row"><span class="ctrl-key">RIGHT CLICK / SPACE</span><span>Shield Guard / Perfect Parry (Timed Block)</span></div>
         <div class="ctrl-row"><span class="ctrl-key">Q</span><span>Shield Bash (Guaranteed Poise Break)</span></div>
         <div class="ctrl-row"><span class="ctrl-key">E</span><span>Piercing Thrust (Armor Piercing)</span></div>
+        <div class="ctrl-row"><span class="ctrl-key">R</span><span>⚡ ULTIMATE: Spartan War Cry &amp; Coliseum Meteor Slam (100% Adrenaline)</span></div>
         <div class="ctrl-row"><span class="ctrl-key">SHIFT</span><span>Dodge Roll (Invulnerability frames)</span></div>
         <div class="ctrl-row"><span class="ctrl-key">F / TAB / MMB</span><span>3D Lock-On Reticle (Cycle targets in Waves)</span></div>
         <div class="ctrl-row"><span class="ctrl-key">LEFT CLICK + DRAG</span><span>Free Look Camera Angle</span></div>
@@ -829,12 +1005,75 @@
         <button id="btn-return-menu-now" class="btn-vic-menu">⚔️ RETURN TO MENU NOW</button>
     </div>
 
+    <!-- Armory & Trophy Modal -->
+    <div id="armory-modal">
+        <div class="modal-header">
+            <h2>👑 COLISEUM TROPHY ARMORY</h2>
+            <button id="btn-close-armory" class="btn-close-modal">&times;</button>
+        </div>
+        <p style="font-size: 12px; color: #d8c8b0; margin-bottom: 14px;">
+            Defeat champions in the 1v1 Tournament to permanently unlock and equip their legendary helmets, plumes, and heraldry!
+        </p>
+        <div id="armory-trophies-grid" class="armory-grid"></div>
+    </div>
+
     <!-- Main Menu Screen (Shown on Open) -->
     <div id="main-menu-overlay">
         <div class="menu-title-box">
             <h1 class="game-main-title">THE INVERTED SPIRE</h1>
             <div class="game-main-subtitle">GRAND COLISEUM OF IRON</div>
             <div class="game-main-tagline">"Where glory is bought with blood, steel, and unyielding will."</div>
+        </div>
+
+        <!-- Class Selection Section -->
+        <div class="class-selection-section">
+            <div class="section-title">⚔️ CHOOSE YOUR GLADIATOR CLASS</div>
+            <div class="classes-grid">
+                <div class="class-card active" data-class="knight" id="class-btn-knight">
+                    <div class="class-icon">⚔️🛡️</div>
+                    <div class="class-name">IMPERIAL KNIGHT</div>
+                    <div class="class-role">Balanced &bull; Sword &amp; Shield</div>
+                    <div class="class-stat-row">
+                        <span class="c-stat">SPD: 5.6</span>
+                        <span class="c-stat">DMG: 1.0x</span>
+                        <span class="c-stat">PARRY: 0.26s</span>
+                    </div>
+                </div>
+                <div class="class-card" data-class="berserker" id="class-btn-berserker">
+                    <div class="class-icon">⚔️⚔️</div>
+                    <div class="class-name">COLISEUM BERSERKER</div>
+                    <div class="class-role">Dual Scimitars &bull; High Mobility</div>
+                    <div class="class-stat-row">
+                        <span class="c-stat" style="color: #00ffcc;">SPD: 6.4</span>
+                        <span class="c-stat" style="color: #ffaa00;">DMG: 1.15x</span>
+                        <span class="c-stat">5-HIT WHIRLWIND</span>
+                    </div>
+                </div>
+                <div class="class-card" data-class="crusader" id="class-btn-crusader">
+                    <div class="class-icon">🗡️💥</div>
+                    <div class="class-name">HIGHLAND CRUSADER</div>
+                    <div class="class-role">2H Zweih&auml;nder &bull; Heavy Poise Breaker</div>
+                    <div class="class-stat-row">
+                        <span class="c-stat">SPD: 5.0</span>
+                        <span class="c-stat" style="color: #ff5252;">DMG: 1.45x</span>
+                        <span class="c-stat" style="color: #ffd700;">POISE: +60%</span>
+                    </div>
+                </div>
+                <div class="class-card" data-class="duelist" id="class-btn-duelist">
+                    <div class="class-icon">🌙🗡️</div>
+                    <div class="class-name">DESERT DUELIST</div>
+                    <div class="class-role">Scimitar &amp; Buckler &bull; Master Parrier</div>
+                    <div class="class-stat-row">
+                        <span class="c-stat" style="color: #00ffcc;">SPD: 6.0</span>
+                        <span class="c-stat">DMG: 1.1x</span>
+                        <span class="c-stat" style="color: #ffd700;">PARRY: 0.38s</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="margin-top: 6px; margin-bottom: 12px;">
+            <button id="btn-open-armory" class="btn-armory-trophies">👑 GLADIATOR TROPHY ARMORY &amp; COSMETICS</button>
         </div>
 
         <div class="mode-selection-container">
@@ -1100,6 +1339,145 @@
                     osc.start(now + idx * 0.12);
                     osc.stop(now + idx * 0.12 + 0.65);
                 });
+            }
+
+            // =========================================================
+            // DYNAMIC PROCEDURAL ROMAN WAR DRUMS & BATTLE HORNS
+            // =========================================================
+            playKickDrum(gainVal = 0.42) {
+                if (!this.ctx || this.drumsMuted) return;
+                const now = this.ctx.currentTime;
+                const osc = this.ctx.createOscillator();
+                const gain = this.ctx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(115, now);
+                osc.frequency.exponentialRampToValueAtTime(36, now + 0.18);
+                gain.gain.setValueAtTime(gainVal, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.22);
+                osc.connect(gain);
+                gain.connect(this.ctx.destination);
+                osc.start(now);
+                osc.stop(now + 0.24);
+            }
+
+            playSnare(gainVal = 0.24) {
+                if (!this.ctx || this.drumsMuted || !this.noiseBuffer) return;
+                const now = this.ctx.currentTime;
+                const noise = this.ctx.createBufferSource();
+                noise.buffer = this.noiseBuffer;
+                const filter = this.ctx.createBiquadFilter();
+                filter.type = 'highpass';
+                filter.frequency.setValueAtTime(950, now);
+                const gain = this.ctx.createGain();
+                gain.gain.setValueAtTime(gainVal, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.14);
+                noise.connect(filter);
+                filter.connect(gain);
+                gain.connect(this.ctx.destination);
+                noise.start(now);
+                noise.stop(now + 0.15);
+            }
+
+            playWarHorn() {
+                if (!this.ctx || this.drumsMuted) return;
+                const now = this.ctx.currentTime;
+                [65.4, 130.8].forEach((freq) => {
+                    const osc = this.ctx.createOscillator();
+                    const gain = this.ctx.createGain();
+                    const filter = this.ctx.createBiquadFilter();
+                    osc.type = 'sawtooth';
+                    osc.frequency.setValueAtTime(freq, now);
+                    filter.type = 'lowpass';
+                    filter.frequency.setValueAtTime(280, now);
+                    filter.frequency.exponentialRampToValueAtTime(640, now + 0.55);
+                    gain.gain.setValueAtTime(0.001, now);
+                    gain.gain.linearRampToValueAtTime(0.14, now + 0.35);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 1.4);
+                    osc.connect(filter);
+                    filter.connect(gain);
+                    gain.connect(this.ctx.destination);
+                    osc.start(now);
+                    osc.stop(now + 1.45);
+                });
+            }
+
+            playSpartanWarCry() {
+                if (!this.ctx) return;
+                const now = this.ctx.currentTime;
+                const osc = this.ctx.createOscillator();
+                const gain = this.ctx.createGain();
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(140, now);
+                osc.frequency.linearRampToValueAtTime(280, now + 0.25);
+                osc.frequency.exponentialRampToValueAtTime(80, now + 0.7);
+                gain.gain.setValueAtTime(0.01, now);
+                gain.gain.linearRampToValueAtTime(0.42, now + 0.14);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.78);
+                osc.connect(gain);
+                gain.connect(this.ctx.destination);
+                osc.start(now);
+                osc.stop(now + 0.8);
+            }
+
+            playEarthquakeSlam() {
+                if (!this.ctx) return;
+                const now = this.ctx.currentTime;
+                const osc = this.ctx.createOscillator();
+                const gain = this.ctx.createGain();
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(85, now);
+                osc.frequency.exponentialRampToValueAtTime(24, now + 0.45);
+                gain.gain.setValueAtTime(0.55, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.5);
+                osc.connect(gain);
+                gain.connect(this.ctx.destination);
+                osc.start(now);
+                osc.stop(now + 0.52);
+            }
+
+            playSpikeTrap() {
+                if (!this.ctx) return;
+                const now = this.ctx.currentTime;
+                const osc = this.ctx.createOscillator();
+                const gain = this.ctx.createGain();
+                osc.type = 'square';
+                osc.frequency.setValueAtTime(240, now);
+                osc.frequency.exponentialRampToValueAtTime(60, now + 0.12);
+                gain.gain.setValueAtTime(0.35, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.14);
+                osc.connect(gain);
+                gain.connect(this.ctx.destination);
+                osc.start(now);
+                osc.stop(now + 0.15);
+            }
+
+            updateWarDrums(dt, isBattleActive) {
+                if (!this.ctx || this.drumsMuted || !isBattleActive) return;
+                if (!this.drumState) {
+                    this.drumState = { timer: 0, step: 0, bpm: 105, intensity: 1.0 };
+                }
+                const currentBpm = this.drumState.bpm * (this.drumState.intensity >= 2.0 ? 1.28 : 1.0);
+                const beatDuration = 60 / currentBpm;
+                this.drumState.timer += dt;
+                if (this.drumState.timer >= beatDuration) {
+                    this.drumState.timer -= beatDuration;
+                    this.drumState.step = (this.drumState.step + 1) % 16;
+                    const s = this.drumState.step;
+                    // Heavy syncopated Roman military march
+                    if (s === 0 || s === 6 || s === 10) {
+                        this.playKickDrum(0.44);
+                    } else if (s === 2 || s === 8 || s === 14) {
+                        this.playKickDrum(0.28);
+                    }
+                    if (s === 4 || s === 12) {
+                        this.playSnare(0.3);
+                    } else if (this.drumState.intensity >= 2.0 && (s === 7 || s === 15)) {
+                        this.playSnare(0.24);
+                    }
+                    if (s === 0 && Math.random() < 0.35) {
+                        this.playWarHorn();
+                    }
+                }
             }
         }
 
@@ -2234,6 +2612,149 @@
         });
 
         /* =========================================================================
+           ARENA HAZARDS: 4 RETRACTABLE BRONZE SPIKE TRAPS
+           ========================================================================= */
+        const arenaSpikeTraps = [];
+        const spikeGratePositions = [
+            { x: 6.5, z: 0 }, { x: -6.5, z: 0 },
+            { x: 0, z: 6.5 }, { x: 0, z: -6.5 }
+        ];
+
+        spikeGratePositions.forEach((pos, idx) => {
+            const trapRoot = new THREE.Group();
+            trapRoot.position.set(pos.x, 0.02, pos.z);
+            scene.add(trapRoot);
+
+            // Heavy bronze grate frame
+            const frameGeo = new THREE.BoxGeometry(2.2, 0.06, 2.2);
+            const frameMat = new THREE.MeshStandardMaterial({
+                color: 0x8a6f20,
+                metalness: 0.88,
+                roughness: 0.35
+            });
+            const frame = new THREE.Mesh(frameGeo, frameMat);
+            frame.receiveShadow = true;
+            trapRoot.add(frame);
+
+            // Subterranean dark pit under the grate
+            const pit = new THREE.Mesh(new THREE.BoxGeometry(1.9, 0.04, 1.9), new THREE.MeshBasicMaterial({ color: 0x050302 }));
+            trapRoot.add(pit);
+
+            // Center amber warning rune
+            const runeMat = new THREE.MeshBasicMaterial({ color: 0x553300 });
+            const rune = new THREE.Mesh(new THREE.CylinderGeometry(0.18, 0.18, 0.08, 12), runeMat);
+            rune.position.y = 0.03;
+            trapRoot.add(rune);
+
+            // Sharp steel spikes group
+            const spikeGroup = new THREE.Group();
+            spikeGroup.position.y = -0.55; // Hidden below ground initially
+            trapRoot.add(spikeGroup);
+
+            const spikeMat = new THREE.MeshStandardMaterial({ color: 0xdde6ed, metalness: 0.98, roughness: 0.1 });
+            for (let sx = -0.65; sx <= 0.65; sx += 0.43) {
+                for (let sz = -0.65; sz <= 0.65; sz += 0.43) {
+                    const spike = new THREE.Mesh(new THREE.ConeGeometry(0.06, 0.8, 6), spikeMat);
+                    spike.position.set(sx, 0.4, sz);
+                    spike.castShadow = true;
+                    spikeGroup.add(spike);
+                }
+            }
+
+            arenaSpikeTraps.push({
+                group: trapRoot,
+                spikeGroup,
+                rune,
+                runeMat,
+                pos: new THREE.Vector3(pos.x, 0, pos.z),
+                state: 'idle', // 'idle' -> 'warning' -> 'active' -> 'retracting'
+                timer: 2.0 + idx * 1.5,
+                cooldown: 0
+            });
+        });
+
+        function updateArenaTraps(dt) {
+            if (!gameActive) return;
+            const time = performance.now() * 0.001;
+
+            arenaSpikeTraps.forEach(trap => {
+                trap.timer -= dt;
+
+                if (trap.state === 'idle') {
+                    trap.spikeGroup.position.y = THREE.MathUtils.lerp(trap.spikeGroup.position.y, -0.55, dt * 10);
+                    trap.runeMat.color.setHex(0x553300);
+                    if (trap.timer <= 0) {
+                        trap.state = 'warning';
+                        trap.timer = 1.1; // 1.1s warning
+                    }
+                } else if (trap.state === 'warning') {
+                    // Flashing glowing warning rune
+                    const flash = Math.sin(time * 20) > 0 ? 0xffaa00 : 0x884400;
+                    trap.runeMat.color.setHex(flash);
+                    trap.spikeGroup.position.y = -0.45 + Math.sin(time * 30) * 0.04;
+                    if (trap.timer <= 0) {
+                        trap.state = 'active';
+                        trap.timer = 1.2; // 1.2s impaling window
+                        audio.playSpikeTrap();
+                    }
+                } else if (trap.state === 'active') {
+                    trap.spikeGroup.position.y = THREE.MathUtils.lerp(trap.spikeGroup.position.y, 0.45, dt * 25);
+                    trap.runeMat.color.setHex(0xff2200);
+
+                    // Check collision with player
+                    if (!player.isDead && !player.isRolling) {
+                        const dPlayer = trap.pos.distanceTo(player.pos);
+                        if (dPlayer < 1.35 && (!trap.lastPlayerHit || time - trap.lastPlayerHit > 0.8)) {
+                            trap.lastPlayerHit = time;
+                            player.hp = Math.max(0, player.hp - 22);
+                            player.staggerTimer = 0.35;
+                            player.isStaggered = true;
+                            audio.playHit();
+                            showDamageNumber(player.pos.clone().add(new THREE.Vector3(0, 1.8, 0)), "SPIKE TRAP! -22 HP", "#ff3300");
+                            spawnBloodSplatter(player.pos);
+                            updateHUD();
+                            if (player.hp <= 0) onPlayerDefeated();
+                        }
+                    }
+
+                    // Check collision with bots
+                    activeEnemies.forEach(e => {
+                        if (!e.isDead) {
+                            const dEnemy = trap.pos.distanceTo(e.pos);
+                            if (dEnemy < 1.45 && (!trap.lastEnemyHit || time - trap.lastEnemyHit > 0.8)) {
+                                trap.lastEnemyHit = time;
+                                e.hp = Math.max(0, e.hp - 55);
+                                e.poise = 0;
+                                e.isStaggered = true;
+                                e.staggerTimer = 1.4;
+                                audio.playGuardBreak();
+                                audio.playCheer();
+                                crowdExcitementTimer = 3.0;
+                                showDamageNumber(e.pos.clone().add(new THREE.Vector3(0, 2.0, 0)), "IMPALED! -55 HP", "#ffd700");
+                                spawnBloodSplatter(e.pos);
+                                spawnClashSparks(e.pos);
+                                updateHUD();
+                                if (e.hp <= 0) onSingleEnemyKilled(e);
+                            }
+                        }
+                    });
+
+                    if (trap.timer <= 0) {
+                        trap.state = 'retracting';
+                        trap.timer = 0.5;
+                    }
+                } else if (trap.state === 'retracting') {
+                    trap.spikeGroup.position.y = THREE.MathUtils.lerp(trap.spikeGroup.position.y, -0.55, dt * 14);
+                    trap.runeMat.color.setHex(0x553300);
+                    if (trap.timer <= 0) {
+                        trap.state = 'idle';
+                        trap.timer = 3.0 + Math.random() * 2.0;
+                    }
+                }
+            });
+        }
+
+        /* =========================================================================
            ARENA STORYTELLING: BLOODSTAINS, WEAPONS & SHIELD DEBRIS
            ========================================================================= */
         const bloodstainMat = new THREE.MeshStandardMaterial({
@@ -2990,6 +3511,20 @@
                     confettiParticles.splice(i, 1);
                 }
             }
+
+            for (let i = shockwaveMeshes.length - 1; i >= 0; i--) {
+                const sw = shockwaveMeshes[i];
+                sw.life -= dt;
+                sw.scale += (sw.maxScale - sw.scale) * dt * 10;
+                sw.mesh.scale.set(sw.scale, sw.scale, sw.scale);
+                sw.mesh.material.opacity = Math.max(0, sw.life / sw.maxLife);
+                if (sw.life <= 0) {
+                    scene.remove(sw.mesh);
+                    sw.mesh.geometry.dispose();
+                    sw.mesh.material.dispose();
+                    shockwaveMeshes.splice(i, 1);
+                }
+            }
         }
 
         /* =========================================================================
@@ -3036,8 +3571,318 @@
             perks: [],
             parryWindowBonus: 0,
             poiseDmgBonus: 1.0,
+            // Adrenaline & Ultimate Ability
+            adrenaline: 0,
+            maxAdrenaline: 100,
+            isUltimateActive: false,
+            ultimateTimer: 0,
+            isMeteorSlamming: false,
+            meteorStage: 0,
+            meteorTimer: 0,
+            gladiatorClass: 'knight',
+            equippedCosmetics: {
+                armorColor: 0x8a9ba8,
+                trimColor: 0xd4af37,
+                plumeColor: 0x2288dd,
+                capeColor: 0x1a4678,
+                helmetStyle: 'greathelm',
+                pauldronStyle: 'standard'
+            }
         };
         player.mesh.position.copy(player.pos);
+
+        // =========================================================
+        // 1. PLAYABLE GLADIATOR CLASSES (STARTING LOADOUTS)
+        // =========================================================
+        const GLADIATOR_CLASSES = {
+            knight: {
+                id: 'knight',
+                name: 'Imperial Knight',
+                weapon: 'broadsword',
+                shield: 'heater',
+                speed: 5.6,
+                damageMult: 1.0,
+                poiseDmgBonus: 1.0,
+                parryWindowBonus: 0,
+                desc: 'Balanced warrior with standard sword and reliable heater shield defense.'
+            },
+            berserker: {
+                id: 'berserker',
+                name: 'Coliseum Berserker',
+                weapon: 'scimitar',
+                shield: 'crescent_buckler',
+                speed: 6.4,
+                damageMult: 1.15,
+                poiseDmgBonus: 1.15,
+                parryWindowBonus: 0.04,
+                desc: 'Fierce gladiator with high mobility, +15% damage, and rapid strike cadence.'
+            },
+            crusader: {
+                id: 'crusader',
+                name: 'Highland Crusader',
+                weapon: 'zweihander',
+                shield: 'tower',
+                speed: 5.0,
+                damageMult: 1.45,
+                poiseDmgBonus: 1.6,
+                parryWindowBonus: -0.02,
+                desc: 'Massive greatsword warrior wielding staggering poise-breaking sweeps.'
+            },
+            duelist: {
+                id: 'duelist',
+                name: 'Desert Duelist',
+                weapon: 'scimitar',
+                shield: 'crescent_buckler',
+                speed: 6.0,
+                damageMult: 1.1,
+                poiseDmgBonus: 1.0,
+                parryWindowBonus: 0.12,
+                desc: 'Master swordsman with wide parry window and deadly riposte precision.'
+            }
+        };
+
+        function rebuildPlayerRig(weaponType = null, shieldType = null) {
+            const curClass = GLADIATOR_CLASSES[player.gladiatorClass] || GLADIATOR_CLASSES.knight;
+            const wType = weaponType || curClass.weapon;
+            const sType = shieldType || curClass.shield;
+            const cos = player.equippedCosmetics;
+
+            if (player.mesh) scene.remove(player.mesh);
+            const newRig = createKnightMesh(
+                cos.armorColor, cos.trimColor, cos.plumeColor, true,
+                wType, cos.capeColor, sType,
+                { helmetStyle: cos.helmetStyle, pauldronStyle: cos.pauldronStyle }
+            );
+            player.rig = newRig;
+            player.mesh = newRig.root;
+            scene.add(player.mesh);
+            player.mesh.position.copy(player.pos);
+            player.mesh.rotation.y = player.rotY;
+        }
+
+        function applyGladiatorClass(classKey) {
+            const cfg = GLADIATOR_CLASSES[classKey] || GLADIATOR_CLASSES.knight;
+            player.gladiatorClass = classKey;
+            player.speed = cfg.speed;
+            player.damageMultiplier = cfg.damageMult;
+            player.poiseDmgBonus = cfg.poiseDmgBonus;
+            player.parryWindowBonus = cfg.parryWindowBonus;
+
+            // Update UI class card active states
+            document.querySelectorAll('.class-card').forEach(c => {
+                if (c.getAttribute('data-class') === classKey) c.classList.add('active');
+                else c.classList.remove('active');
+            });
+
+            rebuildPlayerRig(cfg.weapon, cfg.shield);
+        }
+
+        // =========================================================
+        // 2. ULTIMATE / ADRENALINE: COLISEUM METEOR SLAM & SPARTAN WAR CRY
+        // =========================================================
+        const shockwaveMeshes = [];
+        function triggerMeteorSlam() {
+            if (player.isDead || !gameActive || player.isMeteorSlamming) return;
+            if (player.adrenaline < player.maxAdrenaline && !player.isUltimateActive) return;
+
+            player.adrenaline = 0;
+            player.isMeteorSlamming = true;
+            player.meteorStage = 1; // 1 = leap upward, 2 = crash down
+            player.meteorTimer = 0.28;
+            player.isAttacking = false;
+            player.bufferedAttack = false;
+
+            audio.playSpartanWarCry();
+            showAnnouncement("⚡ SPARTAN WAR CRY!", "COLISEUM METEOR SLAM UNLEASHED!");
+            showDamageNumber(player.pos.clone().add(new THREE.Vector3(0, 2.0, 0)), "METEOR SLAM!", "#ffd700");
+        }
+
+        function executeMeteorImpact() {
+            cameraTrauma = 1.0;
+            audio.playEarthquakeSlam();
+            audio.playCheer();
+            crowdExcitementTimer = 5.0;
+
+            // Spawn radial expanding shockwave ring
+            const ringGeo = new THREE.RingGeometry(0.5, 1.2, 32);
+            const ringMat = new THREE.MeshBasicMaterial({
+                color: 0xffaa00,
+                side: THREE.DoubleSide,
+                transparent: true,
+                opacity: 0.95
+            });
+            const ringMesh = new THREE.Mesh(ringGeo, ringMat);
+            ringMesh.rotation.x = -Math.PI / 2;
+            ringMesh.position.set(player.pos.x, 0.05, player.pos.z);
+            scene.add(ringMesh);
+            shockwaveMeshes.push({ mesh: ringMesh, scale: 1.0, maxScale: 8.5, life: 0.45, maxLife: 0.45 });
+
+            // Knocks back and shatters poise of all enemies within 6.5m
+            activeEnemies.forEach(e => {
+                if (!e.isDead) {
+                    const dist = player.pos.distanceTo(e.pos);
+                    if (dist < 6.5) {
+                        const pushDir = new THREE.Vector3().subVectors(e.pos, player.pos).normalize();
+                        e.pos.addScaledVector(pushDir, 3.2);
+                        clampToArena(e.pos);
+                        e.mesh.position.copy(e.pos);
+
+                        e.hp = Math.max(0, e.hp - 95);
+                        e.poise = 0;
+                        e.isStaggered = true;
+                        e.staggerTimer = 1.6;
+                        abortEnemyCombo(e);
+
+                        spawnBloodSplatter(e.pos);
+                        spawnClashSparks(e.pos);
+                        showDamageNumber(e.pos.clone().add(new THREE.Vector3(0, 2.0, 0)), "CRITICAL SLAM! -95 HP", "#ffd700");
+                        if (e.hp <= 0) onSingleEnemyKilled(e);
+                    }
+                }
+            });
+
+            // Activate 8-second Spartan Berserk Mode
+            player.isUltimateActive = true;
+            player.ultimateTimer = 8.0;
+            player.damageMultiplier *= 1.5;
+            updateHUD();
+        }
+
+        // =========================================================
+        // 5. GLADIATOR ARMORY & TROPHY PERSISTENCE
+        // =========================================================
+        const COLISEUM_TROPHIES = [
+            {
+                id: 'sentinel_plume',
+                round: 1,
+                name: "Sentinel's Gilded Visor",
+                boss: "The Ash-Bound Sentinel",
+                icon: "🛡️",
+                desc: "Steeled visor and dark ash battleplate trim.",
+                cosmetic: { armorColor: 0x38343c, trimColor: 0x8c6d32, plumeColor: 0x8b1a1a, helmetStyle: 'greathelm' }
+            },
+            {
+                id: 'roland_crest',
+                round: 2,
+                name: "Lionheart Royal Crest",
+                boss: "Sir Roland the Red Lion",
+                icon: "🦁",
+                desc: "Royal crimson cape, gold leaf trim, and templar wings.",
+                cosmetic: { armorColor: 0x8a1b1b, trimColor: 0xd4af37, plumeColor: 0xf5f5f5, helmetStyle: 'winged_templar' }
+            },
+            {
+                id: 'tariq_turban',
+                round: 3,
+                name: "Viper's Silk & Casque",
+                boss: "Prince Tariq the Sand-Viper",
+                icon: "🌙",
+                desc: "Pointed Damascus Casque, emerald silk, and shamshir styling.",
+                cosmetic: { armorColor: 0x244248, trimColor: 0xd4af37, plumeColor: 0x168088, helmetStyle: 'saracen_turban' }
+            },
+            {
+                id: 'malakor_horns',
+                round: 4,
+                name: "Blood-Reaver Demon Horns",
+                boss: "Baron Malakor",
+                icon: "👿",
+                desc: "Intimidating colossal ram horns and jagged spike pauldrons.",
+                cosmetic: { armorColor: 0x151418, trimColor: 0x5a1414, plumeColor: 0xba0808, helmetStyle: 'horned_demon' }
+            },
+            {
+                id: 'valkyrie_wings',
+                round: 5,
+                name: "Valkyrie Eagle Diadem",
+                boss: "Valkyrie of Iron Eclipse",
+                icon: "🦅",
+                desc: "Nordic swept wing crest and celestial polished steel.",
+                cosmetic: { armorColor: 0x1c3144, trimColor: 0xdde6ed, plumeColor: 0x26859e, helmetStyle: 'valkyrie_wings' }
+            },
+            {
+                id: 'balgor_hounskull',
+                round: 6,
+                name: "Iron Juggernaut Snout",
+                boss: "Balgor the Colossus",
+                icon: "🐗",
+                desc: "Pig-faced Hounskull bascinet and reinforced heavy plates.",
+                cosmetic: { armorColor: 0x2a282f, trimColor: 0x6e7078, plumeColor: 0x444650, helmetStyle: 'hounskull' }
+            },
+            {
+                id: 'vane_skull',
+                round: 7,
+                name: "Spectral Skull & Cyan Eyes",
+                boss: "Lord Vane the Revenant",
+                icon: "💀",
+                desc: "Death mask with piercing phantom cyan glowing eyes.",
+                cosmetic: { armorColor: 0x0f141a, trimColor: 0x00ffee, plumeColor: 0x008899, helmetStyle: 'spectral_skull' }
+            },
+            {
+                id: 'ignis_crown',
+                round: 8,
+                name: "Emperor's Dragon Crown",
+                boss: "General Ignis",
+                icon: "👑",
+                desc: "Supreme Coliseum Gold Dragon Crown and blazing red plume.",
+                cosmetic: { armorColor: 0x8a6f20, trimColor: 0xd4af37, plumeColor: 0x581363, helmetStyle: 'dragon_crown' }
+            }
+        ];
+
+        function getUnlockedTrophies() {
+            try {
+                const stored = localStorage.getItem('coliseum_trophies_unlocked');
+                return stored ? JSON.parse(stored) : ['sentinel_plume'];
+            } catch(e) {
+                return ['sentinel_plume'];
+            }
+        }
+
+        function unlockTrophyForRound(roundNum) {
+            const trophy = COLISEUM_TROPHIES.find(t => t.round === roundNum);
+            if (!trophy) return;
+            const unlocked = getUnlockedTrophies();
+            if (!unlocked.includes(trophy.id)) {
+                unlocked.push(trophy.id);
+                try {
+                    localStorage.setItem('coliseum_trophies_unlocked', JSON.stringify(unlocked));
+                } catch(e) {}
+                showAnnouncement("👑 TROPHY UNLOCKED!", trophy.name.toUpperCase());
+            }
+        }
+
+        function equipTrophyCosmetic(trophyId) {
+            const trophy = COLISEUM_TROPHIES.find(t => t.id === trophyId);
+            if (!trophy) return;
+            Object.assign(player.equippedCosmetics, trophy.cosmetic);
+            rebuildPlayerRig();
+            audio.playFanfare();
+            renderArmoryGrid();
+        }
+
+        function renderArmoryGrid() {
+            const container = document.getElementById('armory-trophies-grid');
+            if (!container) return;
+            container.innerHTML = '';
+            const unlocked = getUnlockedTrophies();
+
+            COLISEUM_TROPHIES.forEach(t => {
+                const isUnlocked = unlocked.includes(t.id);
+                const isEquipped = (player.equippedCosmetics.helmetStyle === t.cosmetic.helmetStyle);
+
+                const card = document.createElement('div');
+                card.className = `trophy-card ${isUnlocked ? 'unlocked' : ''} ${isEquipped ? 'equipped' : ''}`;
+                card.innerHTML = `
+                    <div class="trophy-icon">${isUnlocked ? t.icon : '🔒'}</div>
+                    <div class="trophy-title">${t.name}</div>
+                    <div class="trophy-desc">${isUnlocked ? t.desc : `Defeat ${t.boss} (Round ${t.round}) to unlock.`}</div>
+                    <div class="trophy-status" style="color: ${isEquipped ? '#00ffcc' : isUnlocked ? '#ffd700' : '#888'};">
+                        ${isEquipped ? '✓ EQUIPPED' : isUnlocked ? '[ CLICK TO EQUIP ]' : 'LOCKED'}
+                    </div>
+                `;
+                if (isUnlocked) {
+                    card.onclick = () => equipTrophyCosmetic(t.id);
+                }
+                container.appendChild(card);
+            });
+        }
 
         // Pre-Allocated Static Vectors (Zero GC, 60+ FPS!)
         const _lockToEnemy = new THREE.Vector3();
@@ -3435,6 +4280,10 @@
                 streak++;
                 document.getElementById('score-display').innerText = `WINS: ${scoreWins} | STREAK: ${streak}`;
 
+                if (gameMode === 'simple') {
+                    unlockTrophyForRound(currentRound);
+                }
+
                 // USER REQUIREMENT: Defeating the last boss (Round 8) triggers Tournament Victory & Achievement
                 if (gameMode === 'simple' && currentRound >= ROUND_CONFIGS.length) {
                     showAnnouncement("TOURNAMENT WON!", "WELL DONE, COLISEUM CHAMPION!");
@@ -3683,6 +4532,7 @@
             player.poiseDmgBonus = 1.0;
             player.lifesteal = 0;
             player.perks = [];
+            applyGladiatorClass(player.gladiatorClass || 'knight');
 
             document.getElementById('main-menu-overlay').classList.add('hidden');
             document.getElementById('ui-layer').style.display = 'flex';
@@ -3751,6 +4601,31 @@
                 stamBar.style.background = 'linear-gradient(90deg, #d32f2f, #ff5722)';
             } else {
                 stamBar.style.background = 'linear-gradient(90deg, #1e8449, #27ae60, #58d68d)';
+            }
+
+            // Adrenaline Bar Update
+            const adrenBar = document.getElementById('player-adren-bar');
+            const adrenTxt = document.getElementById('player-adren-txt');
+            const adrenWrap = document.getElementById('adren-wrap');
+            if (adrenBar && adrenTxt && adrenWrap) {
+                if (player.isUltimateActive) {
+                    const ultPct = Math.max(0, (player.ultimateTimer / 8.0) * 100);
+                    adrenBar.style.width = `${ultPct}%`;
+                    adrenBar.style.background = 'linear-gradient(90deg, #ff0055, #ff5500, #ffd700)';
+                    adrenTxt.innerText = `⚔️ SPARTAN BERSERK: ${Math.ceil(player.ultimateTimer)}s`;
+                    adrenWrap.classList.remove('adrenaline-ready');
+                } else {
+                    const aPct = Math.min(100, Math.max(0, (player.adrenaline / player.maxAdrenaline) * 100));
+                    adrenBar.style.width = `${aPct}%`;
+                    adrenBar.style.background = 'linear-gradient(90deg, #ff5500, #ff9900, #ffd700)';
+                    if (aPct >= 100) {
+                        adrenTxt.innerText = `⚡ ULTIMATE READY! [PRESS R]`;
+                        adrenWrap.classList.add('adrenaline-ready');
+                    } else {
+                        adrenTxt.innerText = `⚡ ADRENALINE ${Math.floor(aPct)}% [R]`;
+                        adrenWrap.classList.remove('adrenaline-ready');
+                    }
+                }
             }
 
                         const shieldBadge = document.getElementById('shield-active-indicator');
@@ -3863,6 +4738,10 @@
 
             if (e.code === 'KeyE') {
                 initiatePlayerChargedThrust();
+            }
+
+            if (e.code === 'KeyR') {
+                triggerMeteorSlam();
             }
 
             if ((e.code === 'ShiftLeft' || e.code === 'ShiftRight') && !player.isRolling && !player.isStaggered) {
@@ -4146,6 +5025,11 @@
                     e.lastHitTime = performance.now() * 0.001;
                     e.consecutiveHitsTaken++;
 
+                    // Adrenaline Gain on landed attacks
+                    if (!player.isUltimateActive) {
+                        player.adrenaline = Math.min(player.maxAdrenaline, player.adrenaline + (step >= 4 ? 18 : 9));
+                    }
+
                     audio.playHit();
                     audio.playRealSwordClash();
                     spawnBloodSplatter(hitPos);
@@ -4341,6 +5225,40 @@
             activeEnemies.forEach((e, idx) => {
                 if (e.isDead) return;
 
+                // =========================================================
+                // PHASE 2 BOSS ENRAGE TRANSFORMATION (At <= 45% Health)
+                // =========================================================
+                if (gameMode === 'simple' && !e.phase2Triggered && e.hp <= e.maxHp * 0.45) {
+                    e.phase2Triggered = true;
+                    e.isPhase2 = true;
+                    hitStopTimer = 0.08;
+                    cameraTrauma = 0.9;
+                    audio.playGuardBreak();
+                    audio.playCheer();
+                    crowdExcitementTimer = 6.0;
+                    if (audio.drumState) audio.drumState.intensity = 2.0; // Dynamic War Drums accelerate
+
+                    const toPlayerEarly = new THREE.Vector3().subVectors(player.pos, e.pos);
+                    if (toPlayerEarly.length() < 3.8) {
+                        const pushDir = toPlayerEarly.normalize();
+                        player.pos.addScaledVector(pushDir, 2.6);
+                        player.staggerTimer = 0.35;
+                        player.isStaggered = true;
+                        showDamageNumber(player.pos, "BLAST WAVE!", "#ff3300");
+                    }
+
+                    e.speed *= 1.15;
+                    e.damage = Math.round(e.damage * 1.25);
+                    e.attackCooldown = 0.2;
+
+                    showAnnouncement("⚠️ PHASE 2: ENRAGED!", `${e.name.toUpperCase()} UNLEASHES FULL MIGHT!`);
+                    showDamageNumber(e.pos.clone().add(new THREE.Vector3(0, 2.2, 0)), "🔥 ENRAGED!", "#ff2200");
+                }
+
+                if (e.isPhase2 && Math.random() < 0.25) {
+                    spawnBladeSwingSparks(e.pos.clone().add(new THREE.Vector3(0, 1.2, 0)), 1);
+                }
+
                 // Poise recovery (rewards continuous offensive pressure)
                 if (curTime - e.lastHitTime > 2.5) {
                     e.poise = Math.min(e.maxPoise, e.poise + dt * 24);
@@ -4486,10 +5404,14 @@
                     }
 
                     showDamageNumber(e.pos, "COMBO BROKEN! PARRY!", "#ffd700");
+                    if (!player.isUltimateActive) {
+                        player.adrenaline = Math.min(player.maxAdrenaline, player.adrenaline + 28);
+                    }
 
                     abortEnemyCombo(e);
                     e.isStaggered = true;
                     e.staggerTimer = 2.8;
+                    updateHUD();
                     return;
                 }
 
@@ -4522,6 +5444,9 @@
                 // 3. UNBLOCKED HIT - Scaled for combo step
                 const actualDmg = Math.max(1, Math.round(e.damage * dmgMult));
                 player.hp = Math.max(0, player.hp - actualDmg);
+                if (!player.isUltimateActive) {
+                    player.adrenaline = Math.min(player.maxAdrenaline, player.adrenaline + 12);
+                }
                 audio.playHit();
                 audio.playRealSwordClash();
                 spawnBloodSplatter(player.pos.clone().add(new THREE.Vector3(0, 1.4, 0)));
@@ -4896,6 +5821,43 @@
                 return;
             }
 
+            // Meteor Slam Leap & Impact Animation
+            if (player.isMeteorSlamming) {
+                player.meteorTimer -= dt;
+                if (player.meteorStage === 1) {
+                    player.pos.y = THREE.MathUtils.lerp(player.pos.y, 3.8, dt * 14);
+                    spawnBladeSwingSparks(player.pos.clone().add(new THREE.Vector3(0, 0.5, 0)), 2);
+                    if (player.meteorTimer <= 0) {
+                        player.meteorStage = 2;
+                        player.meteorTimer = 0.16;
+                    }
+                } else if (player.meteorStage === 2) {
+                    player.pos.y = THREE.MathUtils.lerp(player.pos.y, 0, dt * 28);
+                    if (player.pos.y <= 0.15 || player.meteorTimer <= 0) {
+                        player.pos.y = 0;
+                        player.isMeteorSlamming = false;
+                        player.meteorStage = 0;
+                        executeMeteorImpact();
+                    }
+                }
+                player.mesh.position.copy(player.pos);
+                return;
+            }
+
+            // Spartan Berserk Duration & Visual Effects
+            if (player.isUltimateActive) {
+                player.ultimateTimer -= dt;
+                if (Math.random() < 0.3) {
+                    spawnBladeSwingSparks(player.pos.clone().add(new THREE.Vector3((Math.random() - 0.5) * 0.6, 1.2, (Math.random() - 0.5) * 0.6)), 1);
+                }
+                if (player.ultimateTimer <= 0) {
+                    player.isUltimateActive = false;
+                    const cCfg = GLADIATOR_CLASSES[player.gladiatorClass] || GLADIATOR_CLASSES.knight;
+                    player.damageMultiplier = cCfg.damageMult;
+                    showDamageNumber(player.pos, "WAR CRY ENDED", "#bbb");
+                }
+            }
+
             if (player.parryWindow > 0) player.parryWindow -= dt;
             if (player.comboCooldown > 0) player.comboCooldown -= dt;
 
@@ -5111,6 +6073,8 @@
             if (gameActive) {
                 updatePlayerMovement(dt);
                 updateEnemyAI(dt);
+                updateArenaTraps(dt);
+                audio.updateWarDrums(dt, !introState.active);
             }
 
             animateRigs(dt);
@@ -5147,6 +6111,60 @@
         document.getElementById('btn-skip-intro').addEventListener('click', () => {
             skipCinematicIntro();
         });
+
+        // 1. Class Selection Buttons
+        document.querySelectorAll('.class-card').forEach(card => {
+            card.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const classKey = card.getAttribute('data-class');
+                applyGladiatorClass(classKey);
+                audio.playParry();
+            });
+        });
+
+        // 2. Armory Modal Listeners
+        const armoryBtn = document.getElementById('btn-open-armory');
+        if (armoryBtn) {
+            armoryBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                renderArmoryGrid();
+                document.getElementById('armory-modal').classList.add('active');
+            });
+        }
+        const armoryCloseBtn = document.getElementById('btn-close-armory');
+        if (armoryCloseBtn) {
+            armoryCloseBtn.addEventListener('click', () => {
+                document.getElementById('armory-modal').classList.remove('active');
+            });
+        }
+
+        // 3. War Drums Audio Toggle
+        const musicBtn = document.getElementById('btn-toggle-music');
+        if (musicBtn) {
+            musicBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                audio.init();
+                audio.drumsMuted = !audio.drumsMuted;
+                if (audio.drumsMuted) {
+                    musicBtn.innerText = '🥁 DRUMS: MUTED';
+                    musicBtn.style.color = '#888';
+                    musicBtn.style.borderColor = '#555';
+                } else {
+                    musicBtn.innerText = '🥁 DRUMS: ON';
+                    musicBtn.style.color = '#ffd700';
+                    musicBtn.style.borderColor = '#ff9800';
+                }
+            });
+        }
+
+        // 4. Ultimate Adrenaline Click
+        const adrenWrapEl = document.getElementById('adren-wrap');
+        if (adrenWrapEl) {
+            adrenWrapEl.addEventListener('click', (e) => {
+                e.stopPropagation();
+                triggerMeteorSlam();
+            });
+        }
 
         // Initialize Menu View on Load
         openMainMenu();
