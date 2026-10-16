@@ -563,6 +563,143 @@
         .perk-title { font-weight: 700; color: #ffd700; font-size: 14px; }
         .perk-desc { font-size: 11px; color: #c0b4a4; margin-top: 6px; line-height: 1.4; }
 
+        /* Tournament Victory & Achievement Modal */
+        #tournament-victory-modal {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: radial-gradient(circle at center, rgba(32, 24, 18, 0.98), rgba(10, 8, 12, 0.99));
+            border: 3px solid #ffd700;
+            padding: 34px 40px;
+            border-radius: 12px;
+            box-shadow: 0 0 70px rgba(255, 215, 0, 0.45), 0 25px 90px rgba(0, 0, 0, 0.98);
+            z-index: 50;
+            display: none;
+            max-width: 640px;
+            width: 90%;
+            text-align: center;
+            pointer-events: auto;
+            animation: victoryModalPop 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+        }
+        #tournament-victory-modal.active {
+            display: block;
+        }
+        @keyframes victoryModalPop {
+            0% { transform: translate(-50%, -50%) scale(0.85); opacity: 0; }
+            100% { transform: translate(-50%, -50%) scale(1.0); opacity: 1; }
+        }
+        .victory-trophy {
+            font-size: 54px;
+            margin-bottom: 6px;
+            filter: drop-shadow(0 0 16px #ffd700);
+            animation: trophyBounce 1.5s infinite alternate ease-in-out;
+        }
+        @keyframes trophyBounce {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-8px) scale(1.06); }
+        }
+        .victory-headline {
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 24px;
+            font-weight: 900;
+            color: #ffd700;
+            letter-spacing: 3px;
+            margin: 0;
+            text-shadow: 0 0 14px rgba(255, 215, 0, 0.6);
+        }
+        .victory-sub {
+            font-size: 13px;
+            letter-spacing: 2px;
+            color: #e8d8be;
+            margin-top: 6px;
+            font-weight: 600;
+        }
+        .achievement-box {
+            margin: 20px 0;
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.16), rgba(40, 20, 10, 0.65));
+            border: 2px solid #ffd700;
+            border-radius: 8px;
+            padding: 14px 18px;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            box-shadow: inset 0 0 20px rgba(255, 215, 0, 0.15);
+        }
+        .ach-badge-icon {
+            font-size: 38px;
+            filter: drop-shadow(0 0 10px #ffd700);
+        }
+        .ach-content {
+            flex: 1;
+        }
+        .ach-unlocked-tag {
+            font-size: 10px;
+            color: #00ff66;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        .ach-name {
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 16px;
+            color: #ffffff;
+            font-weight: 700;
+            margin: 3px 0;
+        }
+        .ach-desc {
+            font-size: 11px;
+            color: #d2c4b0;
+            line-height: 1.35;
+        }
+        .victory-stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .vstat-card {
+            background: rgba(25, 20, 28, 0.7);
+            border: 1px solid rgba(212, 175, 55, 0.35);
+            border-radius: 6px;
+            padding: 10px;
+        }
+        .vstat-val {
+            font-size: 18px;
+            font-weight: 800;
+            color: #00ff66;
+        }
+        .vstat-label {
+            font-size: 10px;
+            color: #a89f91;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-top: 2px;
+        }
+        .victory-countdown-txt {
+            font-size: 13px;
+            color: #e0d0b8;
+            margin-bottom: 14px;
+        }
+        .btn-vic-menu {
+            background: linear-gradient(180deg, #d4af37, #aa8214);
+            border: 1px solid #ffe57f;
+            color: #120e06;
+            font-weight: 800;
+            font-size: 12px;
+            letter-spacing: 2px;
+            padding: 10px 24px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .btn-vic-menu:hover {
+            background: #ffe066;
+            transform: scale(1.04);
+            box-shadow: 0 0 16px rgba(255, 215, 0, 0.6);
+        }
+
         /* Floating Damage Text */
         .dmg-float {
             position: absolute;
@@ -662,6 +799,34 @@
         <h2 style="font-family: 'Cinzel Decorative', serif; color: #ffd700; font-size: 24px; letter-spacing: 3px;">VICTORY MILESTONE REACHED</h2>
         <p style="font-size: 13px; color: #dcd0be; margin-top: 6px;">Choose an ancient gladiator boon to empower your warrior:</p>
         <div id="perks-container" class="perks-grid"></div>
+    </div>
+
+    <!-- Tournament Champion Victory & Achievement Modal -->
+    <div id="tournament-victory-modal">
+        <div class="victory-trophy">🏆</div>
+        <h1 class="victory-headline">WELL DONE! YOU WON THE TOURNAMENT!</h1>
+        <div class="victory-sub">COLISEUM CHAMPION & UNDISPUTED EMPEROR OF IRON</div>
+
+        <!-- Pop-out Achievement Card -->
+        <div class="achievement-box">
+            <div class="ach-badge-icon">👑</div>
+            <div class="ach-content">
+                <div class="ach-unlocked-tag">🏆 ACHIEVEMENT UNLOCKED!</div>
+                <div class="ach-name">Grand Champion of the Inverted Spire</div>
+                <div class="ach-desc">Defeated all 8 legendary Coliseum champions and conquered the Tournament of Iron!</div>
+            </div>
+        </div>
+
+        <div class="victory-stats-grid">
+            <div class="vstat-card"><div class="vstat-val" id="vic-wins">8</div><div class="vstat-label">Wins</div></div>
+            <div class="vstat-card"><div class="vstat-val" id="vic-hp">275 HP</div><div class="vstat-label">Final Max HP</div></div>
+            <div class="vstat-card"><div class="vstat-val" id="vic-perks">7</div><div class="vstat-label">Boons Claimed</div></div>
+        </div>
+
+        <div class="victory-countdown-txt">
+            Redirecting to Main Menu in <span id="vic-countdown" style="color: #ffd700; font-weight: bold; font-size: 18px;">3</span>s...
+        </div>
+        <button id="btn-return-menu-now" class="btn-vic-menu">⚔️ RETURN TO MENU NOW</button>
     </div>
 
     <!-- Main Menu Screen (Shown on Open) -->
@@ -2741,6 +2906,32 @@
             }
         }
 
+        const confettiParticles = [];
+        function spawnVictoryConfetti() {
+            const colors = [0xffd700, 0xff3b30, 0x00ff66, 0x5bc0de, 0xffffff, 0xff9800];
+            for (let i = 0; i < 110; i++) {
+                const geom = new THREE.PlaneGeometry(0.14, 0.14);
+                const mat = new THREE.MeshBasicMaterial({
+                    color: colors[i % colors.length],
+                    side: THREE.DoubleSide
+                });
+                const mesh = new THREE.Mesh(geom, mat);
+                mesh.position.set(
+                    player.pos.x + (Math.random() - 0.5) * 12,
+                    player.pos.y + 4.5 + Math.random() * 5.0,
+                    player.pos.z + (Math.random() - 0.5) * 12
+                );
+                scene.add(mesh);
+                confettiParticles.push({
+                    mesh,
+                    vel: new THREE.Vector3((Math.random() - 0.5) * 2.0, -1.8 - Math.random() * 2.5, (Math.random() - 0.5) * 2.0),
+                    rotSpeed: new THREE.Vector3(Math.random() * 6, Math.random() * 6, Math.random() * 6),
+                    life: 5.0,
+                    maxLife: 5.0
+                });
+            }
+        }
+
         function updateParticles(dt) {
             for (let i = 0; i < bloodPuddles.length; i++) {
                 const bp = bloodPuddles[i];
@@ -2784,6 +2975,19 @@
                     scene.remove(bp.mesh);
                     bp.mesh.geometry.dispose();
                     bloodParticles.splice(i, 1);
+                }
+            }
+
+            for (let i = confettiParticles.length - 1; i >= 0; i--) {
+                const cp = confettiParticles[i];
+                cp.life -= dt;
+                cp.mesh.position.addScaledVector(cp.vel, dt);
+                cp.mesh.rotation.x += cp.rotSpeed.x * dt;
+                cp.mesh.rotation.y += cp.rotSpeed.y * dt;
+                if (cp.life <= 0) {
+                    scene.remove(cp.mesh);
+                    cp.mesh.geometry.dispose();
+                    confettiParticles.splice(i, 1);
                 }
             }
         }
@@ -2868,7 +3072,7 @@
         const ROUND_CONFIGS = [
             {
                 name: "The Ash-Bound Sentinel",
-                hp: 95, damage: 12, poise: 50, speed: 4.2, aggression: 0.65, blockChance: 0.25,
+                hp: 110, damage: 15, poise: 65, speed: 4.6, aggression: 0.75, blockChance: 0.25,
                 armorColor: 0x38343c, trimColor: 0x8c6d32, plumeColor: 0x8b1a1a, capeColor: 0x631a1a,
                 weaponType: 'broadsword', shieldType: 'heater',
                 archetype: { scale: 1.0, helmetStyle: 'greathelm', pauldronStyle: 'standard', bodyBulk: 1.0 },
@@ -2876,7 +3080,7 @@
             },
             {
                 name: "Sir Roland the Red Lion",
-                hp: 135, damage: 15, poise: 65, speed: 4.5, aggression: 0.70, blockChance: 0.30,
+                hp: 160, damage: 18, poise: 80, speed: 4.9, aggression: 0.78, blockChance: 0.30,
                 armorColor: 0x8a1b1b, trimColor: 0xd4af37, plumeColor: 0xf5f5f5, capeColor: 0x9e1212,
                 weaponType: 'morningstar', shieldType: 'kite',
                 archetype: { scale: 1.16, helmetStyle: 'winged_templar', pauldronStyle: 'lion', bodyBulk: 1.12 },
@@ -2884,7 +3088,7 @@
             },
             {
                 name: "Prince Tariq the Sand-Viper",
-                hp: 175, damage: 17, poise: 75, speed: 4.8, aggression: 0.75, blockChance: 0.28,
+                hp: 210, damage: 22, poise: 95, speed: 5.3, aggression: 0.82, blockChance: 0.28,
                 armorColor: 0x244248, trimColor: 0xd4af37, plumeColor: 0x168088, capeColor: 0x124850,
                 weaponType: 'scimitar', shieldType: 'crescent_buckler',
                 archetype: { scale: 1.05, helmetStyle: 'saracen_turban', pauldronStyle: 'pointed_scale', bodyBulk: 1.0 },
@@ -2892,7 +3096,7 @@
             },
             {
                 name: "Baron Malakor the Blood-Reaver",
-                hp: 220, damage: 20, poise: 85, speed: 4.4, aggression: 0.72, blockChance: 0.30,
+                hp: 260, damage: 25, poise: 110, speed: 4.8, aggression: 0.80, blockChance: 0.30,
                 armorColor: 0x151418, trimColor: 0x5a1414, plumeColor: 0xba0808, capeColor: 0x2b0606,
                 weaponType: 'greataxe', shieldType: 'buckler',
                 archetype: { scale: 1.38, helmetStyle: 'horned_demon', pauldronStyle: 'spiked', bodyBulk: 1.28 },
@@ -2900,7 +3104,7 @@
             },
             {
                 name: "Valkyrie of the Iron Eclipse",
-                hp: 260, damage: 22, poise: 95, speed: 4.8, aggression: 0.78, blockChance: 0.32,
+                hp: 310, damage: 28, poise: 125, speed: 5.3, aggression: 0.84, blockChance: 0.32,
                 armorColor: 0x1c3144, trimColor: 0xdde6ed, plumeColor: 0x26859e, capeColor: 0x10212f,
                 weaponType: 'halberd', shieldType: 'round',
                 archetype: { scale: 1.12, helmetStyle: 'valkyrie_wings', pauldronStyle: 'winged_blade', bodyBulk: 0.94 },
@@ -2908,7 +3112,7 @@
             },
             {
                 name: "Balgor the Iron Juggernaut",
-                hp: 300, damage: 24, poise: 110, speed: 4.0, aggression: 0.72, blockChance: 0.38,
+                hp: 370, damage: 32, poise: 145, speed: 4.5, aggression: 0.80, blockChance: 0.38,
                 armorColor: 0x2a282f, trimColor: 0x6e7078, plumeColor: 0x444650, capeColor: 0x1e1c22,
                 weaponType: 'warhammer', shieldType: 'pavise',
                 archetype: { scale: 1.42, helmetStyle: 'hounskull', pauldronStyle: 'anvil', bodyBulk: 1.35 },
@@ -2916,7 +3120,7 @@
             },
             {
                 name: "Lord Vane the Dread Revenant",
-                hp: 340, damage: 26, poise: 125, speed: 4.6, aggression: 0.80, blockChance: 0.35,
+                hp: 430, damage: 36, poise: 165, speed: 5.1, aggression: 0.86, blockChance: 0.35,
                 armorColor: 0x0f141a, trimColor: 0x00ffee, plumeColor: 0x008899, capeColor: 0x081018,
                 weaponType: 'soulblade', shieldType: 'coffin',
                 archetype: { scale: 1.22, helmetStyle: 'spectral_skull', pauldronStyle: 'skeletal', bodyBulk: 1.05 },
@@ -2924,7 +3128,7 @@
             },
             {
                 name: "General Ignis the Undying Warlord",
-                hp: 390, damage: 28, poise: 140, speed: 4.7, aggression: 0.82, blockChance: 0.36,
+                hp: 500, damage: 40, poise: 190, speed: 5.3, aggression: 0.88, blockChance: 0.36,
                 armorColor: 0x8a6f20, trimColor: 0xd4af37, plumeColor: 0x581363, capeColor: 0x7a0c18,
                 weaponType: 'zweihander', shieldType: 'tower',
                 archetype: { scale: 1.5, helmetStyle: 'dragon_crown', pauldronStyle: 'dragon_scale', bodyBulk: 1.25 },
@@ -3012,7 +3216,7 @@
                 deathTimer: 0,
                 isAttacking: false,
                 attackTimer: 0,
-                attackCooldown: 2.2 + index * 0.8, // Generous spacing before first combo attack
+                attackCooldown: 0.6 + index * 0.4, // Responsive engagement on round start
                 comboActive: false,
                 comboStep: 0,
                 maxComboSteps: isFastWeapon ? 3 : 2,
@@ -3072,7 +3276,7 @@
                 document.getElementById('match-badge').innerText = '1v1 COLISEUM DUEL';
                 document.getElementById('match-title').innerText = `ROUND ${currentRound}`;
                 const idx = Math.min(ROUND_CONFIGS.length - 1, currentRound - 1);
-                const scale = currentRound > 5 ? 1 + (currentRound - 5) * 0.35 : 1;
+                const scale = currentRound > ROUND_CONFIGS.length ? 1 + (currentRound - ROUND_CONFIGS.length) * 0.25 : 1;
                 const baseConfig = ROUND_CONFIGS[idx];
 
                 const cfg = {
@@ -3080,7 +3284,7 @@
                     hp: Math.round(baseConfig.hp * scale),
                     damage: Math.round(baseConfig.damage * scale),
                     poise: Math.round(baseConfig.poise * scale),
-                    name: currentRound > 5 ? `Warlord Champion Mk.${currentRound}` : baseConfig.name,
+                    name: currentRound > ROUND_CONFIGS.length ? `Grand Titan Mk.${currentRound}` : baseConfig.name,
                 };
                 const singleEnemy = createEnemyInstance(cfg, 0, -8, 0);
                 activeEnemies = [singleEnemy];
@@ -3226,6 +3430,16 @@
                 scoreWins++;
                 streak++;
                 document.getElementById('score-display').innerText = `WINS: ${scoreWins} | STREAK: ${streak}`;
+
+                // USER REQUIREMENT: Defeating the last boss (Round 8) triggers Tournament Victory & Achievement
+                if (gameMode === 'simple' && currentRound >= ROUND_CONFIGS.length) {
+                    showAnnouncement("TOURNAMENT WON!", "WELL DONE, COLISEUM CHAMPION!");
+                    setTimeout(() => {
+                        if (!player.isDead) showTournamentVictoryModal();
+                    }, 1200);
+                    return;
+                }
+
                 const titleText = (gameMode === 'simple') ? "VICTORY!" : `WAVE ${currentWave} CLEARED!`;
                 showAnnouncement(titleText, "CHOOSE 1 OF 3 POWER-UPS");
                 setTimeout(() => {
@@ -3277,6 +3491,61 @@
             document.getElementById('banner-sub').innerText = sub;
             banner.classList.add('show');
             setTimeout(() => banner.classList.remove('show'), 2200);
+        }
+
+        // =========================================================
+        // USER REQUIREMENT: TOURNAMENT CHAMPION VICTORY & ACHIEVEMENT
+        // =========================================================
+        let victoryCountdownTimer = null;
+        function showTournamentVictoryModal() {
+            gameActive = false;
+            clearAllEnemies();
+            audio.playFanfare();
+            audio.playCheer();
+            crowdExcitementTimer = 10.0;
+            spawnVictoryConfetti();
+
+            const vicModal = document.getElementById('tournament-victory-modal');
+            const wEl = document.getElementById('vic-wins');
+            const hpEl = document.getElementById('vic-hp');
+            const pEl = document.getElementById('vic-perks');
+            if (wEl) wEl.innerText = scoreWins;
+            if (hpEl) hpEl.innerText = `${player.maxHp} HP`;
+            if (pEl) pEl.innerText = `${player.perks.length} BOONS`;
+
+            let countdown = 3;
+            const cdEl = document.getElementById('vic-countdown');
+            if (cdEl) cdEl.innerText = countdown;
+
+            vicModal.classList.add('active');
+
+            if (victoryCountdownTimer) clearInterval(victoryCountdownTimer);
+            victoryCountdownTimer = setInterval(() => {
+                countdown--;
+                if (cdEl) cdEl.innerText = countdown;
+                if (countdown <= 0) {
+                    clearInterval(victoryCountdownTimer);
+                    victoryCountdownTimer = null;
+                    closeVictoryAndReturnToMenu();
+                }
+            }, 1000);
+
+            const btn = document.getElementById('btn-return-menu-now');
+            if (btn) {
+                btn.onclick = () => {
+                    if (victoryCountdownTimer) clearInterval(victoryCountdownTimer);
+                    victoryCountdownTimer = null;
+                    closeVictoryAndReturnToMenu();
+                };
+            }
+        }
+
+        function closeVictoryAndReturnToMenu() {
+            const vicModal = document.getElementById('tournament-victory-modal');
+            if (vicModal) vicModal.classList.remove('active');
+            currentRound = 1;
+            currentWave = 1;
+            openMainMenu();
         }
 
         // =========================================================
@@ -3608,7 +3877,7 @@
                 skipCinematicIntro();
             }
 
-            if (e.target.closest('button') || e.target.closest('#upgrade-modal') || e.target.closest('#controls-modal') || e.target.closest('#main-menu-overlay')) return;
+            if (e.target.closest('button') || e.target.closest('#upgrade-modal') || e.target.closest('#tournament-victory-modal') || e.target.closest('#controls-modal') || e.target.closest('#main-menu-overlay')) return;
 
             if (e.button === 0) {
                 isPointerDragging = true;
@@ -3993,9 +4262,9 @@
             e.isCircling = false;
             e.isBlocking = false;
 
-            // Phase 0: Visual & Audio Telegraph (550ms readable windup window)
+            // Phase 0: Visual & Audio Telegraph (500ms readable windup window)
             e.isTelegraphing = true;
-            e.telegraphTimer = 0.55;
+            e.telegraphTimer = 0.50;
             audio.playRealSwordWhoosh();
             showDamageNumber(e.pos.clone().add(new THREE.Vector3(0, 1.85, 0)), "⚠️ COMBO!", "#ffd700");
             spawnBladeSwingSparks(e.pos.clone().add(new THREE.Vector3(0, 1.6, 0)), 3);
@@ -4006,38 +4275,38 @@
                 e.isTelegraphing = false;
                 e.isAttacking = true;
                 e.comboStep = 1;
-                e.attackTimer = 0.38;
+                e.attackTimer = 0.35;
                 audio.playRealSwordWhoosh();
-                resolveEnemyAttack(e, 0.45, 1);
+                resolveEnemyAttack(e, 0.50, 1);
 
-                // Rhythm transition between Strike 1 and Strike 2 (360ms readable cadence)
+                // Rhythm transition between Strike 1 and Strike 2 (280ms snappy cadence)
                 const t2 = setTimeout(() => {
                     if (e.isDead || e.isStaggered || !e.comboActive || !gameActive) return;
                     e.isAttacking = true;
                     e.comboStep = 2;
-                    e.attackTimer = 0.38;
+                    e.attackTimer = 0.35;
                     audio.playRealSwordWhoosh();
-                    resolveEnemyAttack(e, 0.55, 2);
+                    resolveEnemyAttack(e, 0.65, 2);
 
                     if (e.maxComboSteps >= 3) {
-                        // Optional Strike 3 finisher (380ms cadence)
+                        // Optional Strike 3 finisher (300ms cadence)
                         const t3 = setTimeout(() => {
                             if (e.isDead || e.isStaggered || !e.comboActive || !gameActive) return;
                             e.isAttacking = true;
                             e.comboStep = 3;
-                            e.attackTimer = 0.42;
+                            e.attackTimer = 0.38;
                             audio.playRealSwordWhoosh();
-                            resolveEnemyAttack(e, 0.70, 3);
+                            resolveEnemyAttack(e, 0.75, 3);
 
                             finishEnemyCombo(e);
-                        }, 380);
+                        }, 300);
                         e.comboTimeouts.push(t3);
                     } else {
                         finishEnemyCombo(e);
                     }
-                }, 360);
+                }, 280);
                 e.comboTimeouts.push(t2);
-            }, 550);
+            }, 500);
             e.comboTimeouts.push(t1);
         }
 
@@ -4049,8 +4318,8 @@
                 e.isAttacking = false;
                 e.isTelegraphing = false;
 
-                // RECOVERY / CIRCLING PHASE (2.8 - 4.2 seconds breathing room - STOP SPAMMING)
-                e.attackCooldown = 2.8 + Math.random() * 1.4;
+                // BALANCED RECOVERY PHASE (1.3 - 2.2 seconds: fair punish window without passive stalling)
+                e.attackCooldown = 1.3 + Math.random() * 0.9;
                 e.circlingDir = Math.random() < 0.5 ? 1 : -1;
                 e.isCircling = true;
 
@@ -4058,7 +4327,7 @@
                     activeAttackingEnemyId = null;
                     lastEnemyAttackFinishedTime = performance.now() * 0.001;
                 }
-            }, 400);
+            }, 350);
             e.comboTimeouts.push(tEnd);
         }
 
@@ -4070,9 +4339,9 @@
             activeEnemies.forEach((e, idx) => {
                 if (e.isDead) return;
 
-                // Poise recovery (slower, rewarding continuous player offense)
+                // Poise recovery (rewards continuous offensive pressure)
                 if (curTime - e.lastHitTime > 2.5) {
-                    e.poise = Math.min(e.maxPoise, e.poise + dt * 20);
+                    e.poise = Math.min(e.maxPoise, e.poise + dt * 24);
                     if (curTime - e.lastHitTime > 3.2) {
                         e.consecutiveHitsTaken = 0;
                     }
@@ -4102,7 +4371,7 @@
                 if (e.isTelegraphing) {
                     e.telegraphTimer -= dt;
                     e.targetRotY = Math.atan2(toPlayer.x, toPlayer.z);
-                    e.rotY = lerpAngle(e.rotY, e.targetRotY, Math.min(1.0, dt * 6));
+                    e.rotY = lerpAngle(e.rotY, e.targetRotY, Math.min(1.0, dt * 7));
                     e.isMoving = false;
                     clampToArena(e.pos);
                     e.mesh.position.copy(e.pos);
@@ -4113,10 +4382,10 @@
                 // If actively swinging combo strikes
                 if (e.comboActive) {
                     e.targetRotY = Math.atan2(toPlayer.x, toPlayer.z);
-                    e.rotY = lerpAngle(e.rotY, e.targetRotY, Math.min(1.0, dt * 5));
+                    e.rotY = lerpAngle(e.rotY, e.targetRotY, Math.min(1.0, dt * 5.5));
                     if (dist > 1.8 && dist < 3.2) {
                         const dir = toPlayer.clone().normalize();
-                        e.pos.addScaledVector(dir, 1.2 * dt);
+                        e.pos.addScaledVector(dir, 1.4 * dt);
                     }
                     e.isMoving = false;
                     clampToArena(e.pos);
@@ -4127,46 +4396,46 @@
 
                 // Default facing angle towards player
                 e.targetRotY = Math.atan2(toPlayer.x, toPlayer.z);
-                e.rotY = lerpAngle(e.rotY, e.targetRotY, Math.min(1.0, dt * 10));
+                e.rotY = lerpAngle(e.rotY, e.targetRotY, Math.min(1.0, dt * 11));
 
                 e.attackCooldown -= dt;
 
                 const dir = toPlayer.clone().normalize();
                 const tangent = new THREE.Vector3(-dir.z, 0, dir.x).multiplyScalar(e.circlingDir || 1);
 
-                // Multi-enemy attack token coordination: prevents gang-up attack spam!
+                // Multi-enemy attack token coordination: keeps pressure active without gang-up spam
                 const tokenAvailable = (activeAttackingEnemyId === null || activeAttackingEnemyId === e.id) &&
-                                       (curTime - lastEnemyAttackFinishedTime > 1.4);
+                                       (curTime - lastEnemyAttackFinishedTime > 0.8);
 
                 if (e.attackCooldown > 0) {
-                    // RECOVERY / CIRCLING STATE: Do not spam! Circle and pace at tactical distance (~3.2m)
+                    // TACTICAL RECOVERY / CIRCLING: Paces and repositions at ~3.1m
                     e.isMoving = true;
-                    e.walkCycle += dt * 6;
+                    e.walkCycle += dt * 6.5;
 
                     let moveVec = new THREE.Vector3();
-                    if (dist > 3.8) {
-                        moveVec.addScaledVector(dir, 0.65);
-                    } else if (dist < 2.5) {
+                    if (dist > 3.6) {
+                        moveVec.addScaledVector(dir, 0.7);
+                    } else if (dist < 2.4) {
                         moveVec.addScaledVector(dir, -0.7);
                     }
                     moveVec.addScaledVector(tangent, 0.85);
                     if (moveVec.lengthSq() > 0.001) moveVec.normalize();
 
-                    e.pos.addScaledVector(moveVec, (e.speed * 0.6) * dt);
+                    e.pos.addScaledVector(moveVec, (e.speed * 0.7) * dt);
 
-                    // Occasional brief guard
+                    // Occasional tactical guard
                     if (Math.random() < e.blockChance * 0.02) {
                         e.isBlocking = true;
                     } else if (Math.random() < 0.03) {
                         e.isBlocking = false;
                     }
                 } else {
-                    // READY TO ATTACK
-                    if (dist > 2.5) {
-                        // Approach player
+                    // READY TO ENGAGE & ATTACK
+                    if (dist > 2.85) {
+                        // Decisively close distance to player
                         e.isMoving = true;
-                        e.walkCycle += dt * 9;
-                        e.pos.addScaledVector(dir, e.speed * dt);
+                        e.walkCycle += dt * 10;
+                        e.pos.addScaledVector(dir, (e.speed * 1.15) * dt);
                         e.isBlocking = false;
                     } else {
                         // In striking range!
@@ -4174,10 +4443,10 @@
                         if (tokenAvailable) {
                             startEnemyCombo(e);
                         } else {
-                            // Another enemy holds the attack token; circle perimeter and wait turn
+                            // Another enemy holds token; circle perimeter attentively
                             e.isMoving = true;
-                            e.walkCycle += dt * 5;
-                            e.pos.addScaledVector(tangent, (e.speed * 0.5) * dt);
+                            e.walkCycle += dt * 6;
+                            e.pos.addScaledVector(tangent, (e.speed * 0.6) * dt);
                         }
                     }
                 }
