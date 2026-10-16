@@ -824,7 +824,7 @@
         </div>
 
         <div class="victory-countdown-txt">
-            Redirecting to Main Menu in <span id="vic-countdown" style="color: #ffd700; font-weight: bold; font-size: 18px;">3</span>s...
+            Redirecting to Main Menu in <span id="vic-countdown" style="color: #ffd700; font-weight: bold; font-size: 18px;">10</span>s...
         </div>
         <button id="btn-return-menu-now" class="btn-vic-menu">⚔️ RETURN TO MENU NOW</button>
     </div>
@@ -3500,7 +3500,7 @@
             clearAllEnemies();
             audio.playFanfare();
             audio.playCheer();
-            crowdExcitementTimer = 10.0;
+            crowdExcitementTimer = 11.0;
             spawnVictoryConfetti();
 
             const vicModal = document.getElementById('tournament-victory-modal');
@@ -3511,7 +3511,8 @@
             if (hpEl) hpEl.innerText = `${player.maxHp} HP`;
             if (pEl) pEl.innerText = `${player.perks.length} BOONS`;
 
-            let countdown = 3;
+            // 10-second celebratory sign and countdown
+            let countdown = 10;
             const cdEl = document.getElementById('vic-countdown');
             if (cdEl) cdEl.innerText = countdown;
 
@@ -3521,6 +3522,10 @@
             victoryCountdownTimer = setInterval(() => {
                 countdown--;
                 if (cdEl) cdEl.innerText = countdown;
+                // Periodic celebratory confetti bursts during the 10-second sign
+                if (countdown > 0 && countdown % 3 === 0) {
+                    spawnVictoryConfetti();
+                }
                 if (countdown <= 0) {
                     clearInterval(victoryCountdownTimer);
                     victoryCountdownTimer = null;
