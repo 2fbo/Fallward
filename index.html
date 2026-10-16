@@ -3682,10 +3682,18 @@
         // =========================================================
         const shockwaveMeshes = [];
         function triggerMeteorSlam() {
-            if (player.isDead || !gameActive || player.isMeteorSlamming) return;
-            if (player.adrenaline < player.maxAdrenaline && !player.isUltimateActive) return;
+            if (player.isDead || !gameActive || player.isMeteorSlamming || player.isRolling || player.isStaggered) return;
+            if (player.isUltimateActive) {
+                showDamageNumber(player.pos, "ALREADY IN BERSERK!", "#ff9800");
+                return;
+            }
+            if (player.adrenaline < player.maxAdrenaline) {
+                showDamageNumber(player.pos, "ADRENALINE NOT FULL!", "#ff5500");
+                return;
+            }
 
             player.adrenaline = 0;
+            updateHUD();
             player.isMeteorSlamming = true;
             player.meteorStage = 1; // 1 = leap upward, 2 = crash down
             player.meteorTimer = 0.28;
@@ -3741,10 +3749,9 @@
                 }
             });
 
-            // Activate 8-second Spartan Berserk Mode
+            // Activate 8-second Spartan Berserk Mode (+50% bonus damage applied via berserkMult)
             player.isUltimateActive = true;
             player.ultimateTimer = 8.0;
-            player.damageMultiplier *= 1.5;
             updateHUD();
         }
 
@@ -4532,6 +4539,12 @@
             player.poiseDmgBonus = 1.0;
             player.lifesteal = 0;
             player.perks = [];
+            player.adrenaline = 0;
+            player.isUltimateActive = false;
+            player.ultimateTimer = 0;
+            player.isMeteorSlamming = false;
+            player.meteorStage = 0;
+            player.meteorTimer = 0;
             applyGladiatorClass(player.gladiatorClass || 'knight');
 
             document.getElementById('main-menu-overlay').classList.add('hidden');
@@ -4689,6 +4702,12 @@
             player.staggerTimer = 0;
             player.deathTimer = 0;
             player.parryWindow = 0;
+            player.isMeteorSlamming = false;
+            player.meteorStage = 0;
+            player.meteorTimer = 0;
+            player.isUltimateActive = false;
+            player.ultimateTimer = 0;
+            player.pos.y = 0;
             player.velocity.set(0, 0, 0);
             player.currentLegAngle = 0;
             player.walkCycle = 0;
@@ -5019,7 +5038,8 @@
                         showDamageNumber(hitPos, "CRITICAL RIPOSTE!", "#ffd700");
                     }
 
-                    const finalDmg = Math.round(baseDmg * player.damageMultiplier);
+                    const berserkMult = player.isUltimateActive ? 1.5 : 1.0;
+                    const finalDmg = Math.round(baseDmg * player.damageMultiplier * berserkMult);
                     e.hp = Math.max(0, e.hp - finalDmg);
                     e.poise = Math.max(0, e.poise - poiseDmg);
                     e.lastHitTime = performance.now() * 0.001;
@@ -5852,9 +5872,9 @@
                 }
                 if (player.ultimateTimer <= 0) {
                     player.isUltimateActive = false;
-                    const cCfg = GLADIATOR_CLASSES[player.gladiatorClass] || GLADIATOR_CLASSES.knight;
-                    player.damageMultiplier = cCfg.damageMult;
+                    player.ultimateTimer = 0;
                     showDamageNumber(player.pos, "WAR CRY ENDED", "#bbb");
+                    updateHUD();
                 }
             }
 
