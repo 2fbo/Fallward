@@ -1,25 +1,25 @@
-# Fallward // 3D Coliseum Gladiator Combat
+# Fallward  3D Coliseum Gladiator Combat
 
 > Physics-driven 3D gladiator duel game in Three.js & WebGL. Battle 8 boss champions, master 3-hit combos, 100% shield parries, and survive wave survival mode inside an authentic Roman Coliseum before 1,500 cheering spectators. Features +20 HP siphons on kill and procedural Web Audio with zero external dependencies.
 
 ---
 
-## ⚡ How to Play (Super Easy - No Setup Needed!)
+## How to Play 
 
 Anyone who downloads this repository can play immediately in under 5 seconds:
 
-### 👉 Option 1: Just Double-Click `index.html` (Windows, Mac, Linux)
+### Option 1: Just Double Click `index.html` (Windows, Mac, Linux)
 1. Click the green **`Code`** button $\to$ **`Download ZIP`** (or clone the repository).
 2. Unzip the folder anywhere on your computer.
 3. **Double-click `index.html`**!  
    *It opens right in your default web browser (Chrome, Edge, Firefox, Brave, Safari). No installation, no Node.js, and no Python needed!*
 
-### 👉 Option 2: Double-Click `run_game.bat` (Windows)
+### Option 2: Double Click `run_game.bat` (Windows)
 * Double-click **`run_game.bat`** to start a local zero-cache server and launch the game automatically.
 
 ---
 
-## 🕹️ Controls
+## Controls
 
 | Action | Primary Key | Alternative |
 | :--- | :--- | :--- |
@@ -35,7 +35,7 @@ Anyone who downloads this repository can play immediately in under 5 seconds:
 
 ---
 
-## ⚔️ Key Features
+## Key Features
 
 * **Tactical Steel Combat**: Fluid 3-hit combo chains, poise breaking, kinetic shield deflections with dynamic shockwaves, and directional dodge rolls.
 * **Vitality Siphon (+20 HP on Slay)**: Every time you defeat any gladiator, you instantly recover **+20 HP** with an ascending harmonic celestial chime and radiant emerald particles.
@@ -55,12 +55,12 @@ Anyone who downloads this repository can play immediately in under 5 seconds:
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 - **Graphics Engine**: Three.js (r128) WebGL with ACES Filmic Tone Mapping
 - **Audio Engine**: Web Audio API (procedural oscillators and filters)
 - **Zero Dependencies**: 100% static, runs offline, zero install required
 
 ---
 
-## 📜 License
+## License
 MIT License. Free to play, modify, and distribute.
