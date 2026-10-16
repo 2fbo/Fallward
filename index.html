@@ -3174,23 +3174,23 @@
         }
 
         function onSingleEnemyKilled(defeatedEnemy) {
+            if (!defeatedEnemy || defeatedEnemy.isDead) return;
             defeatedEnemy.isDead = true;
             audio.playCheer();
             spawnBloodPuddle(defeatedEnemy.pos, 1.15);
 
-            // Vitality Siphon: restore 20 HP upon slaying opponent
-            const healAmount = 20;
-            const prevHp = player.hp;
-            player.hp = Math.min(player.maxHp, player.hp + healAmount);
-            const actualHealed = Math.round(player.hp - prevHp);
-
-            // Update UI health bar immediately
+            // =========================================================
+            // USER REQUIREMENT: OVERALL HEALTH BAR LIMIT GOES UP BY 25 HP
+            // =========================================================
+            const hpLimitIncrease = 25;
+            player.maxHp += hpLimitIncrease;
+            player.hp = Math.min(player.maxHp, player.hp + hpLimitIncrease);
             updateHUD();
 
-            // Floating emerald +20 HP text over player
+            // Floating indicator: "+25 MAX HP!"
             showDamageNumber(
-                player.pos.clone().add(new THREE.Vector3(0, 1.9, 0)),
-                `+20 HP`,
+                player.pos.clone().add(new THREE.Vector3(0, 2.0, 0)),
+                `+25 MAX HP! (${player.maxHp} HP)`,
                 "#00ff66"
             );
 
@@ -3201,47 +3201,31 @@
             spawnHealAura(player.pos);
 
             // Erupt the 1,500 Roman spectators in celebration!
-            crowdExcitementTimer = 2.8;
+            crowdExcitementTimer = 3.0;
 
             // Check if all enemies in current wave/round are slain
             const anyAlive = activeEnemies.some(e => !e.isDead);
+
             if (!anyAlive) {
-                onRoundOrWaveCleared();
+                audio.playFanfare();
+                scoreWins++;
+                streak++;
+                document.getElementById('score-display').innerText = `WINS: ${scoreWins} | STREAK: ${streak}`;
+                const titleText = (gameMode === 'simple') ? "VICTORY!" : `WAVE ${currentWave} CLEARED!`;
+                showAnnouncement(titleText, "CHOOSE 1 OF 3 POWER-UPS");
+                setTimeout(() => {
+                    if (!player.isDead) showUpgradeModal(false);
+                }, 1400);
             } else {
-                showAnnouncement("FOE FELLED!", "REMAINING WARRIORS ENRAGED");
-                // Auto switch target to next living enemy
-                getActiveTargetEnemy();
+                showAnnouncement("FOE FELLED!", "CHOOSE BATTLE POWER-UP");
+                setTimeout(() => {
+                    if (!player.isDead) showUpgradeModal(true);
+                }, 1200);
             }
         }
 
         function onRoundOrWaveCleared() {
-            audio.playFanfare();
-            scoreWins++;
-            streak++;
-            document.getElementById('score-display').innerText = `WINS: ${scoreWins} | STREAK: ${streak}`;
-
-            if (scoreWins % 5 === 0) {
-                // MILESTONE BOON: Perk modal appears strictly every 5 victories!
-                showAnnouncement("CHAMPION MILESTONE!", `5 GLADIATOR DUELS SURVIVED`);
-                setTimeout(() => {
-                    showUpgradeModal();
-                }, 2600);
-            } else {
-                const remaining = 5 - (scoreWins % 5);
-                if (gameMode === 'simple') {
-                    showAnnouncement("VICTORY!", `${remaining} ${remaining === 1 ? 'DUEL' : 'DUELS'} TO NEXT PERK`);
-                    setTimeout(() => {
-                        currentRound++;
-                        startMatch();
-                    }, 2600);
-                } else {
-                    showAnnouncement(`WAVE ${currentWave} CLEARED!`, `NEXT WAVE SPAWNS ${currentWave + 1} FOES`);
-                    setTimeout(() => {
-                        currentWave++;
-                        startMatch();
-                    }, 2600);
-                }
-            }
+            // Managed seamlessly in onSingleEnemyKilled with 3-power-up selection
         }
 
         function onPlayerDefeated() {
@@ -3252,6 +3236,17 @@
             spawnBloodPuddle(player.pos, 1.15);
 
             document.getElementById('vignette').classList.add('crimson-pulse');
+
+            // Reset stats and health limit on defeat for a fresh run
+            player.maxHp = 100;
+            player.hp = 100;
+            player.damageMultiplier = 1.0;
+            player.speed = 5.6;
+            player.staminaRegen = 32;
+            player.parryWindowBonus = 0;
+            player.poiseDmgBonus = 1.0;
+            player.lifesteal = 0;
+            player.perks = [];
 
             setTimeout(() => {
                 document.getElementById('vignette').classList.remove('crimson-pulse');
@@ -3269,32 +3264,94 @@
             setTimeout(() => banner.classList.remove('show'), 2200);
         }
 
-        function showUpgradeModal() {
+        // =========================================================
+        // USER REQUIREMENT: PICK BETWEEN 3 POWER-UPS EVERY TIME
+        // =========================================================
+        function showUpgradeModal(isMidWave = false) {
             gameActive = false;
             const modal = document.getElementById('upgrade-modal');
             const pContainer = document.getElementById('perks-container');
             pContainer.innerHTML = '';
 
+            const titleEl = modal.querySelector('h2');
+            const subEl = modal.querySelector('p');
+            if (titleEl) {
+                titleEl.innerText = isMidWave ? "FOE SLAIN: CHOOSE 1 OF 3 POWER-UPS" : "VICTORY: CHOOSE 1 OF 3 POWER-UPS";
+            }
+            if (subEl) {
+                subEl.innerHTML = `<span style="color: #00ff66; font-weight: bold;">Health Limit Expanded: ${player.maxHp} HP (+25)</span> &mdash; Pick an ancient gladiator boon:`;
+            }
+
             const PERKS_POOL = [
-                { title: "Titan's Edge", icon: "⚔️", desc: "+30% Melee Damage on all sword attacks.", apply: () => player.damageMultiplier += 0.30 },
-                { title: "Dragon's Vitality", icon: "🛡️", desc: "+45 Maximum Health and immediate full restoration.", apply: () => { player.maxHp += 45; player.hp = player.maxHp; } },
-                { title: "Enduring Will", icon: "⚡", desc: "+40 Maximum Stamina and +50% faster stamina recovery.", apply: () => { player.maxStamina += 40; player.staminaRegen *= 1.5; } },
-                { title: "Ironclad Bastion", icon: "🛡️", desc: "Shield blocks absorb 95% damage, and Perfect Parry window is extended.", apply: () => { player.parryWindowBonus = 0.08; } },
-                { title: "Colosseum Executioner", icon: "👑", desc: "+35% Poise damage; Shield Bash staggers enemies 50% longer.", apply: () => { player.poiseDmgBonus = 1.35; } },
+                {
+                    title: "Titan's Might",
+                    icon: "⚔️",
+                    desc: "+20% Attack Damage on all sword and combo strikes.",
+                    apply: () => { player.damageMultiplier = (player.damageMultiplier || 1.0) + 0.20; }
+                },
+                {
+                    title: "Hermes' Swiftness",
+                    icon: "⚡",
+                    desc: "+20% Movement & Dash Speed with faster roll recovery.",
+                    apply: () => { player.speed *= 1.20; }
+                },
+                {
+                    title: "Enduring Will",
+                    icon: "🛡️",
+                    desc: "+40 Max Stamina and +50% faster stamina recovery.",
+                    apply: () => { player.maxStamina += 40; player.staminaRegen *= 1.5; }
+                },
+                {
+                    title: "Ironclad Bastion",
+                    icon: "🏰",
+                    desc: "Wider parry window and 30% reduced block stamina cost.",
+                    apply: () => { player.parryWindowBonus = (player.parryWindowBonus || 0) + 0.08; }
+                },
+                {
+                    title: "Poise Shatterer",
+                    icon: "🔨",
+                    desc: "+40% Poise damage; Shield Bash staggers enemies 50% longer.",
+                    apply: () => { player.poiseDmgBonus = (player.poiseDmgBonus || 1.0) + 0.40; }
+                },
+                {
+                    title: "Swift Blade",
+                    icon: "🗡️",
+                    desc: "+25% Faster attack speed with shortened combo delay.",
+                    apply: () => { player.comboCooldown = 0; }
+                },
+                {
+                    title: "Vampiric Cleave",
+                    icon: "🩸",
+                    desc: "All attacks siphon +15 bonus health on heavy impacts.",
+                    apply: () => { player.lifesteal = (player.lifesteal || 0) + 15; }
+                }
             ];
 
-            PERKS_POOL.forEach(p => {
+            // Randomly shuffle and select exactly 3 distinct power-ups
+            const shuffled = [...PERKS_POOL].sort(() => 0.5 - Math.random());
+            const chosenThree = shuffled.slice(0, 3);
+
+            chosenThree.forEach(p => {
                 const card = document.createElement('div');
                 card.className = 'perk-card';
-                card.innerHTML = `<div class="perk-icon">${p.icon}</div><div class="perk-title">${p.title}</div><div class="perk-desc">${p.desc}</div>`;
+                card.innerHTML = `<div class="perk-icon">${p.icon}</div><div class="perk-title">${p.title}</div><div class="perk-desc">${p.desc}</div><div style="margin-top: 10px; font-size: 10px; color: #ffd700; letter-spacing: 1px;">[ CLICK TO CLAIM ]</div>`;
                 card.onclick = () => {
                     p.apply();
                     player.perks.push(p.title);
                     audio.playFanfare();
                     modal.classList.remove('active');
-                    if (gameMode === 'simple') currentRound++;
-                    else currentWave++;
-                    startMatch();
+                    updateHUD();
+
+                    if (isMidWave) {
+                        // Resume combat against remaining enemies in the wave
+                        gameActive = true;
+                        getActiveTargetEnemy();
+                    } else {
+                        // Advance to next round or wave
+                        if (gameMode === 'simple') currentRound++;
+                        else currentWave++;
+                        startMatch();
+                    }
                 };
                 pContainer.appendChild(card);
             });
@@ -3319,6 +3376,16 @@
             currentWave = 1;
             scoreWins = 0;
             streak = 0;
+            player.maxHp = 100;
+            player.hp = 100;
+            player.maxStamina = 100;
+            player.stamina = 100;
+            player.damageMultiplier = 1.0;
+            player.speed = 5.6;
+            player.staminaRegen = 32;
+            player.parryWindowBonus = 0;
+            player.poiseDmgBonus = 1.0;
+            player.lifesteal = 0;
             player.perks = [];
 
             document.getElementById('main-menu-overlay').classList.add('hidden');
@@ -3374,6 +3441,13 @@
 
             document.getElementById('player-hp-bar').style.width = `${pPct}%`;
             document.getElementById('player-hp-txt').innerText = `${Math.ceil(player.hp)} / ${player.maxHp}`;
+
+            // Dynamically expand player health container as health limit increases!
+            const playerHud = document.querySelector('.hud-group-left .fighter-hud');
+            if (playerHud) {
+                const bonusWidth = Math.min(180, Math.max(0, (player.maxHp - 100) * 0.9));
+                playerHud.style.width = `${260 + bonusWidth}px`;
+            }
 
             const stamBar = document.getElementById('player-stam-bar');
             stamBar.style.width = `${sPct}%`;
@@ -3771,6 +3845,16 @@
 
                     const finalDmg = Math.round(baseDmg * player.damageMultiplier);
                     e.hp = Math.max(0, e.hp - finalDmg);
+
+                    // Vampiric Cleave life siphon
+                    if (player.lifesteal && player.lifesteal > 0 && !player.isDead) {
+                        const healAmt = Math.min(player.maxHp - player.hp, player.lifesteal);
+                        if (healAmt > 0) {
+                            player.hp += healAmt;
+                            updateHUD();
+                            showDamageNumber(player.pos.clone().add(new THREE.Vector3(0, 1.8, 0)), `+${healAmt} HP`, "#00ff66");
+                        }
+                    }
                     e.poise = Math.max(0, e.poise - poiseDmg);
                     e.lastHitTime = performance.now() * 0.001;
                     e.consecutiveHitsTaken++;
