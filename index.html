@@ -3072,7 +3072,7 @@
         const ROUND_CONFIGS = [
             {
                 name: "The Ash-Bound Sentinel",
-                hp: 110, damage: 15, poise: 65, speed: 4.6, aggression: 0.75, blockChance: 0.25,
+                hp: 160, damage: 22, poise: 90, speed: 5.0, aggression: 0.82, blockChance: 0.35,
                 armorColor: 0x38343c, trimColor: 0x8c6d32, plumeColor: 0x8b1a1a, capeColor: 0x631a1a,
                 weaponType: 'broadsword', shieldType: 'heater',
                 archetype: { scale: 1.0, helmetStyle: 'greathelm', pauldronStyle: 'standard', bodyBulk: 1.0 },
@@ -3080,7 +3080,7 @@
             },
             {
                 name: "Sir Roland the Red Lion",
-                hp: 160, damage: 18, poise: 80, speed: 4.9, aggression: 0.78, blockChance: 0.30,
+                hp: 240, damage: 28, poise: 115, speed: 5.3, aggression: 0.85, blockChance: 0.40,
                 armorColor: 0x8a1b1b, trimColor: 0xd4af37, plumeColor: 0xf5f5f5, capeColor: 0x9e1212,
                 weaponType: 'morningstar', shieldType: 'kite',
                 archetype: { scale: 1.16, helmetStyle: 'winged_templar', pauldronStyle: 'lion', bodyBulk: 1.12 },
@@ -3088,7 +3088,7 @@
             },
             {
                 name: "Prince Tariq the Sand-Viper",
-                hp: 210, damage: 22, poise: 95, speed: 5.3, aggression: 0.82, blockChance: 0.28,
+                hp: 310, damage: 34, poise: 135, speed: 5.7, aggression: 0.88, blockChance: 0.38,
                 armorColor: 0x244248, trimColor: 0xd4af37, plumeColor: 0x168088, capeColor: 0x124850,
                 weaponType: 'scimitar', shieldType: 'crescent_buckler',
                 archetype: { scale: 1.05, helmetStyle: 'saracen_turban', pauldronStyle: 'pointed_scale', bodyBulk: 1.0 },
@@ -3096,7 +3096,7 @@
             },
             {
                 name: "Baron Malakor the Blood-Reaver",
-                hp: 260, damage: 25, poise: 110, speed: 4.8, aggression: 0.80, blockChance: 0.30,
+                hp: 390, damage: 42, poise: 160, speed: 5.2, aggression: 0.86, blockChance: 0.40,
                 armorColor: 0x151418, trimColor: 0x5a1414, plumeColor: 0xba0808, capeColor: 0x2b0606,
                 weaponType: 'greataxe', shieldType: 'buckler',
                 archetype: { scale: 1.38, helmetStyle: 'horned_demon', pauldronStyle: 'spiked', bodyBulk: 1.28 },
@@ -3104,7 +3104,7 @@
             },
             {
                 name: "Valkyrie of the Iron Eclipse",
-                hp: 310, damage: 28, poise: 125, speed: 5.3, aggression: 0.84, blockChance: 0.32,
+                hp: 470, damage: 48, poise: 185, speed: 5.7, aggression: 0.90, blockChance: 0.44,
                 armorColor: 0x1c3144, trimColor: 0xdde6ed, plumeColor: 0x26859e, capeColor: 0x10212f,
                 weaponType: 'halberd', shieldType: 'round',
                 archetype: { scale: 1.12, helmetStyle: 'valkyrie_wings', pauldronStyle: 'winged_blade', bodyBulk: 0.94 },
@@ -3112,7 +3112,7 @@
             },
             {
                 name: "Balgor the Iron Juggernaut",
-                hp: 370, damage: 32, poise: 145, speed: 4.5, aggression: 0.80, blockChance: 0.38,
+                hp: 560, damage: 54, poise: 220, speed: 4.8, aggression: 0.88, blockChance: 0.50,
                 armorColor: 0x2a282f, trimColor: 0x6e7078, plumeColor: 0x444650, capeColor: 0x1e1c22,
                 weaponType: 'warhammer', shieldType: 'pavise',
                 archetype: { scale: 1.42, helmetStyle: 'hounskull', pauldronStyle: 'anvil', bodyBulk: 1.35 },
@@ -3120,7 +3120,7 @@
             },
             {
                 name: "Lord Vane the Dread Revenant",
-                hp: 430, damage: 36, poise: 165, speed: 5.1, aggression: 0.86, blockChance: 0.35,
+                hp: 650, damage: 60, poise: 250, speed: 5.5, aggression: 0.92, blockChance: 0.45,
                 armorColor: 0x0f141a, trimColor: 0x00ffee, plumeColor: 0x008899, capeColor: 0x081018,
                 weaponType: 'soulblade', shieldType: 'coffin',
                 archetype: { scale: 1.22, helmetStyle: 'spectral_skull', pauldronStyle: 'skeletal', bodyBulk: 1.05 },
@@ -3128,7 +3128,7 @@
             },
             {
                 name: "General Ignis the Undying Warlord",
-                hp: 500, damage: 40, poise: 190, speed: 5.3, aggression: 0.88, blockChance: 0.36,
+                hp: 760, damage: 68, poise: 290, speed: 5.6, aggression: 0.94, blockChance: 0.48,
                 armorColor: 0x8a6f20, trimColor: 0xd4af37, plumeColor: 0x581363, capeColor: 0x7a0c18,
                 weaponType: 'zweihander', shieldType: 'tower',
                 archetype: { scale: 1.5, helmetStyle: 'dragon_crown', pauldronStyle: 'dragon_scale', bodyBulk: 1.25 },
@@ -3265,7 +3265,10 @@
             player.pos.set(0, 0, 8);
             player.rotY = Math.PI;
             player.isDead = false;
-            player.hp = player.maxHp;
+            // Persistent health across rounds - wounds carry over (no health reset/refill!)
+            if (player.hp === undefined || player.hp <= 0) {
+                player.hp = player.maxHp;
+            }
             player.stamina = player.maxStamina;
 
             camYaw = 0;
@@ -3400,24 +3403,19 @@
 
             // =========================================================
             // USER REQUIREMENT: OVERALL HEALTH BAR LIMIT GOES UP BY 25 HP
+            // (NO HEALTH RESTORATION: Current HP is preserved; only the limit expands)
             // =========================================================
             const hpLimitIncrease = 25;
             player.maxHp += hpLimitIncrease;
-            player.hp = Math.min(player.maxHp, player.hp + hpLimitIncrease);
+            // No healing applied! Current player.hp remains at its wounded value
             updateHUD();
 
-            // Floating indicator: "+25 MAX HP!"
+            // Floating indicator: "+25 MAX HP LIMIT!"
             showDamageNumber(
                 player.pos.clone().add(new THREE.Vector3(0, 2.0, 0)),
-                `+25 MAX HP! (${player.maxHp} HP)`,
-                "#00ff66"
+                `+25 MAX HP LIMIT! (${player.maxHp} MAX)`,
+                "#00e5ff"
             );
-
-            // Celestial healing chime & radiant particle aura
-            if (audio && audio.playHeal) {
-                audio.playHeal();
-            }
-            spawnHealAura(player.pos);
 
             // Erupt the 1,500 Roman spectators in celebration!
             crowdExcitementTimer = 3.0;
@@ -3563,7 +3561,7 @@
                 titleEl.innerText = isMidWave ? "FOE SLAIN: CHOOSE 1 OF 3 POWER-UPS" : "VICTORY: CHOOSE 1 OF 3 POWER-UPS";
             }
             if (subEl) {
-                subEl.innerHTML = `<span style="color: #00ff66; font-weight: bold;">Health Limit Expanded: ${player.maxHp} HP (+25)</span> &mdash; Pick an ancient gladiator boon:`;
+                subEl.innerHTML = `<span style="color: #00e5ff; font-weight: bold;">Health Limit Expanded: ${player.maxHp} HP (+25 Limit)</span> &mdash; Pick an ancient gladiator boon:`;
             }
 
             const PERKS_POOL = [
@@ -3604,10 +3602,13 @@
                     apply: () => { player.comboCooldown = 0; }
                 },
                 {
-                    title: "Vampiric Cleave",
+                    title: "Bloodseeker's Edge",
                     icon: "🩸",
-                    desc: "All attacks siphon +15 bonus health on heavy impacts.",
-                    apply: () => { player.lifesteal = (player.lifesteal || 0) + 15; }
+                    desc: "+35% Attack Damage & critical poise destruction.",
+                    apply: () => {
+                        player.damageMultiplier = (player.damageMultiplier || 1.0) + 0.35;
+                        player.poiseDmgBonus = (player.poiseDmgBonus || 1.0) + 0.35;
+                    }
                 }
             ];
 
@@ -4130,16 +4131,6 @@
 
                     const finalDmg = Math.round(baseDmg * player.damageMultiplier);
                     e.hp = Math.max(0, e.hp - finalDmg);
-
-                    // Vampiric Cleave life siphon
-                    if (player.lifesteal && player.lifesteal > 0 && !player.isDead) {
-                        const healAmt = Math.min(player.maxHp - player.hp, player.lifesteal);
-                        if (healAmt > 0) {
-                            player.hp += healAmt;
-                            updateHUD();
-                            showDamageNumber(player.pos.clone().add(new THREE.Vector3(0, 1.8, 0)), `+${healAmt} HP`, "#00ff66");
-                        }
-                    }
                     e.poise = Math.max(0, e.poise - poiseDmg);
                     e.lastHitTime = performance.now() * 0.001;
                     e.consecutiveHitsTaken++;
@@ -4157,14 +4148,14 @@
                     } else if (e.poise <= 0) {
                         if (typeof abortEnemyCombo === 'function') abortEnemyCombo(e);
                         e.isStaggered = true;
-                        e.staggerTimer = 2.4;
+                        e.staggerTimer = 1.3;
                         e.poise = e.maxPoise;
                         e.consecutiveHitsTaken = 0;
                         audio.playGuardBreak();
                         showDamageNumber(e.pos, "POISE BROKEN!", "#ffd700");
                     } else {
-                        // Impact flinch: allows player combos to link smoothly without enemy breaking out
-                        e.staggerTimer = 0.22;
+                        // Impact flinch: fast recovery for tough arena champions
+                        e.staggerTimer = 0.08;
                         if (e.isTelegraphing) {
                             // Disrupt attack windup if hit early!
                             if (typeof abortEnemyCombo === 'function') abortEnemyCombo(e);
@@ -4262,51 +4253,51 @@
             e.isCircling = false;
             e.isBlocking = false;
 
-            // Phase 0: Visual & Audio Telegraph (500ms readable windup window)
+            // Phase 0: Visual & Audio Telegraph (Fast 280ms aggressive windup)
             e.isTelegraphing = true;
-            e.telegraphTimer = 0.50;
+            e.telegraphTimer = 0.28;
             audio.playRealSwordWhoosh();
             showDamageNumber(e.pos.clone().add(new THREE.Vector3(0, 1.85, 0)), "⚠️ COMBO!", "#ffd700");
             spawnBladeSwingSparks(e.pos.clone().add(new THREE.Vector3(0, 1.6, 0)), 3);
 
-            // Strike 1
+            // Strike 1 (Fast initial strike)
             const t1 = setTimeout(() => {
                 if (e.isDead || e.isStaggered || !e.comboActive || !gameActive) return;
                 e.isTelegraphing = false;
                 e.isAttacking = true;
                 e.comboStep = 1;
-                e.attackTimer = 0.35;
+                e.attackTimer = 0.18;
                 audio.playRealSwordWhoosh();
                 resolveEnemyAttack(e, 0.50, 1);
 
-                // Rhythm transition between Strike 1 and Strike 2 (280ms snappy cadence)
+                // Rhythm transition between Strike 1 and Strike 2 (Rapid 140ms cadence)
                 const t2 = setTimeout(() => {
                     if (e.isDead || e.isStaggered || !e.comboActive || !gameActive) return;
                     e.isAttacking = true;
                     e.comboStep = 2;
-                    e.attackTimer = 0.35;
+                    e.attackTimer = 0.18;
                     audio.playRealSwordWhoosh();
                     resolveEnemyAttack(e, 0.65, 2);
 
                     if (e.maxComboSteps >= 3) {
-                        // Optional Strike 3 finisher (300ms cadence)
+                        // Rapid Strike 3 finisher (160ms cadence)
                         const t3 = setTimeout(() => {
                             if (e.isDead || e.isStaggered || !e.comboActive || !gameActive) return;
                             e.isAttacking = true;
                             e.comboStep = 3;
-                            e.attackTimer = 0.38;
+                            e.attackTimer = 0.20;
                             audio.playRealSwordWhoosh();
                             resolveEnemyAttack(e, 0.75, 3);
 
                             finishEnemyCombo(e);
-                        }, 300);
+                        }, 160);
                         e.comboTimeouts.push(t3);
                     } else {
                         finishEnemyCombo(e);
                     }
-                }, 280);
+                }, 140);
                 e.comboTimeouts.push(t2);
-            }, 500);
+            }, 280);
             e.comboTimeouts.push(t1);
         }
 
@@ -4318,8 +4309,8 @@
                 e.isAttacking = false;
                 e.isTelegraphing = false;
 
-                // BALANCED RECOVERY PHASE (1.3 - 2.2 seconds: fair punish window without passive stalling)
-                e.attackCooldown = 1.3 + Math.random() * 0.9;
+                // AGGRESSIVE RECOVERY PHASE (0.7 - 1.3 seconds: rapid re-engagement)
+                e.attackCooldown = 0.7 + Math.random() * 0.6;
                 e.circlingDir = Math.random() < 0.5 ? 1 : -1;
                 e.isCircling = true;
 
@@ -4327,7 +4318,7 @@
                     activeAttackingEnemyId = null;
                     lastEnemyAttackFinishedTime = performance.now() * 0.001;
                 }
-            }, 350);
+            }, 200);
             e.comboTimeouts.push(tEnd);
         }
 
@@ -4382,10 +4373,10 @@
                 // If actively swinging combo strikes
                 if (e.comboActive) {
                     e.targetRotY = Math.atan2(toPlayer.x, toPlayer.z);
-                    e.rotY = lerpAngle(e.rotY, e.targetRotY, Math.min(1.0, dt * 5.5));
-                    if (dist > 1.8 && dist < 3.2) {
+                    e.rotY = lerpAngle(e.rotY, e.targetRotY, Math.min(1.0, dt * 7.5));
+                    if (dist > 1.8 && dist < 3.4) {
                         const dir = toPlayer.clone().normalize();
-                        e.pos.addScaledVector(dir, 1.4 * dt);
+                        e.pos.addScaledVector(dir, 2.0 * dt);
                     }
                     e.isMoving = false;
                     clampToArena(e.pos);
@@ -4396,21 +4387,21 @@
 
                 // Default facing angle towards player
                 e.targetRotY = Math.atan2(toPlayer.x, toPlayer.z);
-                e.rotY = lerpAngle(e.rotY, e.targetRotY, Math.min(1.0, dt * 11));
+                e.rotY = lerpAngle(e.rotY, e.targetRotY, Math.min(1.0, dt * 13));
 
                 e.attackCooldown -= dt;
 
                 const dir = toPlayer.clone().normalize();
                 const tangent = new THREE.Vector3(-dir.z, 0, dir.x).multiplyScalar(e.circlingDir || 1);
 
-                // Multi-enemy attack token coordination: keeps pressure active without gang-up spam
+                // Multi-enemy attack token coordination: swift token turnover (0.4s) for relentless challenge
                 const tokenAvailable = (activeAttackingEnemyId === null || activeAttackingEnemyId === e.id) &&
-                                       (curTime - lastEnemyAttackFinishedTime > 0.8);
+                                       (curTime - lastEnemyAttackFinishedTime > 0.4);
 
                 if (e.attackCooldown > 0) {
-                    // TACTICAL RECOVERY / CIRCLING: Paces and repositions at ~3.1m
+                    // TACTICAL CIRCLING / RE-POSITIONING
                     e.isMoving = true;
-                    e.walkCycle += dt * 6.5;
+                    e.walkCycle += dt * 7.5;
 
                     let moveVec = new THREE.Vector3();
                     if (dist > 3.6) {
@@ -4421,7 +4412,7 @@
                     moveVec.addScaledVector(tangent, 0.85);
                     if (moveVec.lengthSq() > 0.001) moveVec.normalize();
 
-                    e.pos.addScaledVector(moveVec, (e.speed * 0.7) * dt);
+                    e.pos.addScaledVector(moveVec, (e.speed * 0.8) * dt);
 
                     // Occasional tactical guard
                     if (Math.random() < e.blockChance * 0.02) {
@@ -4430,12 +4421,12 @@
                         e.isBlocking = false;
                     }
                 } else {
-                    // READY TO ENGAGE & ATTACK
-                    if (dist > 2.85) {
-                        // Decisively close distance to player
+                    // READY TO ENGAGE & ATTACK (Aggressive sprint closure)
+                    if (dist > 3.0) {
+                        // Decisively close distance to player with sprint speed
                         e.isMoving = true;
-                        e.walkCycle += dt * 10;
-                        e.pos.addScaledVector(dir, (e.speed * 1.15) * dt);
+                        e.walkCycle += dt * 12;
+                        e.pos.addScaledVector(dir, (e.speed * 1.35) * dt);
                         e.isBlocking = false;
                     } else {
                         // In striking range!
@@ -4445,8 +4436,8 @@
                         } else {
                             // Another enemy holds token; circle perimeter attentively
                             e.isMoving = true;
-                            e.walkCycle += dt * 6;
-                            e.pos.addScaledVector(tangent, (e.speed * 0.6) * dt);
+                            e.walkCycle += dt * 7;
+                            e.pos.addScaledVector(tangent, (e.speed * 0.75) * dt);
                         }
                     }
                 }
@@ -4819,13 +4810,13 @@
                 }
 
                 if (e.isTelegraphing) {
-                    // Distinct windup stance: arm drawn back high and ready to strike
-                    rig.rightShoulder.rotation.x = THREE.MathUtils.lerp(rig.rightShoulder.rotation.x, -1.85, dt * 12);
-                    rig.rightShoulder.rotation.y = THREE.MathUtils.lerp(rig.rightShoulder.rotation.y, 0.95, dt * 12);
-                    rig.torso.rotation.y = THREE.MathUtils.lerp(rig.torso.rotation.y, -0.4, dt * 10);
+                    // Distinct windup stance: arm drawn back high and ready to strike (snappy windup)
+                    rig.rightShoulder.rotation.x = THREE.MathUtils.lerp(rig.rightShoulder.rotation.x, -1.85, dt * 22);
+                    rig.rightShoulder.rotation.y = THREE.MathUtils.lerp(rig.rightShoulder.rotation.y, 0.95, dt * 22);
+                    rig.torso.rotation.y = THREE.MathUtils.lerp(rig.torso.rotation.y, -0.4, dt * 18);
                 } else if (e.isAttacking) {
                     e.attackTimer -= dt;
-                    const duration = (e.comboStep === 3) ? 0.42 : 0.38;
+                    const duration = (e.comboStep === 3) ? 0.20 : 0.18;
                     const prog = Math.max(0, e.attackTimer / duration);
 
                     if (e.comboStep === 1) {
@@ -4850,7 +4841,7 @@
                     spawnBladeSwingSparks(swordTip, 2);
 
                     if (e.attackTimer <= 0) e.isAttacking = false;
-                } else if (e.attackCooldown > 1.8) {
+                } else if (e.attackCooldown > 0.8) {
                     // Post-combo recovery / breathing window ("Stop Spamming" visual feedback)
                     rig.rightShoulder.rotation.x = THREE.MathUtils.lerp(rig.rightShoulder.rotation.x, 0.35, dt * 8);
                     rig.rightShoulder.rotation.y = THREE.MathUtils.lerp(rig.rightShoulder.rotation.y, 0, dt * 8);
