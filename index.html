@@ -883,6 +883,135 @@
         .trophy-title { font-size: 11px; font-weight: 800; color: #ffd700; }
         .trophy-desc { font-size: 9px; color: #bbb; margin-top: 4px; line-height: 1.3; }
         .trophy-status { font-size: 9px; font-weight: 700; margin-top: 6px; }
+
+        /* Crowd Favor Meter */
+        .crowd-favor-wrap {
+            margin-top: 6px;
+            width: 220px;
+            height: 12px;
+            background: rgba(18, 14, 22, 0.85);
+            border: 1px solid rgba(212, 175, 55, 0.5);
+            border-radius: 6px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.8);
+            transition: all 0.3s ease;
+        }
+        .crowd-favor-fill {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, #7b1fa2, #9c27b0, #ffd700);
+            transition: width 0.25s ease-out;
+            border-radius: 6px;
+        }
+        .crowd-favor-txt {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            font-size: 8px;
+            font-weight: 800;
+            color: #fff;
+            letter-spacing: 1.5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.9);
+            pointer-events: none;
+            text-transform: uppercase;
+        }
+        .crowd-favor-ready {
+            border-color: #ffd700 !important;
+            animation: favorGlow 1.0s infinite alternate;
+            box-shadow: 0 0 14px rgba(255, 215, 0, 0.9) !important;
+        }
+        @keyframes favorGlow {
+            0% { transform: scale(1); filter: drop-shadow(0 0 4px #9c27b0); }
+            100% { transform: scale(1.04); filter: drop-shadow(0 0 12px #ffd700); }
+        }
+
+        /* Action Prompts (Execution & Pilum) */
+        .execution-prompt-banner {
+            position: absolute;
+            bottom: 22%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(90deg, rgba(160, 10, 10, 0.9), rgba(60, 6, 6, 0.95));
+            border: 2px solid #ffd700;
+            color: #fff;
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 14px;
+            letter-spacing: 3px;
+            padding: 8px 24px;
+            border-radius: 20px;
+            pointer-events: none;
+            display: none;
+            z-index: 40;
+            box-shadow: 0 0 25px rgba(255, 30, 30, 0.8), inset 0 0 10px rgba(255, 215, 0, 0.5);
+            animation: execPulse 0.6s infinite alternate;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.9);
+        }
+        @keyframes execPulse {
+            0% { transform: translateX(-50%) scale(1); }
+            100% { transform: translateX(-50%) scale(1.08); filter: brightness(1.2); }
+        }
+
+        .pilum-prompt-banner {
+            position: absolute;
+            bottom: 16%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(20, 18, 25, 0.88);
+            border: 1px solid #d4af37;
+            color: #ffd700;
+            font-family: 'Cinzel', serif;
+            font-size: 11px;
+            letter-spacing: 2px;
+            padding: 5px 18px;
+            border-radius: 14px;
+            pointer-events: none;
+            display: none;
+            z-index: 40;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.8);
+        }
+
+        .emperors-gift-pill {
+            position: absolute;
+            top: 72px;
+            left: 20px;
+            background: linear-gradient(90deg, rgba(80, 20, 10, 0.9), rgba(30, 10, 20, 0.9));
+            border: 1px solid #ffd700;
+            color: #ffd700;
+            font-family: 'Cinzel', serif;
+            font-size: 10px;
+            letter-spacing: 1.5px;
+            padding: 5px 12px;
+            border-radius: 12px;
+            z-index: 25;
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
+            animation: giftPulse 1.2s infinite alternate;
+        }
+        @keyframes giftPulse {
+            0% { border-color: #ffd700; }
+            100% { border-color: #ff5500; }
+        }
+
+        .pilum-hud-indicator {
+            position: absolute;
+            bottom: 24px;
+            right: 28px;
+            background: rgba(22, 18, 25, 0.85);
+            border: 1px solid #d4af37;
+            color: #ffd700;
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-family: 'Cinzel', serif;
+            font-size: 11px;
+            letter-spacing: 1.5px;
+            z-index: 20;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+        }
     </style>
 </head>
 <body>
@@ -934,6 +1063,10 @@
                 <div id="match-badge" class="match-badge">1v1 COLISEUM DUEL</div>
                 <div id="match-title" class="match-round-title">ROUND 1</div>
                 <div id="score-display" style="font-size: 11px; letter-spacing: 2px; color: #d4af37;">WINS: 0 | STREAK: 0</div>
+                <div class="crowd-favor-wrap" id="crowd-favor-wrap" title="Crowd Favor: Fills via combos, parries, trap hits & executions to summon Emperor's Gifts!">
+                    <div id="crowd-favor-bar" class="crowd-favor-fill"></div>
+                    <div id="crowd-favor-txt" class="crowd-favor-txt">🏛️ FAVOR OF ROME: 0%</div>
+                </div>
                 <div style="display: flex; gap: 8px; justify-content: center; margin-top: 4px;">
                     <div id="btn-toggle-controls" class="controls-pill">⚔️ CONTROLS [H]</div>
                     <div id="btn-toggle-music" class="controls-pill" style="border-color: #ff9800; color: #ffd700;">🥁 DRUMS: ON</div>
@@ -950,6 +1083,14 @@
                 </div>
             </div>
         </div>
+
+        <!-- Prompts & Active Buff Pills -->
+        <div id="execution-prompt" class="execution-prompt-banner">💀 [E] FATAL EXECUTION</div>
+        <div id="pilum-prompt" class="pilum-prompt-banner">🎯 [G] ARM / HURL PILUM JAVELIN</div>
+        <div id="emperors-gift-pill" class="emperors-gift-pill" style="display: none;">🔥 VESTA'S FLAME BLADE: 12s</div>
+        <div id="pilum-hud-indicator" class="pilum-hud-indicator" style="display: none;">
+            <span>🏹 PILUM:</span> <span id="pilum-count-txt" style="color: #fff; font-weight: bold;">ARMED</span>
+        </div>
     </div>
 
     <!-- Controls Modal -->
@@ -962,7 +1103,8 @@
         <div class="ctrl-row"><span class="ctrl-key">LEFT CLICK / J</span><span>Sword Combo (Costs Stamina)</span></div>
         <div class="ctrl-row"><span class="ctrl-key">RIGHT CLICK / SPACE</span><span>Shield Guard / Perfect Parry (Timed Block)</span></div>
         <div class="ctrl-row"><span class="ctrl-key">Q</span><span>Shield Bash (Guaranteed Poise Break)</span></div>
-        <div class="ctrl-row"><span class="ctrl-key">E</span><span>Piercing Thrust (Armor Piercing)</span></div>
+        <div class="ctrl-row"><span class="ctrl-key">E</span><span>FATAL EXECUTION (When Foe Staggered &lt;20% HP) / Piercing Thrust</span></div>
+        <div class="ctrl-row"><span class="ctrl-key">G</span><span>Arm / Hurl Roman Pilum Javelin (From Arena Racks)</span></div>
         <div class="ctrl-row"><span class="ctrl-key">R</span><span>⚡ ULTIMATE: Spartan War Cry &amp; Coliseum Meteor Slam (100% Adrenaline)</span></div>
         <div class="ctrl-row"><span class="ctrl-key">SHIFT</span><span>Dodge Roll (Invulnerability frames)</span></div>
         <div class="ctrl-row"><span class="ctrl-key">F / TAB / MMB</span><span>3D Lock-On Reticle (Cycle targets in Waves)</span></div>
@@ -1479,6 +1621,172 @@
                     }
                 }
             }
+
+            playLionRoar() {
+                if (!this.ctx) return;
+                const now = this.ctx.currentTime;
+                // Deep predatory growl
+                const osc = this.ctx.createOscillator();
+                const gain = this.ctx.createGain();
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(130, now);
+                osc.frequency.exponentialRampToValueAtTime(50, now + 1.1);
+                gain.gain.setValueAtTime(0.01, now);
+                gain.gain.linearRampToValueAtTime(0.55, now + 0.15);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 1.25);
+                osc.connect(gain);
+                gain.connect(this.ctx.destination);
+                osc.start(now);
+                osc.stop(now + 1.3);
+
+                // Guttural noise rumble
+                if (this.noiseBuffer) {
+                    const noise = this.ctx.createBufferSource();
+                    noise.buffer = this.noiseBuffer;
+                    const filter = this.ctx.createBiquadFilter();
+                    filter.type = 'lowpass';
+                    filter.frequency.setValueAtTime(450, now);
+                    filter.frequency.exponentialRampToValueAtTime(160, now + 1.0);
+                    const nGain = this.ctx.createGain();
+                    nGain.gain.setValueAtTime(0.35, now);
+                    nGain.gain.exponentialRampToValueAtTime(0.001, now + 1.2);
+                    noise.connect(filter);
+                    filter.connect(nGain);
+                    nGain.connect(this.ctx.destination);
+                    noise.start(now);
+                    noise.stop(now + 1.25);
+                }
+            }
+
+            playThunder() {
+                if (!this.ctx || !this.noiseBuffer) return;
+                const now = this.ctx.currentTime;
+                const noise = this.ctx.createBufferSource();
+                noise.buffer = this.noiseBuffer;
+                const filter = this.ctx.createBiquadFilter();
+                filter.type = 'lowpass';
+                filter.frequency.setValueAtTime(180, now);
+                filter.frequency.exponentialRampToValueAtTime(45, now + 2.4);
+                const gain = this.ctx.createGain();
+                gain.gain.setValueAtTime(0.01, now);
+                gain.gain.linearRampToValueAtTime(0.48, now + 0.18);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 2.5);
+                noise.connect(filter);
+                filter.connect(gain);
+                gain.connect(this.ctx.destination);
+                noise.start(now);
+                noise.stop(now + 2.6);
+            }
+
+            playPilumThrow() {
+                if (!this.ctx) return;
+                const now = this.ctx.currentTime;
+                const osc = this.ctx.createOscillator();
+                const gain = this.ctx.createGain();
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(420, now);
+                osc.frequency.exponentialRampToValueAtTime(120, now + 0.22);
+                gain.gain.setValueAtTime(0.35, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.24);
+                osc.connect(gain);
+                gain.connect(this.ctx.destination);
+                osc.start(now);
+                osc.stop(now + 0.25);
+            }
+
+            playPilumHit() {
+                if (!this.ctx) return;
+                const now = this.ctx.currentTime;
+                // Wood fracture crack
+                const osc = this.ctx.createOscillator();
+                const gain = this.ctx.createGain();
+                osc.type = 'square';
+                osc.frequency.setValueAtTime(320, now);
+                osc.frequency.exponentialRampToValueAtTime(80, now + 0.1);
+                gain.gain.setValueAtTime(0.45, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.12);
+                osc.connect(gain);
+                gain.connect(this.ctx.destination);
+                osc.start(now);
+                osc.stop(now + 0.14);
+
+                // Deep metal impalement
+                const bass = this.ctx.createOscillator();
+                const bGain = this.ctx.createGain();
+                bass.type = 'triangle';
+                bass.frequency.setValueAtTime(110, now);
+                bass.frequency.exponentialRampToValueAtTime(35, now + 0.35);
+                bGain.gain.setValueAtTime(0.6, now);
+                bGain.gain.exponentialRampToValueAtTime(0.001, now + 0.38);
+                bass.connect(bGain);
+                bGain.connect(this.ctx.destination);
+                bass.start(now);
+                bass.stop(now + 0.4);
+            }
+
+            playExecutionSlice() {
+                if (!this.ctx) return;
+                const now = this.ctx.currentTime;
+                // Sharp blade shear
+                const osc = this.ctx.createOscillator();
+                const gain = this.ctx.createGain();
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(750, now);
+                osc.frequency.exponentialRampToValueAtTime(140, now + 0.32);
+                gain.gain.setValueAtTime(0.6, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.36);
+                osc.connect(gain);
+                gain.connect(this.ctx.destination);
+                osc.start(now);
+                osc.stop(now + 0.38);
+
+                // Heavy skull/bone crunch
+                const crunch = this.ctx.createOscillator();
+                const cGain = this.ctx.createGain();
+                crunch.type = 'triangle';
+                crunch.frequency.setValueAtTime(85, now);
+                crunch.frequency.exponentialRampToValueAtTime(25, now + 0.5);
+                cGain.gain.setValueAtTime(0.7, now);
+                cGain.gain.exponentialRampToValueAtTime(0.001, now + 0.55);
+                crunch.connect(cGain);
+                cGain.connect(this.ctx.destination);
+                crunch.start(now);
+                crunch.stop(now + 0.58);
+            }
+
+            playGiftCollect() {
+                if (!this.ctx) return;
+                const now = this.ctx.currentTime;
+                const notes = [523.25, 659.25, 783.99, 1046.50];
+                notes.forEach((freq, idx) => {
+                    const osc = this.ctx.createOscillator();
+                    const gain = this.ctx.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(freq, now + idx * 0.08);
+                    gain.gain.setValueAtTime(0.28, now + idx * 0.08);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.08 + 0.45);
+                    osc.connect(gain);
+                    gain.connect(this.ctx.destination);
+                    osc.start(now + idx * 0.08);
+                    osc.stop(now + idx * 0.08 + 0.5);
+                });
+            }
+
+            playArmorShatter() {
+                if (!this.ctx) return;
+                const now = this.ctx.currentTime;
+                const osc = this.ctx.createOscillator();
+                const gain = this.ctx.createGain();
+                osc.type = 'square';
+                osc.frequency.setValueAtTime(950, now);
+                osc.frequency.exponentialRampToValueAtTime(280, now + 0.22);
+                gain.gain.setValueAtTime(0.42, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.25);
+                osc.connect(gain);
+                gain.connect(this.ctx.destination);
+                osc.start(now);
+                osc.stop(now + 0.26);
+            }
         }
 
         const audio = new ArenaSoundEngine();
@@ -1757,6 +2065,15 @@
             headGroup.position.y = 0.62 * bodyBulk;
             torsoGroup.add(headGroup);
 
+            // Battle-scarred gladiator head underneath helmet (revealed when shattered)
+            const baseHead = new THREE.Mesh(
+                new THREE.SphereGeometry(0.24 * bodyBulk, 12, 10),
+                new THREE.MeshStandardMaterial({ color: 0xc89874, roughness: 0.85 })
+            );
+            baseHead.name = 'baseHead';
+            baseHead.visible = false;
+            headGroup.add(baseHead);
+
             if (helmetStyle === 'horned_demon') {
                 // BARON MALAKOR: Demonic Horned Executioner Skull-Helm
                 const helmBaseGeo = new THREE.CylinderGeometry(0.26 * bodyBulk, 0.28 * bodyBulk, 0.42, 10);
@@ -1991,41 +2308,45 @@
 
             [-1, 1].forEach(side => {
                 const shoulderGroup = side > 0 ? rightShoulder : leftShoulder;
+                const pauldronGroup = new THREE.Group();
+                pauldronGroup.name = 'pauldronGroup';
+                shoulderGroup.add(pauldronGroup);
+
                 if (pauldronStyle === 'spiked') {
                     const pMesh = new THREE.Mesh(new THREE.SphereGeometry(0.28, 8, 8, 0, Math.PI * 2, 0, Math.PI * 0.6), armorMat);
                     pMesh.rotation.z = side * Math.PI / 4;
-                    shoulderGroup.add(pMesh);
+                    pauldronGroup.add(pMesh);
 
                     for (let sp = 0; sp < 3; sp++) {
                         const spike = new THREE.Mesh(new THREE.ConeGeometry(0.06, 0.28, 6), steelMat);
                         spike.position.set(side * (0.16 + sp * 0.06), 0.12 - sp * 0.06, (sp - 1) * 0.1);
                         spike.rotation.z = -side * 0.8;
-                        shoulderGroup.add(spike);
+                        pauldronGroup.add(spike);
                     }
                 } else if (pauldronStyle === 'lion') {
                     for (let p = 0; p < 3; p++) {
                         const pauldron = new THREE.Mesh(new THREE.SphereGeometry(0.28 - p*0.02, 8, 8, 0, Math.PI * 2, 0, Math.PI * 0.6), trimMat);
                         pauldron.position.y = -p * 0.09;
                         pauldron.rotation.z = side * Math.PI / 3.8;
-                        shoulderGroup.add(pauldron);
+                        pauldronGroup.add(pauldron);
                     }
                 } else if (pauldronStyle === 'pointed_scale') {
                     for (let p = 0; p < 3; p++) {
                         const scaleP = new THREE.Mesh(new THREE.ConeGeometry(0.14, 0.28, 6), trimMat);
                         scaleP.position.set(side * (0.1 + p * 0.05), -p * 0.08, 0);
                         scaleP.rotation.z = -side * 0.85;
-                        shoulderGroup.add(scaleP);
+                        pauldronGroup.add(scaleP);
                     }
                 } else if (pauldronStyle === 'anvil') {
                     const anvilP = new THREE.Mesh(new THREE.BoxGeometry(0.36, 0.24, 0.34), steelMat);
                     anvilP.position.set(side * 0.12, 0.04, 0);
-                    shoulderGroup.add(anvilP);
+                    pauldronGroup.add(anvilP);
                 } else if (pauldronStyle === 'skeletal') {
                     for (let p = 0; p < 4; p++) {
                         const boneP = new THREE.Mesh(new THREE.CylinderGeometry(0.03, 0.02, 0.28, 6), steelMat);
                         boneP.position.set(side * (0.08 + p * 0.04), 0.08 - p * 0.06, (p - 1.5) * 0.08);
                         boneP.rotation.z = -side * 0.7;
-                        shoulderGroup.add(boneP);
+                        pauldronGroup.add(boneP);
                     }
                 } else if (pauldronStyle === 'winged_blade') {
                     for (let p = 0; p < 3; p++) {
@@ -2033,21 +2354,21 @@
                         bladeP.position.set(side * (0.12 + p * 0.04), -p * 0.08, 0);
                         bladeP.rotation.z = -side * 0.7;
                         bladeP.rotation.y = side * 0.3;
-                        shoulderGroup.add(bladeP);
+                        pauldronGroup.add(bladeP);
                     }
                 } else if (pauldronStyle === 'dragon_scale') {
                     for (let p = 0; p < 4; p++) {
                         const pMesh = new THREE.Mesh(new THREE.BoxGeometry(0.32 - p*0.03, 0.12, 0.3), trimMat);
                         pMesh.position.set(side * (0.08 + p * 0.04), -p * 0.09, 0);
                         pMesh.rotation.z = side * 0.35;
-                        shoulderGroup.add(pMesh);
+                        pauldronGroup.add(pMesh);
                     }
                 } else {
                     for (let p = 0; p < 3; p++) {
                         const pauldron = new THREE.Mesh(new THREE.SphereGeometry(0.24 - p*0.02, 8, 8, 0, Math.PI * 2, 0, Math.PI * 0.55), trimMat);
                         pauldron.position.y = -p * 0.08;
                         pauldron.rotation.z = side * Math.PI / 4;
-                        shoulderGroup.add(pauldron);
+                        pauldronGroup.add(pauldron);
                     }
                 }
             });
@@ -2482,6 +2803,8 @@
                 rGreave,
                 swordGroup,
                 capeSegments,
+                pauldronL: leftShoulder.getObjectByName('pauldronGroup'),
+                pauldronR: rightShoulder.getObjectByName('pauldronGroup')
             };
         }
 
@@ -2733,6 +3056,8 @@
                                 showDamageNumber(e.pos.clone().add(new THREE.Vector3(0, 2.0, 0)), "IMPALED! -55 HP", "#ffd700");
                                 spawnBloodSplatter(e.pos);
                                 spawnClashSparks(e.pos);
+                                addCrowdFavor(20);
+                                shatterPauldron(e, 'right');
                                 updateHUD();
                                 if (e.hp <= 0) onSingleEnemyKilled(e);
                             }
@@ -3580,6 +3905,12 @@
             meteorStage: 0,
             meteorTimer: 0,
             gladiatorClass: 'knight',
+            hasPilum: false,
+            pilumMesh: null,
+            isExecuting: false,
+            executionTimer: 0,
+            activeGiftBuff: null,
+            giftBuffTimer: 0,
             equippedCosmetics: {
                 armorColor: 0x8a9ba8,
                 trimColor: 0xd4af37,
@@ -3753,6 +4084,757 @@
             player.isUltimateActive = true;
             player.ultimateTimer = 8.0;
             updateHUD();
+        }
+
+        // =========================================================
+        // FEATURE 3: COLISEUM BEAST - IMPERIAL WAR LION MESH
+        // =========================================================
+        function createLionMesh(scale = 1.35) {
+            const root = new THREE.Group();
+            root.scale.set(scale, scale, scale);
+
+            const furMat = new THREE.MeshStandardMaterial({ color: 0xb8862d, roughness: 0.92, metalness: 0.05 });
+            const darkFurMat = new THREE.MeshStandardMaterial({ color: 0x4a2a12, roughness: 0.95 });
+            const maneMat = new THREE.MeshStandardMaterial({ color: 0x3d1d0a, roughness: 0.98 });
+            const eyeMat = new THREE.MeshBasicMaterial({ color: 0xffaa00 });
+            const fangMat = new THREE.MeshStandardMaterial({ color: 0xf5f5eb, roughness: 0.3 });
+
+            const torso = new THREE.Group();
+            torso.position.y = 0.95;
+            root.add(torso);
+
+            const body = new THREE.Mesh(new THREE.CylinderGeometry(0.48, 0.42, 1.85, 12), furMat);
+            body.rotation.x = Math.PI / 2;
+            body.castShadow = true;
+            torso.add(body);
+
+            // Shaggy dark mane collar
+            const mane = new THREE.Mesh(new THREE.TorusGeometry(0.55, 0.28, 8, 16), maneMat);
+            mane.position.set(0, 0.1, -0.65);
+            mane.castShadow = true;
+            torso.add(mane);
+
+            // Head
+            const head = new THREE.Group();
+            head.position.set(0, 0.25, -1.1);
+            torso.add(head);
+
+            const skull = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.45, 0.6), furMat);
+            skull.castShadow = true;
+            head.add(skull);
+
+            const muzzle = new THREE.Mesh(new THREE.BoxGeometry(0.32, 0.24, 0.35), furMat);
+            muzzle.position.set(0, -0.1, -0.4);
+            head.add(muzzle);
+
+            const nose = new THREE.Mesh(new THREE.BoxGeometry(0.12, 0.08, 0.06), darkFurMat);
+            nose.position.set(0, -0.02, -0.58);
+            head.add(nose);
+
+            // Amber eyes
+            const eyeL = new THREE.Mesh(new THREE.SphereGeometry(0.045, 8, 8), eyeMat);
+            eyeL.position.set(-0.16, 0.1, -0.32);
+            head.add(eyeL);
+            const eyeR = new THREE.Mesh(new THREE.SphereGeometry(0.045, 8, 8), eyeMat);
+            eyeR.position.set(0.16, 0.1, -0.32);
+            head.add(eyeR);
+
+            // Jaws
+            const lowerJaw = new THREE.Group();
+            lowerJaw.position.set(0, -0.16, -0.2);
+            head.add(lowerJaw);
+            const jawMesh = new THREE.Mesh(new THREE.BoxGeometry(0.28, 0.1, 0.35), furMat);
+            jawMesh.position.set(0, 0, -0.15);
+            lowerJaw.add(jawMesh);
+
+            [[-0.1, -0.2], [0.1, -0.2]].forEach(pos => {
+                const uFang = new THREE.Mesh(new THREE.ConeGeometry(0.03, 0.14, 6), fangMat);
+                uFang.position.set(pos[0], -0.2, pos[1] - 0.22);
+                uFang.rotation.x = Math.PI;
+                head.add(uFang);
+            });
+
+            [-0.2, 0.2].forEach(ex => {
+                const ear = new THREE.Mesh(new THREE.ConeGeometry(0.08, 0.16, 6), darkFurMat);
+                ear.position.set(ex, 0.28, -0.1);
+                ear.rotation.z = -ex * 0.5;
+                head.add(ear);
+            });
+
+            // 4 Muscular Legs
+            const leftForeleg = new THREE.Group();
+            leftForeleg.position.set(-0.38, -0.1, -0.65);
+            torso.add(leftForeleg);
+            const lfMesh = new THREE.Mesh(new THREE.CylinderGeometry(0.14, 0.1, 0.85, 8), furMat);
+            lfMesh.position.y = -0.42;
+            lfMesh.castShadow = true;
+            leftForeleg.add(lfMesh);
+
+            const rightForeleg = new THREE.Group();
+            rightForeleg.position.set(0.38, -0.1, -0.65);
+            torso.add(rightForeleg);
+            const rfMesh = new THREE.Mesh(new THREE.CylinderGeometry(0.14, 0.1, 0.85, 8), furMat);
+            rfMesh.position.y = -0.42;
+            rfMesh.castShadow = true;
+            rightForeleg.add(rfMesh);
+
+            const leftHindleg = new THREE.Group();
+            leftHindleg.position.set(-0.38, -0.05, 0.65);
+            torso.add(leftHindleg);
+            const lhMesh = new THREE.Mesh(new THREE.CylinderGeometry(0.18, 0.11, 0.9, 8), furMat);
+            lhMesh.position.y = -0.45;
+            lhMesh.castShadow = true;
+            leftHindleg.add(lhMesh);
+
+            const rightHindleg = new THREE.Group();
+            rightHindleg.position.set(0.38, -0.05, 0.65);
+            torso.add(rightHindleg);
+            const rhMesh = new THREE.Mesh(new THREE.CylinderGeometry(0.18, 0.11, 0.9, 8), furMat);
+            rhMesh.position.y = -0.45;
+            rhMesh.castShadow = true;
+            rightHindleg.add(rhMesh);
+
+            // Tail
+            const tail = new THREE.Group();
+            tail.position.set(0, 0.25, 0.9);
+            torso.add(tail);
+            const tailMesh = new THREE.Mesh(new THREE.CylinderGeometry(0.04, 0.03, 1.1, 6), furMat);
+            tailMesh.position.set(0, -0.45, 0.35);
+            tailMesh.rotation.x = 0.7;
+            tail.add(tailMesh);
+            const tuft = new THREE.Mesh(new THREE.SphereGeometry(0.1, 8, 8), darkFurMat);
+            tuft.position.set(0, -0.9, 0.7);
+            tail.add(tuft);
+
+            return {
+                root,
+                torso,
+                head,
+                lowerJaw,
+                leftForeleg,
+                rightForeleg,
+                leftHindleg,
+                rightHindleg,
+                tail
+            };
+        }
+
+        // =========================================================
+        // FEATURE 4: DYNAMIC COLISEUM ATMOSPHERE & WEATHER SYSTEM
+        // =========================================================
+        let currentWeather = 'midday';
+        let lightningTimer = 6.0;
+        let lightningFlashTimer = 0;
+
+        const RAIN_COUNT = 1200;
+        const rainPositions = new Float32Array(RAIN_COUNT * 3);
+        for (let i = 0; i < RAIN_COUNT; i++) {
+            rainPositions[i * 3] = (Math.random() - 0.5) * (arenaRadius * 2.2);
+            rainPositions[i * 3 + 1] = Math.random() * 25;
+            rainPositions[i * 3 + 2] = (Math.random() - 0.5) * (arenaRadius * 2.2);
+        }
+        const rainGeo = new THREE.BufferGeometry();
+        rainGeo.setAttribute('position', new THREE.BufferAttribute(rainPositions, 3));
+        const rainMat = new THREE.PointsMaterial({
+            color: 0x99bbdd,
+            size: 0.12,
+            transparent: true,
+            opacity: 0.65
+        });
+        const rainParticles = new THREE.Points(rainGeo, rainMat);
+        rainParticles.visible = false;
+        scene.add(rainParticles);
+
+        const bloodMoonGroup = new THREE.Group();
+        const moonMesh = new THREE.Mesh(
+            new THREE.SphereGeometry(3.5, 24, 24),
+            new THREE.MeshBasicMaterial({ color: 0xcc2211 })
+        );
+        moonMesh.position.set(0, 65, -80);
+        bloodMoonGroup.add(moonMesh);
+        const moonRing = new THREE.Mesh(
+            new THREE.RingGeometry(3.8, 5.2, 32),
+            new THREE.MeshBasicMaterial({ color: 0xff3311, side: THREE.DoubleSide, transparent: true, opacity: 0.6 })
+        );
+        moonRing.position.set(0, 65, -79.8);
+        bloodMoonGroup.add(moonRing);
+        bloodMoonGroup.visible = false;
+        scene.add(bloodMoonGroup);
+
+        function updateColiseumAtmosphere(roundNumber) {
+            let r = roundNumber || 1;
+            if (r <= 2) {
+                currentWeather = 'midday';
+                scene.background = new THREE.Color(0x28222c);
+                scene.fog = new THREE.FogExp2(0x28222c, 0.005);
+                sunLight.color.setHex(0xfffaed);
+                sunLight.intensity = 1.65;
+                sunLight.position.set(38, 48, 28);
+                ambientLight.color.setHex(0x564d64);
+                ambientLight.intensity = 0.78;
+                rainParticles.visible = false;
+                bloodMoonGroup.visible = false;
+            } else if (r <= 4) {
+                currentWeather = 'sunset';
+                scene.background = new THREE.Color(0x3d1715);
+                scene.fog = new THREE.FogExp2(0x3d1715, 0.007);
+                sunLight.color.setHex(0xff6a22);
+                sunLight.intensity = 1.45;
+                sunLight.position.set(48, 22, 14);
+                ambientLight.color.setHex(0x683025);
+                ambientLight.intensity = 0.72;
+                rainParticles.visible = false;
+                bloodMoonGroup.visible = false;
+            } else if (r <= 6) {
+                currentWeather = 'storm';
+                scene.background = new THREE.Color(0x0c1018);
+                scene.fog = new THREE.FogExp2(0x0c1018, 0.009);
+                sunLight.color.setHex(0x18243c);
+                sunLight.intensity = 0.45;
+                sunLight.position.set(10, 40, -15);
+                ambientLight.color.setHex(0x162030);
+                ambientLight.intensity = 0.65;
+                rainParticles.visible = true;
+                bloodMoonGroup.visible = false;
+            } else {
+                currentWeather = 'eclipse';
+                scene.background = new THREE.Color(0x1a060a);
+                scene.fog = new THREE.FogExp2(0x1a060a, 0.008);
+                sunLight.color.setHex(0xaa1818);
+                sunLight.intensity = 1.15;
+                sunLight.position.set(0, 50, -40);
+                ambientLight.color.setHex(0x420c15);
+                ambientLight.intensity = 0.75;
+                rainParticles.visible = false;
+                bloodMoonGroup.visible = true;
+            }
+        }
+
+        // =========================================================
+        // FEATURE 2: DYNAMIC CROWD FAVOR & EMPEROR'S GIFTS
+        // =========================================================
+        let crowdFavor = 0;
+        const emperorsGifts = [];
+        let emperorTiberiusRig = null;
+
+        function initEmperorTiberius() {
+            if (!royalBoxGroup || emperorTiberiusRig) return;
+            const empGroup = new THREE.Group();
+            empGroup.position.set(0, 1.35, 0.45);
+            royalBoxGroup.add(empGroup);
+
+            const togaMat = new THREE.MeshStandardMaterial({ color: 0x4a0e17, roughness: 0.85 });
+            const goldTrimMat = new THREE.MeshStandardMaterial({ color: 0xd4af37, metalness: 0.9, roughness: 0.2 });
+            const fleshMat = new THREE.MeshStandardMaterial({ color: 0xdeb887, roughness: 0.7 });
+
+            const empBody = new THREE.Mesh(new THREE.CylinderGeometry(0.35, 0.45, 1.1, 10), togaMat);
+            empBody.position.y = 0.55;
+            empGroup.add(empBody);
+
+            const empHead = new THREE.Mesh(new THREE.SphereGeometry(0.2, 12, 10), fleshMat);
+            empHead.position.y = 1.25;
+            empGroup.add(empHead);
+
+            const empLaurel = new THREE.Mesh(new THREE.TorusGeometry(0.18, 0.04, 6, 16), goldTrimMat);
+            empLaurel.position.set(0, 1.32, 0);
+            empLaurel.rotation.x = Math.PI / 2;
+            empGroup.add(empLaurel);
+
+            const empRightArm = new THREE.Group();
+            empRightArm.position.set(0.42, 0.95, 0);
+            empGroup.add(empRightArm);
+            const empArmMesh = new THREE.Mesh(new THREE.CylinderGeometry(0.08, 0.07, 0.55, 6), togaMat);
+            empArmMesh.position.y = -0.2;
+            empRightArm.add(empArmMesh);
+
+            const empScepter = new THREE.Mesh(new THREE.CylinderGeometry(0.025, 0.03, 1.0, 6), goldTrimMat);
+            empScepter.position.set(0, -0.1, 0.25);
+            empScepter.rotation.x = 0.6;
+            empRightArm.add(empScepter);
+
+            emperorTiberiusRig = { root: empGroup, rightArm: empRightArm };
+        }
+
+        function addCrowdFavor(pts) {
+            if (!gameActive) return;
+            crowdFavor = Math.min(100, Math.max(0, crowdFavor + pts));
+            updateCrowdFavorUI();
+            if (crowdFavor >= 100) {
+                crowdFavor = 0;
+                updateCrowdFavorUI();
+                spawnEmperorsGift();
+            }
+        }
+
+        function updateCrowdFavorUI() {
+            const bar = document.getElementById('crowd-favor-bar');
+            const txt = document.getElementById('crowd-favor-txt');
+            const wrap = document.getElementById('crowd-favor-wrap');
+            if (bar) bar.style.width = `${crowdFavor}%`;
+            if (txt) txt.innerText = `🏛️ FAVOR OF ROME: ${Math.floor(crowdFavor)}%`;
+            if (wrap) {
+                if (crowdFavor >= 90) wrap.classList.add('crowd-favor-ready');
+                else wrap.classList.remove('crowd-favor-ready');
+            }
+        }
+
+        function spawnEmperorsGift() {
+            if (emperorTiberiusRig) {
+                emperorTiberiusRig.rightArm.rotation.x = -1.2;
+                setTimeout(() => { if (emperorTiberiusRig) emperorTiberiusRig.rightArm.rotation.x = 0; }, 2200);
+            }
+            audio.playFanfare();
+            audio.playCheer();
+            showAnnouncement("🏛️ EMPEROR'S FAVOR!", "TIBERIUS BESTOWS A SACRED BLESSING!");
+
+            const giftGroup = new THREE.Group();
+            const gAngle = Math.random() * Math.PI * 2;
+            const gDist = 4.0 + Math.random() * 6.0;
+            const gx = Math.cos(gAngle) * gDist;
+            const gz = Math.sin(gAngle) * gDist;
+            giftGroup.position.set(gx, 0.2, gz);
+
+            const goldMat = new THREE.MeshStandardMaterial({ color: 0xffd700, metalness: 0.95, roughness: 0.15 });
+            const chalice = new THREE.Mesh(new THREE.CylinderGeometry(0.35, 0.18, 0.6, 12), goldMat);
+            giftGroup.add(chalice);
+
+            const beaconMat = new THREE.MeshBasicMaterial({ color: 0xffe066, transparent: true, opacity: 0.5, side: THREE.DoubleSide });
+            const beacon = new THREE.Mesh(new THREE.CylinderGeometry(0.12, 0.45, 14, 12), beaconMat);
+            beacon.position.y = 7;
+            giftGroup.add(beacon);
+
+            scene.add(giftGroup);
+            emperorsGifts.push({ group: giftGroup, pos: new THREE.Vector3(gx, 0, gz), life: 25.0 });
+        }
+
+        function updateEmperorsGifts(dt) {
+            const time = performance.now() * 0.001;
+            for (let i = emperorsGifts.length - 1; i >= 0; i--) {
+                const gift = emperorsGifts[i];
+                gift.life -= dt;
+                gift.group.rotation.y += dt * 2.0;
+                gift.group.position.y = 0.25 + Math.sin(time * 3.5) * 0.12;
+
+                if (!player.isDead && player.pos.distanceTo(gift.pos) < 1.8) {
+                    audio.playGiftCollect();
+                    scene.remove(gift.group);
+                    emperorsGifts.splice(i, 1);
+
+                    const buffTypes = ['fire_blade', 'ambrosia', 'mars_aegis'];
+                    const chosen = buffTypes[Math.floor(Math.random() * buffTypes.length)];
+                    applyEmperorsGiftBuff(chosen);
+                    continue;
+                }
+
+                if (gift.life <= 0) {
+                    scene.remove(gift.group);
+                    emperorsGifts.splice(i, 1);
+                }
+            }
+
+            if (player.activeGiftBuff) {
+                player.giftBuffTimer -= dt;
+                const pill = document.getElementById('emperors-gift-pill');
+                if (pill) {
+                    pill.style.display = 'block';
+                    let label = '';
+                    if (player.activeGiftBuff === 'fire_blade') label = `🔥 VESTA'S FLAME BLADE: ${Math.ceil(player.giftBuffTimer)}s (+15 Fire DMG)`;
+                    else if (player.activeGiftBuff === 'ambrosia') label = `🍞 AMBROSIA SPEED: ${Math.ceil(player.giftBuffTimer)}s (+25% Sprint)`;
+                    else if (player.activeGiftBuff === 'mars_aegis') label = `🛡️ MARS' AEGIS: ${Math.ceil(player.giftBuffTimer)}s (INVULNERABLE)`;
+                    pill.innerText = label;
+                }
+                if (player.activeGiftBuff === 'fire_blade' && Math.random() < 0.4) {
+                    spawnBladeSwingSparks(player.pos.clone().add(new THREE.Vector3((Math.random() - 0.5) * 0.8, 1.2, (Math.random() - 0.5) * 0.8)), 1);
+                }
+                if (player.giftBuffTimer <= 0) {
+                    player.activeGiftBuff = null;
+                    const pill = document.getElementById('emperors-gift-pill');
+                    if (pill) pill.style.display = 'none';
+                    showDamageNumber(player.pos, "BLESSING EXPIRED", "#888");
+                }
+            }
+        }
+
+        function applyEmperorsGiftBuff(type) {
+            player.activeGiftBuff = type;
+            if (type === 'fire_blade') {
+                player.giftBuffTimer = 14.0;
+                showAnnouncement("🔥 VESTA'S FLAME BLADE", "BLADE COATED IN SACRED COLOSSAL FIRE!");
+            } else if (type === 'ambrosia') {
+                player.giftBuffTimer = 12.0;
+                player.stamina = player.maxStamina;
+                showAnnouncement("🍞 AMBROSIA OF THE GODS", "UNLIMITED STAMINA & SURGING MOVEMENT SPEED!");
+            } else if (type === 'mars_aegis') {
+                player.giftBuffTimer = 7.0;
+                showAnnouncement("🛡️ MARS' IRON AEGIS", "DIVINE INVULNERABILITY & UNYIELDING POISE!");
+            }
+        }
+
+        // =========================================================
+        // FEATURE 6: INTERACTABLE PILUM RACKS & THROWING MECHANIC
+        // =========================================================
+        const pilumRacks = [];
+        const activeThrownPilums = [];
+
+        function initPilumRacks() {
+            if (pilumRacks.length > 0) return;
+            const rackLocations = [
+                { x: 17.5, z: 0, rot: -Math.PI / 2 },
+                { x: -17.5, z: 0, rot: Math.PI / 2 },
+                { x: 0, z: 17.5, rot: Math.PI },
+                { x: 0, z: -17.5, rot: 0 }
+            ];
+
+            const woodMat = new THREE.MeshStandardMaterial({ color: 0x422614, roughness: 0.9 });
+            const bronzeMat = new THREE.MeshStandardMaterial({ color: 0xa8772a, metalness: 0.85, roughness: 0.3 });
+            const ashShaftMat = new THREE.MeshStandardMaterial({ color: 0xc49a62, roughness: 0.8 });
+            const steelTipMat = new THREE.MeshStandardMaterial({ color: 0xdde6ed, metalness: 0.95, roughness: 0.15 });
+
+            rackLocations.forEach((loc) => {
+                const rackGroup = new THREE.Group();
+                rackGroup.position.set(loc.x, 0.05, loc.z);
+                rackGroup.rotation.y = loc.rot;
+                scene.add(rackGroup);
+
+                const frame = new THREE.Mesh(new THREE.BoxGeometry(1.6, 0.9, 0.5), woodMat);
+                frame.position.y = 0.45;
+                frame.castShadow = true;
+                rackGroup.add(frame);
+
+                const bronzeBrace = new THREE.Mesh(new THREE.BoxGeometry(1.65, 0.08, 0.55), bronzeMat);
+                bronzeBrace.position.y = 0.85;
+                rackGroup.add(bronzeBrace);
+
+                const pilumMeshes = [];
+                [-0.45, 0, 0.45].forEach(px => {
+                    const pGroup = new THREE.Group();
+                    pGroup.position.set(px, 0.9, 0);
+                    pGroup.rotation.x = 0.15;
+
+                    const shaft = new THREE.Mesh(new THREE.CylinderGeometry(0.025, 0.025, 1.8, 6), ashShaftMat);
+                    shaft.position.y = 0.6;
+                    shaft.castShadow = true;
+                    pGroup.add(shaft);
+
+                    const tip = new THREE.Mesh(new THREE.ConeGeometry(0.045, 0.45, 4), steelTipMat);
+                    tip.position.y = 1.6;
+                    pGroup.add(tip);
+
+                    rackGroup.add(pGroup);
+                    pilumMeshes.push(pGroup);
+                });
+
+                pilumRacks.push({
+                    group: rackGroup,
+                    pos: new THREE.Vector3(loc.x, 0, loc.z),
+                    count: 3,
+                    pilumMeshes
+                });
+            });
+        }
+
+        function updatePilumRacks(dt) {
+            if (!gameActive) return;
+
+            let nearRack = null;
+            pilumRacks.forEach(r => {
+                if (r.count > 0 && player.pos.distanceTo(r.pos) < 2.4) {
+                    nearRack = r;
+                }
+            });
+
+            const pPrompt = document.getElementById('pilum-prompt');
+            const pInd = document.getElementById('pilum-hud-indicator');
+
+            if (player.hasPilum) {
+                if (pPrompt) {
+                    pPrompt.style.display = 'block';
+                    pPrompt.innerText = '🎯 [G] or LEFT-CLICK: HURL PILUM JAVELIN';
+                }
+                if (pInd) pInd.style.display = 'flex';
+            } else if (nearRack) {
+                if (pPrompt) {
+                    pPrompt.style.display = 'block';
+                    pPrompt.innerText = `🎯 [G] ARM PILUM JAVELIN (${nearRack.count} LEFT)`;
+                }
+                if (pInd) pInd.style.display = 'none';
+            } else {
+                if (pPrompt) pPrompt.style.display = 'none';
+                if (pInd) pInd.style.display = 'none';
+            }
+
+            for (let i = activeThrownPilums.length - 1; i >= 0; i--) {
+                const tp = activeThrownPilums[i];
+                tp.pos.addScaledVector(tp.vel, dt);
+                tp.vel.y -= 19.6 * dt;
+                tp.mesh.position.copy(tp.pos);
+
+                if (tp.vel.lengthSq() > 0.1) {
+                    const dir = tp.vel.clone().normalize();
+                    tp.mesh.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), dir);
+                }
+
+                let hitEnemy = false;
+                activeEnemies.forEach(e => {
+                    if (!e.isDead && e.pos.distanceTo(tp.pos) < 1.35) {
+                        hitEnemy = true;
+                        audio.playPilumHit();
+                        const pDmg = 70;
+                        e.hp = Math.max(0, e.hp - pDmg);
+                        e.poise = 0;
+                        e.isStaggered = true;
+                        e.staggerTimer = 2.4;
+                        if (typeof abortEnemyCombo === 'function') abortEnemyCombo(e);
+
+                        const pushDir = tp.vel.clone().setY(0).normalize();
+                        e.pos.addScaledVector(pushDir, 2.5);
+                        clampToArena(e.pos);
+                        e.mesh.position.copy(e.pos);
+
+                        spawnBloodSplatter(e.pos);
+                        spawnClashSparks(e.pos);
+                        showDamageNumber(e.pos.clone().add(new THREE.Vector3(0, 2, 0)), `PILUM IMPALE! -${pDmg}`, "#ffd700");
+                        addCrowdFavor(15);
+                        if (e.hp <= 0) onSingleEnemyKilled(e);
+                    }
+                });
+
+                if (hitEnemy || tp.pos.y <= 0.05) {
+                    scene.remove(tp.mesh);
+                    activeThrownPilums.splice(i, 1);
+                }
+            }
+        }
+
+        function pickupPlayerPilum() {
+            let nearest = null;
+            let minDist = 2.4;
+            pilumRacks.forEach(r => {
+                const d = player.pos.distanceTo(r.pos);
+                if (d < minDist && r.count > 0) {
+                    minDist = d;
+                    nearest = r;
+                }
+            });
+
+            if (!nearest) return;
+            nearest.count--;
+            const idx = nearest.count;
+            if (nearest.pilumMeshes[idx]) nearest.pilumMeshes[idx].visible = false;
+
+            player.hasPilum = true;
+            audio.playParry();
+            showDamageNumber(player.pos, "PILUM ARMED!", "#ffd700");
+
+            if (player.rig && player.rig.rightShoulder && !player.pilumMesh) {
+                const ashShaftMat = new THREE.MeshStandardMaterial({ color: 0xc49a62, roughness: 0.8 });
+                const steelTipMat = new THREE.MeshStandardMaterial({ color: 0xdde6ed, metalness: 0.95, roughness: 0.15 });
+                const pGroup = new THREE.Group();
+                pGroup.position.set(0.12, -0.2, 0.4);
+                pGroup.rotation.x = -1.2;
+
+                const shaft = new THREE.Mesh(new THREE.CylinderGeometry(0.025, 0.025, 1.8, 6), ashShaftMat);
+                shaft.position.y = 0.6;
+                pGroup.add(shaft);
+
+                const tip = new THREE.Mesh(new THREE.ConeGeometry(0.045, 0.45, 4), steelTipMat);
+                tip.position.y = 1.6;
+                pGroup.add(tip);
+
+                player.rig.rightShoulder.add(pGroup);
+                player.pilumMesh = pGroup;
+            }
+        }
+
+        function throwPlayerPilum() {
+            if (!player.hasPilum || player.isDead || !gameActive) return;
+
+            player.hasPilum = false;
+            if (player.pilumMesh && player.rig && player.rig.rightShoulder) {
+                player.rig.rightShoulder.remove(player.pilumMesh);
+                player.pilumMesh = null;
+            }
+
+            audio.playPilumThrow();
+
+            const forward = new THREE.Vector3(-Math.sin(player.rotY), 0, -Math.cos(player.rotY)).normalize();
+            const spawnPos = player.pos.clone().add(new THREE.Vector3(0, 1.6, 0)).addScaledVector(forward, 1.0);
+
+            const ashShaftMat = new THREE.MeshStandardMaterial({ color: 0xc49a62, roughness: 0.8 });
+            const steelTipMat = new THREE.MeshStandardMaterial({ color: 0xdde6ed, metalness: 0.95, roughness: 0.15 });
+
+            const pGroup = new THREE.Group();
+            const shaft = new THREE.Mesh(new THREE.CylinderGeometry(0.025, 0.025, 1.8, 6), ashShaftMat);
+            shaft.position.y = 0.6;
+            pGroup.add(shaft);
+            const tip = new THREE.Mesh(new THREE.ConeGeometry(0.045, 0.45, 4), steelTipMat);
+            tip.position.y = 1.6;
+            pGroup.add(tip);
+
+            pGroup.position.copy(spawnPos);
+            scene.add(pGroup);
+
+            const throwVel = forward.multiplyScalar(26).add(new THREE.Vector3(0, 3.8, 0));
+            activeThrownPilums.push({ mesh: pGroup, pos: spawnPos, vel: throwVel });
+            showDamageNumber(player.pos, "PILUM HURLED!", "#fff");
+        }
+
+        // =========================================================
+        // FEATURE 5: ARMOR SHATTER & BATTLE DAMAGE
+        // =========================================================
+        const shatteredArmorPieces = [];
+
+        function shatterPauldron(enemy, side = 'left') {
+            if (!enemy || !enemy.rig || enemy.isLion) return;
+            const shoulder = side === 'left' ? enemy.rig.leftShoulder : enemy.rig.rightShoulder;
+            if (!shoulder || shoulder.userData.shattered) return;
+            shoulder.userData.shattered = true;
+
+            const pGrp = shoulder.getObjectByName('pauldronGroup');
+            if (pGrp) pGrp.visible = false;
+
+            audio.playArmorShatter();
+
+            const pMesh = new THREE.Mesh(
+                new THREE.SphereGeometry(0.24, 8, 8, 0, Math.PI * 2, 0, Math.PI * 0.6),
+                new THREE.MeshStandardMaterial({ color: enemy.rig.torso?.children[0]?.material?.color?.getHex() || 0x666666, metalness: 0.85, roughness: 0.25 })
+            );
+            const spawnPos = enemy.pos.clone().add(new THREE.Vector3(side === 'left' ? -0.5 : 0.5, 1.4, 0));
+            pMesh.position.copy(spawnPos);
+            scene.add(pMesh);
+
+            const sign = side === 'left' ? -1 : 1;
+            const vel = new THREE.Vector3(sign * (2.5 + Math.random() * 2), 4.5 + Math.random() * 2, (Math.random() - 0.5) * 3);
+            const rotVel = new THREE.Vector3(Math.random() * 8, Math.random() * 8, Math.random() * 8);
+
+            shatteredArmorPieces.push({ mesh: pMesh, pos: spawnPos, vel, rotVel, life: 14.0 });
+            spawnClashSparks(spawnPos);
+            showDamageNumber(spawnPos, "ARMOR SHATTERED!", "#ffd700");
+        }
+
+        function shatterHelmet(enemy) {
+            if (!enemy || !enemy.rig || !enemy.rig.head || enemy.rig.head.userData.shattered || enemy.isLion) return;
+            enemy.rig.head.userData.shattered = true;
+
+            enemy.rig.head.children.forEach(c => {
+                if (c.name === 'baseHead') c.visible = true;
+                else c.visible = false;
+            });
+
+            audio.playArmorShatter();
+
+            const hMesh = new THREE.Mesh(
+                new THREE.CylinderGeometry(0.25, 0.27, 0.38, 10),
+                new THREE.MeshStandardMaterial({ color: 0x8c7853, metalness: 0.9, roughness: 0.2 })
+            );
+            const spawnPos = enemy.pos.clone().add(new THREE.Vector3(0, 1.8, 0));
+            hMesh.position.copy(spawnPos);
+            scene.add(hMesh);
+
+            const vel = new THREE.Vector3((Math.random() - 0.5) * 3, 5.5 + Math.random() * 2, -2.5 - Math.random() * 2);
+            const rotVel = new THREE.Vector3(Math.random() * 9, Math.random() * 9, Math.random() * 9);
+
+            shatteredArmorPieces.push({ mesh: hMesh, pos: spawnPos, vel, rotVel, life: 14.0 });
+            spawnClashSparks(spawnPos);
+            showDamageNumber(spawnPos, "HELMET SHATTERED!", "#ff3300");
+        }
+
+        function updateShatteredArmor(dt) {
+            for (let i = shatteredArmorPieces.length - 1; i >= 0; i--) {
+                const piece = shatteredArmorPieces[i];
+                piece.life -= dt;
+                piece.pos.addScaledVector(piece.vel, dt);
+                piece.vel.y -= 18.0 * dt;
+                piece.mesh.position.copy(piece.pos);
+                piece.mesh.rotation.x += piece.rotVel.x * dt;
+                piece.mesh.rotation.y += piece.rotVel.y * dt;
+
+                if (piece.pos.y <= 0.08) {
+                    piece.pos.y = 0.08;
+                    piece.vel.y = -piece.vel.y * 0.35;
+                    piece.vel.x *= 0.6;
+                    piece.vel.z *= 0.6;
+                    piece.rotVel.multiplyScalar(0.7);
+                }
+
+                if (piece.life <= 0) {
+                    scene.remove(piece.mesh);
+                    shatteredArmorPieces.splice(i, 1);
+                }
+            }
+        }
+
+        // =========================================================
+        // FEATURE 1: CINEMATIC EXECUTION FINISHERS ("POLLICE VERSO")
+        // =========================================================
+        let executionVictim = null;
+
+        function checkExecutionOpportunity() {
+            if (!gameActive || player.isDead || player.isExecuting || player.isRolling) {
+                const p = document.getElementById('execution-prompt');
+                if (p) p.style.display = 'none';
+                return null;
+            }
+
+            let candidate = null;
+            let minDist = 3.4;
+            activeEnemies.forEach(e => {
+                if (!e.isDead && e.hp > 0 && e.hp <= e.maxHp * 0.20 && (e.isStaggered || e.poise <= 0)) {
+                    const d = player.pos.distanceTo(e.pos);
+                    if (d < minDist) {
+                        minDist = d;
+                        candidate = e;
+                    }
+                }
+            });
+
+            const p = document.getElementById('execution-prompt');
+            if (candidate) {
+                if (p) p.style.display = 'block';
+            } else {
+                if (p) p.style.display = 'none';
+            }
+            return candidate;
+        }
+
+        function executeFatalFinisher(enemy) {
+            if (!enemy || enemy.isDead || player.isExecuting) return;
+
+            player.isExecuting = true;
+            player.executionTimer = 1.35;
+            executionVictim = enemy;
+            enemy.isBeingExecuted = true;
+            enemy.hp = 0;
+
+            const toEnemy = new THREE.Vector3().subVectors(enemy.pos, player.pos).normalize();
+            player.rotY = Math.atan2(-toEnemy.x, -toEnemy.z);
+            player.mesh.rotation.y = player.rotY;
+
+            enemy.rotY = Math.atan2(toEnemy.x, toEnemy.z);
+            enemy.mesh.rotation.y = enemy.rotY;
+
+            hitStopTimer = 0.45;
+            cameraTrauma = 1.0;
+            audio.playExecutionSlice();
+            audio.playCheer();
+            audio.playFanfare();
+
+            showAnnouncement("💀 FATAL EXECUTION!", "THE SANDS CLAIM ANOTHER GLADIATOR!");
+            showDamageNumber(enemy.pos.clone().add(new THREE.Vector3(0, 2.2, 0)), "FATALITY!", "#ff0000");
+
+            shatterHelmet(enemy);
+            shatterPauldron(enemy, 'left');
+            shatterPauldron(enemy, 'right');
+            spawnBloodSplatter(enemy.pos.clone().add(new THREE.Vector3(0, 1.4, 0)));
+            spawnVictoryConfetti();
+
+            addCrowdFavor(45);
+
+            setTimeout(() => {
+                if (enemy.hp <= 0) onSingleEnemyKilled(enemy);
+                player.isExecuting = false;
+                executionVictim = null;
+            }, 1200);
         }
 
         // =========================================================
@@ -4041,16 +5123,19 @@
         }
 
         function createEnemyInstance(config, spawnX, spawnZ, index = 0) {
-            const eRig = createKnightMesh(
-                config.armorColor, config.trimColor, config.plumeColor, false,
-                config.weaponType, config.capeColor, config.shieldType, config.archetype
-            );
+            const eRig = config.isLion ?
+                createLionMesh(config.archetype?.scale || 1.35) :
+                createKnightMesh(
+                    config.armorColor, config.trimColor, config.plumeColor, false,
+                    config.weaponType, config.capeColor, config.shieldType, config.archetype
+                );
             scene.add(eRig.root);
 
             const isFastWeapon = (config.weaponType === 'scimitar' || config.weaponType === 'soulblade' || config.weaponType === 'broadsword');
 
             const eObj = {
                 id: 'enemy_' + Math.random().toString(36).substring(2, 9),
+                isLion: !!config.isLion,
                 mesh: eRig.root,
                 rig: eRig,
                 pos: new THREE.Vector3(spawnX, 0, spawnZ),
@@ -4098,12 +5183,21 @@
                 if (typeof abortEnemyCombo === 'function') abortEnemyCombo(e);
                 if (e.mesh) scene.remove(e.mesh);
             });
-            activeEnemies = [];
+            activeEnemies.length = 0;
             targetEnemyIndex = 0;
             if (typeof activeAttackingEnemyId !== 'undefined') activeAttackingEnemyId = null;
             if (typeof lastEnemyAttackFinishedTime !== 'undefined') lastEnemyAttackFinishedTime = 0;
             if (reticle3D && reticle3D.group) reticle3D.group.visible = false;
             isLockedOn = false;
+
+            if (typeof activeThrownPilums !== 'undefined') {
+                activeThrownPilums.forEach(tp => { if (tp.mesh) scene.remove(tp.mesh); });
+                activeThrownPilums.length = 0;
+            }
+            if (typeof shatteredArmorPieces !== 'undefined') {
+                shatteredArmorPieces.forEach(p => { if (p.mesh) scene.remove(p.mesh); });
+                shatteredArmorPieces.length = 0;
+            }
         }
 
         /* =========================================================================
@@ -4125,6 +5219,14 @@
             camPitch = 0.22;
             camDist = 5.2;
 
+            // Reset crowd favor
+            crowdFavor = 0;
+            updateCrowdFavorUI();
+
+            // Atmospheric & Weather Progression based on round
+            const levelNum = (gameMode === 'simple') ? currentRound : currentWave;
+            updateColiseumAtmosphere(levelNum);
+
             if (gameMode === 'simple') {
                 document.getElementById('match-badge').innerText = '1v1 COLISEUM DUEL';
                 document.getElementById('match-title').innerText = `ROUND ${currentRound}`;
@@ -4140,11 +5242,29 @@
                     name: currentRound > ROUND_CONFIGS.length ? `Grand Titan Mk.${currentRound}` : baseConfig.name,
                 };
                 const singleEnemy = createEnemyInstance(cfg, 0, -8, 0);
-                activeEnemies = [singleEnemy];
+                activeEnemies.push(singleEnemy);
+
+                // Coliseum Beast Trials: Unleash Imperial War Lion on Rounds 3 and 5!
+                if (currentRound === 3 || currentRound === 5) {
+                    const lionCfg = {
+                        name: "Imperial War-Lion",
+                        hp: 200 + currentRound * 25,
+                        damage: 24 + currentRound * 2,
+                        poise: 110,
+                        speed: 6.8,
+                        aggression: 0.95,
+                        blockChance: 0.1,
+                        isLion: true,
+                        archetype: { scale: 1.35 },
+                        desc: "A ferocious feline beast released from subterranean cages to test the champion."
+                    };
+                    const lionEnemy = createEnemyInstance(lionCfg, 4.5, -9, 1);
+                    activeEnemies.push(lionEnemy);
+                }
 
                 playCinematicIntro(cfg.name, cfg.desc, () => {
                     gameActive = true;
-                    showAnnouncement(`ROUND ${currentRound}`, cfg.name.toUpperCase());
+                    showAnnouncement(`ROUND ${currentRound}`, (currentRound === 3 || currentRound === 5) ? `${cfg.name.toUpperCase()} & WAR-LION` : cfg.name.toUpperCase());
                 });
             } else {
                 // WAVES MODE (+1 Enemy every round!)
@@ -4163,7 +5283,20 @@
                     const spawnX = Math.sin(angle) * (11.0 + (i % 2) * 2.0);
                     const spawnZ = -Math.cos(angle) * (11.0 + (i % 2) * 2.0);
 
-                    const cfg = {
+                    // Imperial War Lion joins the horde in Wave 2+!
+                    const isLionWaveEnemy = (i === 1 && currentWave >= 2) || (i === 3 && currentWave >= 4);
+
+                    const cfg = isLionWaveEnemy ? {
+                        name: `Imperial War-Lion (#${i+1})`,
+                        hp: Math.round(190 * waveScale),
+                        damage: Math.round(24 * waveScale),
+                        poise: Math.round(100 * waveScale),
+                        speed: 6.8,
+                        aggression: 0.95,
+                        blockChance: 0.1,
+                        isLion: true,
+                        archetype: { scale: 1.35 },
+                    } : {
                         ...baseCfg,
                         hp: Math.round(baseCfg.hp * 0.75 * waveScale),
                         damage: Math.round(baseCfg.damage * 0.8 * waveScale),
@@ -4174,9 +5307,9 @@
                     activeEnemies.push(enemyInst);
                 }
 
-                playCinematicIntro(`WAVE ${currentWave}`, `SURVIVE AGAINST ${count} GLADIATORS ENTERING THE ARENA!`, () => {
+                playCinematicIntro(`WAVE ${currentWave}`, `SURVIVE AGAINST ${count} GLADIATORS & BEASTS ENTERING THE ARENA!`, () => {
                     gameActive = true;
-                    showAnnouncement(`WAVE ${currentWave}`, `${count} WARRIORS APPROACH`);
+                    showAnnouncement(`WAVE ${currentWave}`, `${count} WARRIORS & BEASTS APPROACH`);
                 });
             }
 
@@ -4545,6 +5678,12 @@
             player.isMeteorSlamming = false;
             player.meteorStage = 0;
             player.meteorTimer = 0;
+            player.hasPilum = false;
+            player.activeGiftBuff = null;
+            player.giftBuffTimer = 0;
+            player.isExecuting = false;
+            crowdFavor = 0;
+            updateCrowdFavorUI();
             applyGladiatorClass(player.gladiatorClass || 'knight');
 
             document.getElementById('main-menu-overlay').classList.add('hidden');
@@ -4707,6 +5846,24 @@
             player.meteorTimer = 0;
             player.isUltimateActive = false;
             player.ultimateTimer = 0;
+            player.isExecuting = false;
+            player.executionTimer = 0;
+            player.hasPilum = false;
+            if (player.pilumMesh && player.rig && player.rig.rightShoulder) {
+                player.rig.rightShoulder.remove(player.pilumMesh);
+                player.pilumMesh = null;
+            }
+            player.activeGiftBuff = null;
+            player.giftBuffTimer = 0;
+            const giftPill = document.getElementById('emperors-gift-pill');
+            if (giftPill) giftPill.style.display = 'none';
+            const pilumPrompt = document.getElementById('pilum-prompt');
+            if (pilumPrompt) pilumPrompt.style.display = 'none';
+            const pilumInd = document.getElementById('pilum-hud-indicator');
+            if (pilumInd) pilumInd.style.display = 'none';
+            const execPrompt = document.getElementById('execution-prompt');
+            if (execPrompt) execPrompt.style.display = 'none';
+
             player.pos.y = 0;
             player.velocity.set(0, 0, 0);
             player.currentLegAngle = 0;
@@ -4756,7 +5913,20 @@
             }
 
             if (e.code === 'KeyE') {
-                initiatePlayerChargedThrust();
+                const execTarget = checkExecutionOpportunity();
+                if (execTarget) {
+                    executeFatalFinisher(execTarget);
+                } else {
+                    initiatePlayerChargedThrust();
+                }
+            }
+
+            if (e.code === 'KeyG') {
+                if (player.hasPilum) {
+                    throwPlayerPilum();
+                } else {
+                    pickupPlayerPilum();
+                }
             }
 
             if (e.code === 'KeyR') {
@@ -4793,7 +5963,11 @@
                 isPointerDragging = true;
                 lastPointerX = e.clientX;
                 lastPointerY = e.clientY;
-                initiatePlayerAttack();
+                if (player.hasPilum) {
+                    throwPlayerPilum();
+                } else {
+                    initiatePlayerAttack();
+                }
             } else if (e.button === 1) {
                 e.preventDefault();
                 toggleLockOn();
@@ -4849,7 +6023,7 @@
         function initiatePlayerAttack() {
             if (introState.active) skipCinematicIntro();
             if (player.isDead || !gameActive) return;
-            if (player.isRolling || player.isShieldBashing || player.isStaggered) return;
+            if (player.isRolling || player.isShieldBashing || player.isStaggered || player.isExecuting) return;
 
             if (player.isAttacking) {
                 if (player.comboStep < 3 && player.stamina >= 16) {
@@ -4921,7 +6095,7 @@
         }
 
         function initiatePlayerChargedThrust() {
-            if (player.isAttacking || player.isRolling || player.isStaggered || player.isShieldBashing) return;
+            if (player.isAttacking || player.isRolling || player.isStaggered || player.isShieldBashing || player.isExecuting) return;
             if (player.comboCooldown > 0) return;
 
             if (player.stamina < 26) {
@@ -4962,7 +6136,7 @@
         }
 
         function initiatePlayerShieldBash() {
-            if (player.isAttacking || player.isRolling || player.isStaggered || player.isShieldBashing) return;
+            if (player.isAttacking || player.isRolling || player.isStaggered || player.isShieldBashing || player.isExecuting) return;
 
             if (player.stamina < 20) {
                 showDamageNumber(player.pos, "OUT OF STAMINA!", "#ff9800");
@@ -5039,11 +6213,22 @@
                     }
 
                     const berserkMult = player.isUltimateActive ? 1.5 : 1.0;
-                    const finalDmg = Math.round(baseDmg * player.damageMultiplier * berserkMult);
+                    let finalDmg = Math.round(baseDmg * player.damageMultiplier * berserkMult);
+
+                    // Emperor's Gift: Vesta's Flame Blade extra fire damage
+                    if (player.activeGiftBuff === 'fire_blade') {
+                        finalDmg += 15;
+                        spawnBladeSwingSparks(hitPos, 4);
+                        showDamageNumber(hitPos.clone().add(new THREE.Vector3(0, 0.6, 0)), "+15 FIRE BURN!", "#ff6600");
+                    }
+
                     e.hp = Math.max(0, e.hp - finalDmg);
                     e.poise = Math.max(0, e.poise - poiseDmg);
                     e.lastHitTime = performance.now() * 0.001;
                     e.consecutiveHitsTaken++;
+
+                    // Crowd Favor on strikes
+                    addCrowdFavor(step >= 4 ? 8 : 3);
 
                     // Adrenaline Gain on landed attacks
                     if (!player.isUltimateActive) {
@@ -5066,6 +6251,7 @@
                         e.staggerTimer = 1.3;
                         e.poise = e.maxPoise;
                         e.consecutiveHitsTaken = 0;
+                        shatterPauldron(e, 'left');
                         audio.playGuardBreak();
                         showDamageNumber(e.pos, "POISE BROKEN!", "#ffd700");
                     } else {
@@ -5089,7 +6275,7 @@
         }
 
         function startPlayerBlock() {
-            if (player.isAttacking || player.isRolling || player.isStaggered) return;
+            if (player.isAttacking || player.isRolling || player.isStaggered || player.isExecuting) return;
             player.isBlocking = true;
             player.parryWindow = 0.30 + (player.parryWindowBonus || 0);
         }
@@ -5099,7 +6285,7 @@
         }
 
         function initiatePlayerRoll() {
-            if (player.isRolling || player.isStaggered) return;
+            if (player.isRolling || player.isStaggered || player.isExecuting) return;
             if (player.stamina < 18) {
                 showDamageNumber(player.pos, "OUT OF STAMINA!", "#ff9800");
                 player.isExhausted = true;
@@ -5171,9 +6357,14 @@
             // Phase 0: Visual & Audio Telegraph (Fast 280ms aggressive windup)
             e.isTelegraphing = true;
             e.telegraphTimer = 0.28;
-            audio.playRealSwordWhoosh();
-            showDamageNumber(e.pos.clone().add(new THREE.Vector3(0, 1.85, 0)), "⚠️ COMBO!", "#ffd700");
-            spawnBladeSwingSparks(e.pos.clone().add(new THREE.Vector3(0, 1.6, 0)), 3);
+            if (e.isLion) {
+                audio.playLionRoar();
+                showDamageNumber(e.pos.clone().add(new THREE.Vector3(0, 1.85, 0)), "🦁 ROAR & POUNCE!", "#ff8800");
+            } else {
+                audio.playRealSwordWhoosh();
+                showDamageNumber(e.pos.clone().add(new THREE.Vector3(0, 1.85, 0)), "⚠️ COMBO!", "#ffd700");
+                spawnBladeSwingSparks(e.pos.clone().add(new THREE.Vector3(0, 1.6, 0)), 3);
+            }
 
             // Strike 1 (Fast initial strike)
             const t1 = setTimeout(() => {
@@ -5182,7 +6373,8 @@
                 e.isAttacking = true;
                 e.comboStep = 1;
                 e.attackTimer = 0.18;
-                audio.playRealSwordWhoosh();
+                if (e.isLion) audio.playHeavySlash();
+                else audio.playRealSwordWhoosh();
                 resolveEnemyAttack(e, 0.50, 1);
 
                 // Rhythm transition between Strike 1 and Strike 2 (Rapid 140ms cadence)
@@ -5191,7 +6383,8 @@
                     e.isAttacking = true;
                     e.comboStep = 2;
                     e.attackTimer = 0.18;
-                    audio.playRealSwordWhoosh();
+                    if (e.isLion) audio.playLionRoar();
+                    else audio.playRealSwordWhoosh();
                     resolveEnemyAttack(e, 0.65, 2);
 
                     if (e.maxComboSteps >= 3) {
@@ -5201,7 +6394,8 @@
                             e.isAttacking = true;
                             e.comboStep = 3;
                             e.attackTimer = 0.20;
-                            audio.playRealSwordWhoosh();
+                            if (e.isLion) audio.playHeavySlash();
+                            else audio.playRealSwordWhoosh();
                             resolveEnemyAttack(e, 0.75, 3);
 
                             finishEnemyCombo(e);
@@ -5271,8 +6465,22 @@
                     e.damage = Math.round(e.damage * 1.25);
                     e.attackCooldown = 0.2;
 
-                    showAnnouncement("⚠️ PHASE 2: ENRAGED!", `${e.name.toUpperCase()} UNLEASHES FULL MIGHT!`);
-                    showDamageNumber(e.pos.clone().add(new THREE.Vector3(0, 2.2, 0)), "🔥 ENRAGED!", "#ff2200");
+                    if (e.isLion) {
+                        audio.playLionRoar();
+                        showAnnouncement("⚠️ FERAL ENRAGE!", "THE IMPERIAL WAR-LION GOES BERSERK!");
+                        showDamageNumber(e.pos.clone().add(new THREE.Vector3(0, 2.2, 0)), "🔥 FERAL ROAR!", "#ff2200");
+                    } else {
+                        shatterHelmet(e);
+                        shatterPauldron(e, 'right');
+                        showAnnouncement("⚠️ PHASE 2: ENRAGED!", `${e.name.toUpperCase()} UNLEASHES FULL MIGHT!`);
+                        showDamageNumber(e.pos.clone().add(new THREE.Vector3(0, 2.2, 0)), "🔥 ENRAGED!", "#ff2200");
+                    }
+                }
+
+                // Pauldron battle damage shatter at <= 55% HP
+                if (!e.pauldronShattered && e.hp <= e.maxHp * 0.55 && !e.isLion) {
+                    e.pauldronShattered = true;
+                    shatterPauldron(e, 'left');
                 }
 
                 if (e.isPhase2 && Math.random() < 0.25) {
@@ -5424,6 +6632,7 @@
                     }
 
                     showDamageNumber(e.pos, "COMBO BROKEN! PARRY!", "#ffd700");
+                    addCrowdFavor(15);
                     if (!player.isUltimateActive) {
                         player.adrenaline = Math.min(player.maxAdrenaline, player.adrenaline + 28);
                     }
@@ -5459,6 +6668,14 @@
                     } else {
                         showDamageNumber(player.pos, "GUARD BROKEN!", "#ff9800");
                     }
+                }
+
+                // Emperor's Gift: Mars' Aegis Invulnerability
+                if (player.activeGiftBuff === 'mars_aegis') {
+                    audio.playBlock();
+                    spawnShieldFlash(player.pos.clone().add(new THREE.Vector3(0, 1.35, 0)));
+                    showDamageNumber(player.pos, "MARS' AEGIS INVULNERABLE!", "#ffd700");
+                    return;
                 }
 
                 // 3. UNBLOCKED HIT - Scaled for combo step
@@ -5636,7 +6853,19 @@
                         rig.torso.position.y = THREE.MathUtils.lerp(rig.torso.position.y, 1.35 + Math.sin(time * 2.5) * 0.02, dt * 14);
                     }
 
-                    if (player.isAttacking) {
+                    if (player.isExecuting) {
+                        player.executionTimer = Math.max(0, player.executionTimer - dt);
+                        const prog = 1.0 - (player.executionTimer / 1.35);
+                        if (prog < 0.35) {
+                            rig.rightShoulder.rotation.x = THREE.MathUtils.lerp(rig.rightShoulder.rotation.x, -2.5, dt * 18);
+                            rig.rightShoulder.rotation.y = THREE.MathUtils.lerp(rig.rightShoulder.rotation.y, 0.4, dt * 18);
+                            rig.torso.rotation.x = -0.25;
+                        } else {
+                            rig.rightShoulder.rotation.x = THREE.MathUtils.lerp(rig.rightShoulder.rotation.x, 0.45, dt * 25);
+                            rig.rightShoulder.rotation.y = THREE.MathUtils.lerp(rig.rightShoulder.rotation.y, -0.65, dt * 25);
+                            rig.torso.rotation.x = 0.42;
+                        }
+                    } else if (player.isAttacking) {
                         player.comboTimer -= dt;
                         const attackProgress = Math.max(0, player.comboTimer / 0.38);
 
@@ -5720,103 +6949,160 @@
                 const rig = e.rig;
                 if (!rig) return;
 
-                if (e.isDead) {
-                    e.deathTimer = (e.deathTimer || 0) + dt;
-                    const dp = Math.min(1.0, e.deathTimer / 1.5);
-                    if (dp < 0.4) {
-                        const kProg = dp / 0.4;
-                        rig.torso.position.y = 1.35 - kProg * 0.75;
-                        rig.torso.rotation.x = kProg * 0.35;
-                        rig.head.rotation.x = kProg * 0.55;
-                        rig.leftLeg.rotation.x = -kProg * 1.3;
-                        rig.rightLeg.rotation.x = -kProg * 1.1;
-                        rig.rightShoulder.rotation.x = kProg * 0.8;
-                        rig.leftShoulder.rotation.x = kProg * 0.7;
+                if (e.isLion) {
+                    if (e.isDead) {
+                        e.deathTimer = (e.deathTimer || 0) + dt;
+                        const dp = Math.min(1.0, e.deathTimer / 1.5);
+                        rig.torso.position.y = THREE.MathUtils.lerp(0.95, 0.35, dp);
+                        rig.torso.rotation.z = THREE.MathUtils.lerp(0, 1.45, dp);
+                        rig.leftForeleg.rotation.x = THREE.MathUtils.lerp(rig.leftForeleg.rotation.x, -0.8, dt * 5);
+                        rig.rightForeleg.rotation.x = THREE.MathUtils.lerp(rig.rightForeleg.rotation.x, -0.6, dt * 5);
+                        rig.leftHindleg.rotation.x = THREE.MathUtils.lerp(rig.leftHindleg.rotation.x, 0.9, dt * 5);
+                        rig.rightHindleg.rotation.x = THREE.MathUtils.lerp(rig.rightHindleg.rotation.x, 0.7, dt * 5);
+                    } else if (e.isAttacking) {
+                        e.attackTimer -= dt;
+                        const prog = Math.max(0, e.attackTimer / 0.35);
+                        rig.torso.position.y = 0.95 + Math.sin(prog * Math.PI) * 0.7;
+                        rig.torso.rotation.x = -0.45 * Math.sin(prog * Math.PI);
+                        rig.head.rotation.x = 0.3 * Math.sin(prog * Math.PI);
+                        rig.lowerJaw.rotation.x = 0.6 * Math.sin(prog * Math.PI);
+                        rig.leftForeleg.rotation.x = -0.9 + (1 - prog) * 1.8;
+                        rig.rightForeleg.rotation.x = -0.9 + (1 - prog) * 1.8;
+                        rig.leftHindleg.rotation.x = 0.6 * Math.sin(prog * Math.PI);
+                        rig.rightHindleg.rotation.x = 0.6 * Math.sin(prog * Math.PI);
+                        rig.tail.rotation.y = Math.sin(time * 18) * 0.6;
+                        if (e.attackTimer <= 0) e.isAttacking = false;
+                    } else if (e.isTelegraphing) {
+                        rig.torso.position.y = THREE.MathUtils.lerp(rig.torso.position.y, 0.65, dt * 10);
+                        rig.torso.rotation.x = 0.2;
+                        rig.head.rotation.x = -0.25;
+                        rig.lowerJaw.rotation.x = 0.45;
+                        rig.tail.rotation.y = Math.sin(time * 25) * 0.7;
+                    } else if (e.isMoving) {
+                        const gallop = Math.sin(e.walkCycle);
+                        const gallopAlt = Math.cos(e.walkCycle);
+                        rig.leftForeleg.rotation.x = gallop * 0.85;
+                        rig.rightForeleg.rotation.x = -gallop * 0.85;
+                        rig.leftHindleg.rotation.x = -gallopAlt * 0.75;
+                        rig.rightHindleg.rotation.x = gallopAlt * 0.75;
+                        rig.torso.position.y = 0.95 + Math.abs(gallop) * 0.12;
+                        rig.torso.rotation.z = Math.sin(e.walkCycle * 0.5) * 0.05;
+                        rig.head.rotation.x = Math.sin(e.walkCycle) * 0.1;
+                        rig.tail.rotation.y = Math.sin(time * 8) * 0.45;
+                        rig.lowerJaw.rotation.x = 0.1;
                     } else {
-                        const fProg = (dp - 0.4) / 0.6;
-                        rig.torso.position.y = 0.6 - fProg * 0.45;
-                        rig.torso.rotation.x = 0.35 + fProg * 1.25;
-                        rig.head.rotation.x = 0.55 + fProg * 0.4;
-                        rig.leftLeg.rotation.x = -1.3 + fProg * 1.2;
-                        rig.rightLeg.rotation.x = -1.1 + fProg * 1.0;
-                        rig.rightShoulder.rotation.x = 0.8 + fProg * 0.8;
-                        rig.rightShoulder.rotation.z = fProg * 0.6;
-                        rig.leftShoulder.rotation.x = 0.7 + fProg * 0.8;
-                        rig.leftShoulder.rotation.z = -fProg * 0.6;
+                        rig.torso.position.y = THREE.MathUtils.lerp(rig.torso.position.y, 0.95 + Math.sin(time * 3) * 0.03, dt * 8);
+                        rig.torso.rotation.set(0, 0, 0);
+                        rig.head.rotation.set(Math.sin(time * 2) * 0.05, 0, 0);
+                        rig.leftForeleg.rotation.x = THREE.MathUtils.lerp(rig.leftForeleg.rotation.x, 0, dt * 10);
+                        rig.rightForeleg.rotation.x = THREE.MathUtils.lerp(rig.rightForeleg.rotation.x, 0, dt * 10);
+                        rig.leftHindleg.rotation.x = THREE.MathUtils.lerp(rig.leftHindleg.rotation.x, 0, dt * 10);
+                        rig.rightHindleg.rotation.x = THREE.MathUtils.lerp(rig.rightHindleg.rotation.x, 0, dt * 10);
+                        rig.tail.rotation.y = Math.sin(time * 3) * 0.3;
+                        rig.lowerJaw.rotation.x = 0.05;
                     }
-                } else if (e.isMoving) {
-                    const targetLeg = Math.sin(e.walkCycle) * 0.75;
-                    e.currentLegAngle = THREE.MathUtils.lerp(e.currentLegAngle, targetLeg, dt * 20);
-
-                    rig.leftLeg.rotation.x = e.currentLegAngle;
-                    rig.rightLeg.rotation.x = -e.currentLegAngle;
-
-                    if (rig.lGreave) rig.lGreave.rotation.x = Math.max(0, -e.currentLegAngle * 0.85);
-                    if (rig.rGreave) rig.rGreave.rotation.x = Math.max(0, e.currentLegAngle * 0.85);
-
-                    rig.torso.position.y = 1.35 + Math.abs(Math.sin(e.walkCycle)) * 0.06;
-                    rig.torso.rotation.y = Math.sin(e.walkCycle) * 0.08;
                 } else {
-                    rig.leftLeg.rotation.x = THREE.MathUtils.lerp(rig.leftLeg.rotation.x, 0, dt * 14);
-                    rig.rightLeg.rotation.x = THREE.MathUtils.lerp(rig.rightLeg.rotation.x, 0, dt * 14);
-                    if (rig.lGreave) rig.lGreave.rotation.x = THREE.MathUtils.lerp(rig.lGreave.rotation.x, 0, dt * 14);
-                    if (rig.rGreave) rig.rGreave.rotation.x = THREE.MathUtils.lerp(rig.rGreave.rotation.x, 0, dt * 14);
-                    rig.torso.rotation.y = THREE.MathUtils.lerp(rig.torso.rotation.y, 0, dt * 12);
-                    rig.torso.position.y = THREE.MathUtils.lerp(rig.torso.position.y, 1.35 + Math.sin(time * 2.5) * 0.02, dt * 14);
-                }
+                    if (e.isBeingExecuted) {
+                        rig.torso.position.y = THREE.MathUtils.lerp(rig.torso.position.y, 0.75, dt * 10);
+                        rig.torso.rotation.x = 0.5;
+                        if (rig.head) rig.head.rotation.x = -0.4;
+                        if (rig.leftLeg) rig.leftLeg.rotation.x = -1.1;
+                        if (rig.rightLeg) rig.rightLeg.rotation.x = -1.1;
+                    } else if (e.isDead) {
+                        e.deathTimer = (e.deathTimer || 0) + dt;
+                        const dp = Math.min(1.0, e.deathTimer / 1.5);
+                        if (dp < 0.4) {
+                            const kProg = dp / 0.4;
+                            rig.torso.position.y = 1.35 - kProg * 0.75;
+                            rig.torso.rotation.x = kProg * 0.35;
+                            rig.head.rotation.x = kProg * 0.55;
+                            rig.leftLeg.rotation.x = -kProg * 1.3;
+                            rig.rightLeg.rotation.x = -kProg * 1.1;
+                            rig.rightShoulder.rotation.x = kProg * 0.8;
+                            rig.leftShoulder.rotation.x = kProg * 0.7;
+                        } else {
+                            const fProg = (dp - 0.4) / 0.6;
+                            rig.torso.position.y = 0.6 - fProg * 0.45;
+                            rig.torso.rotation.x = 0.35 + fProg * 1.25;
+                            rig.head.rotation.x = 0.55 + fProg * 0.4;
+                            rig.leftLeg.rotation.x = -1.3 + fProg * 1.2;
+                            rig.rightLeg.rotation.x = -1.1 + fProg * 1.0;
+                            rig.rightShoulder.rotation.x = 0.8 + fProg * 0.8;
+                            rig.rightShoulder.rotation.z = fProg * 0.6;
+                            rig.leftShoulder.rotation.x = 0.7 + fProg * 0.8;
+                            rig.leftShoulder.rotation.z = -fProg * 0.6;
+                        }
+                    } else if (e.isMoving) {
+                        const targetLeg = Math.sin(e.walkCycle) * 0.75;
+                        e.currentLegAngle = THREE.MathUtils.lerp(e.currentLegAngle, targetLeg, dt * 20);
 
-                if (e.isTelegraphing) {
-                    // Distinct windup stance: arm drawn back high and ready to strike (snappy windup)
-                    rig.rightShoulder.rotation.x = THREE.MathUtils.lerp(rig.rightShoulder.rotation.x, -1.85, dt * 22);
-                    rig.rightShoulder.rotation.y = THREE.MathUtils.lerp(rig.rightShoulder.rotation.y, 0.95, dt * 22);
-                    rig.torso.rotation.y = THREE.MathUtils.lerp(rig.torso.rotation.y, -0.4, dt * 18);
-                } else if (e.isAttacking) {
-                    e.attackTimer -= dt;
-                    const duration = (e.comboStep === 3) ? 0.20 : 0.18;
-                    const prog = Math.max(0, e.attackTimer / duration);
+                        rig.leftLeg.rotation.x = e.currentLegAngle;
+                        rig.rightLeg.rotation.x = -e.currentLegAngle;
 
-                    if (e.comboStep === 1) {
-                        // Combo Strike 1: Wide Right-to-Left Slash
-                        rig.rightShoulder.rotation.x = -1.1 + Math.sin(prog * Math.PI) * 0.45;
-                        rig.rightShoulder.rotation.y = 0.85 - (1 - prog) * 2.3;
-                        rig.torso.rotation.y = Math.sin((1 - prog) * Math.PI) * 0.48;
-                    } else if (e.comboStep === 2) {
-                        // Combo Strike 2: Heavy Overhead Downward Cleave
-                        rig.rightShoulder.rotation.x = -2.1 + (1 - prog) * 2.4;
-                        rig.rightShoulder.rotation.y = -0.25 + (1 - prog) * 0.5;
-                        rig.torso.rotation.x = Math.sin((1 - prog) * Math.PI) * 0.35;
-                    } else if (e.comboStep === 3) {
-                        // Combo Strike 3: Lunging Forward Thrust Finisher
-                        rig.rightShoulder.rotation.x = -1.55;
-                        rig.rightShoulder.rotation.y = -0.1 + Math.sin(prog * Math.PI) * 0.25;
-                        rig.torso.rotation.y = -0.2 + (1 - prog) * 0.4;
+                        if (rig.lGreave) rig.lGreave.rotation.x = Math.max(0, -e.currentLegAngle * 0.85);
+                        if (rig.rGreave) rig.rGreave.rotation.x = Math.max(0, e.currentLegAngle * 0.85);
+
+                        rig.torso.position.y = 1.35 + Math.abs(Math.sin(e.walkCycle)) * 0.06;
+                        rig.torso.rotation.y = Math.sin(e.walkCycle) * 0.08;
+                    } else {
+                        rig.leftLeg.rotation.x = THREE.MathUtils.lerp(rig.leftLeg.rotation.x, 0, dt * 14);
+                        rig.rightLeg.rotation.x = THREE.MathUtils.lerp(rig.rightLeg.rotation.x, 0, dt * 14);
+                        if (rig.lGreave) rig.lGreave.rotation.x = THREE.MathUtils.lerp(rig.lGreave.rotation.x, 0, dt * 14);
+                        if (rig.rGreave) rig.rGreave.rotation.x = THREE.MathUtils.lerp(rig.rGreave.rotation.x, 0, dt * 14);
+                        rig.torso.rotation.y = THREE.MathUtils.lerp(rig.torso.rotation.y, 0, dt * 12);
+                        rig.torso.position.y = THREE.MathUtils.lerp(rig.torso.position.y, 1.35 + Math.sin(time * 2.5) * 0.02, dt * 14);
                     }
 
-                    const swordTip = new THREE.Vector3(0, 1.3, 0);
-                    swordTip.applyMatrix4(rig.swordGroup.matrixWorld);
-                    spawnBladeSwingSparks(swordTip, 2);
+                    if (e.isTelegraphing) {
+                        rig.rightShoulder.rotation.x = THREE.MathUtils.lerp(rig.rightShoulder.rotation.x, -1.85, dt * 22);
+                        rig.rightShoulder.rotation.y = THREE.MathUtils.lerp(rig.rightShoulder.rotation.y, 0.95, dt * 22);
+                        rig.torso.rotation.y = THREE.MathUtils.lerp(rig.torso.rotation.y, -0.4, dt * 18);
+                    } else if (e.isAttacking) {
+                        e.attackTimer -= dt;
+                        const duration = (e.comboStep === 3) ? 0.20 : 0.18;
+                        const prog = Math.max(0, e.attackTimer / duration);
 
-                    if (e.attackTimer <= 0) e.isAttacking = false;
-                } else if (e.attackCooldown > 0.8) {
-                    // Post-combo recovery / breathing window ("Stop Spamming" visual feedback)
-                    rig.rightShoulder.rotation.x = THREE.MathUtils.lerp(rig.rightShoulder.rotation.x, 0.35, dt * 8);
-                    rig.rightShoulder.rotation.y = THREE.MathUtils.lerp(rig.rightShoulder.rotation.y, 0, dt * 8);
-                    rig.torso.position.y = THREE.MathUtils.lerp(rig.torso.position.y, 1.30 + Math.sin(time * 3.2) * 0.03, dt * 8);
-                    rig.torso.rotation.x = THREE.MathUtils.lerp(rig.torso.rotation.x, 0.08, dt * 6);
-                } else if (e.isBlocking) {
-                    rig.leftShoulder.rotation.x = THREE.MathUtils.lerp(rig.leftShoulder.rotation.x, -0.75, dt * 16);
-                    rig.leftShoulder.rotation.y = THREE.MathUtils.lerp(rig.leftShoulder.rotation.y, 0.8, dt * 16);
-                    rig.shieldGroup.position.set(0.05, -0.62, 0.35);
-                    rig.shieldGroup.rotation.x = THREE.MathUtils.lerp(rig.shieldGroup.rotation.x, 0.75, dt * 16);
-                    rig.shieldGroup.rotation.y = THREE.MathUtils.lerp(rig.shieldGroup.rotation.y, -0.45, dt * 16);
-                } else {
-                    rig.shieldGroup.position.set(0.08, -0.62, 0.22);
-                    rig.shieldGroup.rotation.x = THREE.MathUtils.lerp(rig.shieldGroup.rotation.x, 0, dt * 14);
-                    rig.shieldGroup.rotation.y = THREE.MathUtils.lerp(rig.shieldGroup.rotation.y, 0, dt * 14);
-                    rig.leftShoulder.rotation.x = THREE.MathUtils.lerp(rig.leftShoulder.rotation.x, 0, dt * 12);
-                    rig.leftShoulder.rotation.y = THREE.MathUtils.lerp(rig.leftShoulder.rotation.y, 0, dt * 12);
-                    rig.rightShoulder.rotation.x = THREE.MathUtils.lerp(rig.rightShoulder.rotation.x, 0, dt * 12);
-                    rig.rightShoulder.rotation.y = THREE.MathUtils.lerp(rig.rightShoulder.rotation.y, 0, dt * 12);
+                        if (e.comboStep === 1) {
+                            rig.rightShoulder.rotation.x = -1.1 + Math.sin(prog * Math.PI) * 0.45;
+                            rig.rightShoulder.rotation.y = 0.85 - (1 - prog) * 2.3;
+                            rig.torso.rotation.y = Math.sin((1 - prog) * Math.PI) * 0.48;
+                        } else if (e.comboStep === 2) {
+                            rig.rightShoulder.rotation.x = -2.1 + (1 - prog) * 2.4;
+                            rig.rightShoulder.rotation.y = -0.25 + (1 - prog) * 0.5;
+                            rig.torso.rotation.x = Math.sin((1 - prog) * Math.PI) * 0.35;
+                        } else if (e.comboStep === 3) {
+                            rig.rightShoulder.rotation.x = -1.55;
+                            rig.rightShoulder.rotation.y = -0.1 + Math.sin(prog * Math.PI) * 0.25;
+                            rig.torso.rotation.y = -0.2 + (1 - prog) * 0.4;
+                        }
+
+                        if (rig.swordGroup) {
+                            const swordTip = new THREE.Vector3(0, 1.3, 0);
+                            swordTip.applyMatrix4(rig.swordGroup.matrixWorld);
+                            spawnBladeSwingSparks(swordTip, 2);
+                        }
+
+                        if (e.attackTimer <= 0) e.isAttacking = false;
+                    } else if (e.attackCooldown > 0.8) {
+                        rig.rightShoulder.rotation.x = THREE.MathUtils.lerp(rig.rightShoulder.rotation.x, 0.35, dt * 8);
+                        rig.rightShoulder.rotation.y = THREE.MathUtils.lerp(rig.rightShoulder.rotation.y, 0, dt * 8);
+                        rig.torso.position.y = THREE.MathUtils.lerp(rig.torso.position.y, 1.30 + Math.sin(time * 3.2) * 0.03, dt * 8);
+                        rig.torso.rotation.x = THREE.MathUtils.lerp(rig.torso.rotation.x, 0.08, dt * 6);
+                    } else if (e.isBlocking) {
+                        rig.leftShoulder.rotation.x = THREE.MathUtils.lerp(rig.leftShoulder.rotation.x, -0.75, dt * 16);
+                        rig.leftShoulder.rotation.y = THREE.MathUtils.lerp(rig.leftShoulder.rotation.y, 0.8, dt * 16);
+                        rig.shieldGroup.position.set(0.05, -0.62, 0.35);
+                        rig.shieldGroup.rotation.x = THREE.MathUtils.lerp(rig.shieldGroup.rotation.x, 0.75, dt * 16);
+                        rig.shieldGroup.rotation.y = THREE.MathUtils.lerp(rig.shieldGroup.rotation.y, -0.45, dt * 16);
+                    } else {
+                        rig.shieldGroup.position.set(0.08, -0.62, 0.22);
+                        rig.shieldGroup.rotation.x = THREE.MathUtils.lerp(rig.shieldGroup.rotation.x, 0, dt * 14);
+                        rig.shieldGroup.rotation.y = THREE.MathUtils.lerp(rig.shieldGroup.rotation.y, 0, dt * 14);
+                        rig.leftShoulder.rotation.x = THREE.MathUtils.lerp(rig.leftShoulder.rotation.x, 0, dt * 12);
+                        rig.leftShoulder.rotation.y = THREE.MathUtils.lerp(rig.leftShoulder.rotation.y, 0, dt * 12);
+                        rig.rightShoulder.rotation.x = THREE.MathUtils.lerp(rig.rightShoulder.rotation.x, 0, dt * 12);
+                        rig.rightShoulder.rotation.y = THREE.MathUtils.lerp(rig.rightShoulder.rotation.y, 0, dt * 12);
+                    }
                 }
             });
         }
@@ -5836,7 +7122,7 @@
                 player.isBlocking = false;
             }
 
-            if (player.isDead) {
+            if (player.isDead || player.isExecuting) {
                 player.velocity.set(0, 0, 0);
                 return;
             }
@@ -6094,7 +7380,38 @@
                 updatePlayerMovement(dt);
                 updateEnemyAI(dt);
                 updateArenaTraps(dt);
+                updateEmperorsGifts(dt);
+                updatePilumRacks(dt);
+                updateShatteredArmor(dt);
+                checkExecutionOpportunity();
                 audio.updateWarDrums(dt, !introState.active);
+            }
+
+            // Weather Rain Particle simulation & Thunder
+            if (currentWeather === 'storm') {
+                const posAttr = rainGeo.attributes.position;
+                const arr = posAttr.array;
+                for (let i = 0; i < RAIN_COUNT; i++) {
+                    arr[i * 3 + 1] -= dt * 32;
+                    if (arr[i * 3 + 1] < 0) arr[i * 3 + 1] = 25;
+                }
+                posAttr.needsUpdate = true;
+
+                lightningTimer -= dt;
+                if (lightningTimer <= 0) {
+                    lightningTimer = 5.0 + Math.random() * 7.0;
+                    lightningFlashTimer = 0.18;
+                    audio.playThunder();
+                    cameraTrauma = Math.max(cameraTrauma, 0.45);
+                }
+                if (lightningFlashTimer > 0) {
+                    lightningFlashTimer -= dt;
+                    sunLight.intensity = 3.8;
+                    sunLight.color.setHex(0xebf2ff);
+                } else {
+                    sunLight.intensity = 0.45;
+                    sunLight.color.setHex(0x18243c);
+                }
             }
 
             animateRigs(dt);
@@ -6185,6 +7502,36 @@
                 triggerMeteorSlam();
             });
         }
+
+        // Initialize Colosseum Expansions
+        initEmperorTiberius();
+        initPilumRacks();
+
+        // Expose debug & testing handles to window
+        window.audio = audio;
+        window.player = player;
+        window.activeEnemies = activeEnemies;
+        window.ROUND_CONFIGS = ROUND_CONFIGS;
+        window.rainParticles = rainParticles;
+        window.bloodMoonGroup = bloodMoonGroup;
+        Object.defineProperty(window, 'crowdFavor', { get: () => crowdFavor, set: v => crowdFavor = v });
+        Object.defineProperty(window, 'currentWeather', { get: () => currentWeather });
+        Object.defineProperty(window, 'emperorTiberiusRig', { get: () => emperorTiberiusRig });
+        window.addCrowdFavor = addCrowdFavor;
+        window.updateColiseumAtmosphere = updateColiseumAtmosphere;
+        window.emperorsGifts = emperorsGifts;
+        window.pilumRacks = pilumRacks;
+        window.activeThrownPilums = activeThrownPilums;
+        window.shatteredArmorPieces = shatteredArmorPieces;
+        window.checkExecutionOpportunity = checkExecutionOpportunity;
+        window.executeFatalFinisher = executeFatalFinisher;
+        window.closeMainMenuAndStart = closeMainMenuAndStart;
+        window.createEnemyInstance = createEnemyInstance;
+        window.pickupPlayerPilum = pickupPlayerPilum;
+        window.throwPlayerPilum = throwPlayerPilum;
+        window.applyEmperorsGiftBuff = applyEmperorsGiftBuff;
+        window.shatterPauldron = shatterPauldron;
+        window.shatterHelmet = shatterHelmet;
 
         // Initialize Menu View on Load
         openMainMenu();
