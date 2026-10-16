@@ -831,38 +831,216 @@
             box-shadow: 0 0 12px rgba(255, 215, 0, 0.5);
         }
 
-        /* Armory Modal */
+        /* 3D Gladiator Workshop & Enchanter's Forge Modal */
         #armory-modal {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background: linear-gradient(180deg, rgba(22, 18, 25, 0.98), rgba(10, 8, 12, 0.99));
+            background: linear-gradient(180deg, rgba(20, 16, 24, 0.98), rgba(10, 8, 14, 0.99));
             border: 2px solid #ffd700;
-            padding: 24px 30px;
+            padding: 20px 24px;
             border-radius: 8px;
-            box-shadow: 0 20px 80px rgba(0,0,0,0.95);
+            box-shadow: 0 20px 80px rgba(0,0,0,0.96);
             z-index: 35;
             display: none;
-            max-width: 760px;
-            width: 94%;
+            max-width: 920px;
+            width: 96%;
             text-align: center;
             pointer-events: auto;
-            max-height: 85vh;
+            max-height: 88vh;
             overflow-y: auto;
         }
         #armory-modal.active { display: block; }
+        .workshop-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 12px;
+            margin-bottom: 14px;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+            padding-bottom: 10px;
+            flex-wrap: wrap;
+        }
+        .wtab-btn {
+            background: rgba(30, 24, 38, 0.85);
+            border: 1px solid rgba(212, 175, 55, 0.35);
+            color: #d8c8b0;
+            font-family: 'Cinzel', serif;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .wtab-btn:hover {
+            border-color: #ffd700;
+            color: #ffd700;
+            background: rgba(212, 175, 55, 0.15);
+        }
+        .wtab-btn.active {
+            border: 2px solid #ffd700;
+            color: #ffd700;
+            background: linear-gradient(180deg, rgba(70, 52, 20, 0.9), rgba(28, 20, 10, 0.95));
+            box-shadow: 0 0 12px rgba(255, 215, 0, 0.35);
+        }
+        .workshop-container {
+            display: flex;
+            gap: 18px;
+            align-items: stretch;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .mannequin-panel {
+            flex: 0 0 280px;
+            background: radial-gradient(circle at 50% 35%, rgba(45, 36, 56, 0.5), rgba(14, 11, 18, 0.95));
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            border-radius: 6px;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+        .mannequin-header {
+            font-size: 10px;
+            font-weight: 800;
+            color: #ffd700;
+            letter-spacing: 1.5px;
+            margin-bottom: 6px;
+        }
+        #mannequin-viewport {
+            width: 260px;
+            height: 320px;
+            position: relative;
+            cursor: grab;
+            user-select: none;
+            touch-action: none;
+        }
+        #mannequin-viewport:active {
+            cursor: grabbing;
+        }
+        #mannequin-canvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+            border-radius: 4px;
+        }
+        .mannequin-drag-hint {
+            position: absolute;
+            bottom: 6px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 8px;
+            color: rgba(255, 215, 0, 0.7);
+            letter-spacing: 1px;
+            background: rgba(0,0,0,0.6);
+            padding: 2px 8px;
+            border-radius: 10px;
+            pointer-events: none;
+            white-space: nowrap;
+        }
+        .mannequin-name-tag {
+            font-size: 11px;
+            font-weight: 800;
+            color: #00ffcc;
+            letter-spacing: 1px;
+            margin-top: 6px;
+            text-shadow: 0 0 8px rgba(0,255,204,0.4);
+        }
+        .workshop-details-panel {
+            flex: 1 1 480px;
+            text-align: left;
+            min-width: 280px;
+        }
+        .wtab-content { display: none; }
+        .wtab-content.active { display: block; }
+        .wtab-subheading {
+            font-size: 11px;
+            font-weight: 800;
+            color: #ffd700;
+            letter-spacing: 1.5px;
+            margin-bottom: 8px;
+        }
+        .runes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+            gap: 10px;
+        }
+        .rune-card {
+            background: rgba(28, 22, 34, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 6px;
+            padding: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .rune-card:hover {
+            transform: translateY(-2px);
+            border-color: #ffd700;
+        }
+        .rune-card.active {
+            border: 2px solid #00ffcc;
+            box-shadow: 0 0 16px rgba(0,255,204,0.4);
+            background: rgba(45, 34, 52, 0.95);
+        }
+        .rune-header { display: flex; align-items: center; gap: 8px; }
+        .rune-icon { font-size: 22px; }
+        .rune-name { font-size: 11.5px; font-weight: 800; color: #ffd700; }
+        .rune-proc { font-size: 9.5px; font-weight: 700; color: #00ffcc; margin-top: 4px; }
+        .rune-desc { font-size: 9px; color: #bbb; margin-top: 4px; line-height: 1.3; }
+        .rune-status { font-size: 9px; font-weight: 700; margin-top: 6px; }
+
+        .dyes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 8px;
+        }
+        .dye-card {
+            background: rgba(28, 22, 34, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 5px;
+            padding: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .dye-card:hover {
+            border-color: #ffd700;
+            transform: translateY(-2px);
+        }
+        .dye-card.active {
+            border: 2px solid #ffd700;
+            box-shadow: 0 0 12px rgba(255, 215, 0, 0.4);
+            background: rgba(45, 34, 52, 0.95);
+        }
+        .dye-swatch {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            border: 2px solid rgba(255,255,255,0.4);
+            box-shadow: 0 0 6px rgba(0,0,0,0.6);
+            flex-shrink: 0;
+        }
+        .dye-info { line-height: 1.2; }
+        .dye-title { font-size: 10px; font-weight: 800; color: #e6dfd5; }
+        .dye-desc { font-size: 8px; color: #aaa; margin-top: 2px; }
+
         .armory-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-            gap: 12px;
-            margin-top: 14px;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+            margin-top: 8px;
         }
         .trophy-card {
             background: rgba(28, 22, 32, 0.85);
             border: 1px solid rgba(255, 255, 255, 0.12);
             border-radius: 6px;
-            padding: 12px 10px;
+            padding: 10px 8px;
             text-align: center;
             transition: all 0.2s ease;
         }
@@ -879,10 +1057,10 @@
             box-shadow: 0 0 12px rgba(0, 255, 204, 0.5);
             background: rgba(0, 255, 204, 0.12);
         }
-        .trophy-icon { font-size: 26px; margin-bottom: 6px; }
-        .trophy-title { font-size: 11px; font-weight: 800; color: #ffd700; }
-        .trophy-desc { font-size: 9px; color: #bbb; margin-top: 4px; line-height: 1.3; }
-        .trophy-status { font-size: 9px; font-weight: 700; margin-top: 6px; }
+        .trophy-icon { font-size: 24px; margin-bottom: 4px; }
+        .trophy-title { font-size: 10.5px; font-weight: 800; color: #ffd700; }
+        .trophy-desc { font-size: 8.5px; color: #bbb; margin-top: 3px; line-height: 1.25; }
+        .trophy-status { font-size: 8.5px; font-weight: 700; margin-top: 5px; }
 
         /* Crowd Favor Meter */
         .crowd-favor-wrap {
@@ -1147,16 +1325,58 @@
         <button id="btn-return-menu-now" class="btn-vic-menu">⚔️ RETURN TO MENU NOW</button>
     </div>
 
-    <!-- Armory & Trophy Modal -->
+    <!-- 3D Gladiator Workshop & Enchanter's Forge Modal -->
     <div id="armory-modal">
         <div class="modal-header">
-            <h2>👑 COLISEUM TROPHY ARMORY</h2>
+            <h2>👑 GLADIATOR WORKSHOP &amp; ENCHANTER'S FORGE</h2>
             <button id="btn-close-armory" class="btn-close-modal">&times;</button>
         </div>
-        <p style="font-size: 12px; color: #d8c8b0; margin-bottom: 14px;">
-            Defeat champions in the 1v1 Tournament to permanently unlock and equip their legendary helmets, plumes, and heraldry!
-        </p>
-        <div id="armory-trophies-grid" class="armory-grid"></div>
+        
+        <!-- Workshop Navigation Tabs -->
+        <div class="workshop-tabs">
+            <button class="wtab-btn active" data-tab="runes">⚡ ELEMENTAL RUNES</button>
+            <button class="wtab-btn" data-tab="dyes">🎨 HERALDRY &amp; CAPE DYES</button>
+            <button class="wtab-btn" data-tab="trophies">👑 TROPHY HELMETS</button>
+        </div>
+
+        <div class="workshop-container">
+            <!-- Left: 360 Interactive 3D Mannequin Viewport -->
+            <div class="mannequin-panel">
+                <div class="mannequin-header">GLADIATOR PREVIEW &bull; 360&deg; ROTATING</div>
+                <div id="mannequin-viewport">
+                    <canvas id="mannequin-canvas" width="260" height="320"></canvas>
+                    <div class="mannequin-drag-hint">🖱️ DRAG TO ROTATE &bull; 360&deg; VIEW</div>
+                </div>
+                <div id="mannequin-gladiator-title" class="mannequin-name-tag">IMPERIAL CHAMPION</div>
+            </div>
+
+            <!-- Right: Tab Contents -->
+            <div class="workshop-details-panel">
+                <!-- Tab 1: Elemental Runes -->
+                <div id="tab-content-runes" class="wtab-content active">
+                    <div class="wtab-subheading">IMBUE YOUR WEAPON WITH ELEMENTAL RUNES</div>
+                    <div id="runes-grid" class="runes-grid"></div>
+                </div>
+
+                <!-- Tab 2: Dyes & Heraldry -->
+                <div id="tab-content-dyes" class="wtab-content">
+                    <div class="wtab-subheading">SELECT IMPERIAL CAPE DYE</div>
+                    <div id="cape-dyes-grid" class="dyes-grid"></div>
+
+                    <div class="wtab-subheading" style="margin-top: 14px;">SELECT ARMOR PLATE FINISH</div>
+                    <div id="armor-finish-grid" class="dyes-grid"></div>
+                </div>
+
+                <!-- Tab 3: Trophies -->
+                <div id="tab-content-trophies" class="wtab-content">
+                    <div class="wtab-subheading">EQUIP DEFEATED CHAMPION TROPHIES</div>
+                    <p style="font-size: 11px; color: #d8c8b0; margin-bottom: 8px;">
+                        Defeat champions in the 1v1 Tournament to unlock their legendary helmets and crests!
+                    </p>
+                    <div id="armory-trophies-grid" class="armory-grid"></div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Main Menu Screen (Shown on Open) -->
@@ -1787,6 +2007,175 @@
                 osc.start(now);
                 osc.stop(now + 0.26);
             }
+
+            playLimbSever() {
+                if (!this.ctx || !this.noiseBuffer) return;
+                const now = this.ctx.currentTime;
+                const noise = this.ctx.createBufferSource();
+                noise.buffer = this.noiseBuffer;
+                const filter = this.ctx.createBiquadFilter();
+                filter.type = 'bandpass';
+                filter.frequency.setValueAtTime(1400, now);
+                filter.frequency.exponentialRampToValueAtTime(180, now + 0.28);
+                filter.Q.setValueAtTime(3.5, now);
+
+                const gain = this.ctx.createGain();
+                gain.gain.setValueAtTime(0.65, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
+
+                noise.connect(filter);
+                filter.connect(gain);
+                gain.connect(this.ctx.destination);
+                noise.start(now);
+                noise.stop(now + 0.38);
+
+                const osc = this.ctx.createOscillator();
+                const oGain = this.ctx.createGain();
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(140, now);
+                osc.frequency.exponentialRampToValueAtTime(28, now + 0.3);
+                oGain.gain.setValueAtTime(0.55, now);
+                oGain.gain.exponentialRampToValueAtTime(0.001, now + 0.34);
+                osc.connect(oGain);
+                oGain.connect(this.ctx.destination);
+                osc.start(now);
+                osc.stop(now + 0.36);
+            }
+
+            playDecapitationCrunch() {
+                if (!this.ctx || !this.noiseBuffer) return;
+                const now = this.ctx.currentTime;
+                const osc = this.ctx.createOscillator();
+                const gain = this.ctx.createGain();
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(950, now);
+                osc.frequency.exponentialRampToValueAtTime(110, now + 0.25);
+                gain.gain.setValueAtTime(0.7, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.32);
+                osc.connect(gain);
+                gain.connect(this.ctx.destination);
+                osc.start(now);
+                osc.stop(now + 0.35);
+
+                const bone = this.ctx.createOscillator();
+                const bGain = this.ctx.createGain();
+                bone.type = 'square';
+                bone.frequency.setValueAtTime(450, now);
+                bone.frequency.exponentialRampToValueAtTime(50, now + 0.12);
+                bGain.gain.setValueAtTime(0.65, now);
+                bGain.gain.exponentialRampToValueAtTime(0.001, now + 0.16);
+                bone.connect(bGain);
+                bGain.connect(this.ctx.destination);
+                bone.start(now);
+                bone.stop(now + 0.18);
+
+                const hiss = this.ctx.createBufferSource();
+                hiss.buffer = this.noiseBuffer;
+                const hFilter = this.ctx.createBiquadFilter();
+                hFilter.type = 'highpass';
+                hFilter.frequency.setValueAtTime(1800, now);
+                const hGain = this.ctx.createGain();
+                hGain.gain.setValueAtTime(0.35, now);
+                hGain.gain.exponentialRampToValueAtTime(0.001, now + 0.7);
+                hiss.connect(hFilter);
+                hFilter.connect(hGain);
+                hGain.connect(this.ctx.destination);
+                hiss.start(now);
+                hiss.stop(now + 0.75);
+            }
+
+            playLightningZap() {
+                if (!this.ctx || !this.noiseBuffer) return;
+                const now = this.ctx.currentTime;
+                const osc = this.ctx.createOscillator();
+                const gain = this.ctx.createGain();
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(1200, now);
+                osc.frequency.exponentialRampToValueAtTime(120, now + 0.24);
+                gain.gain.setValueAtTime(0.5, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.28);
+                osc.connect(gain);
+                gain.connect(this.ctx.destination);
+                osc.start(now);
+                osc.stop(now + 0.3);
+
+                const noise = this.ctx.createBufferSource();
+                noise.buffer = this.noiseBuffer;
+                const filter = this.ctx.createBiquadFilter();
+                filter.type = 'bandpass';
+                filter.frequency.setValueAtTime(3200, now);
+                filter.Q.setValueAtTime(6.0, now);
+                const nGain = this.ctx.createGain();
+                nGain.gain.setValueAtTime(0.4, now);
+                nGain.gain.exponentialRampToValueAtTime(0.001, now + 0.25);
+                noise.connect(filter);
+                filter.connect(nGain);
+                nGain.connect(this.ctx.destination);
+                noise.start(now);
+                noise.stop(now + 0.28);
+            }
+
+            playFrostChime() {
+                if (!this.ctx || !this.noiseBuffer) return;
+                const now = this.ctx.currentTime;
+                [1760, 2637, 3520].forEach((freq, idx) => {
+                    const osc = this.ctx.createOscillator();
+                    const gain = this.ctx.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(freq, now + idx * 0.03);
+                    gain.gain.setValueAtTime(0.22 / (idx + 1), now + idx * 0.03);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.65 + idx * 0.1);
+                    osc.connect(gain);
+                    gain.connect(this.ctx.destination);
+                    osc.start(now + idx * 0.03);
+                    osc.stop(now + 0.85);
+                });
+
+                const noise = this.ctx.createBufferSource();
+                noise.buffer = this.noiseBuffer;
+                const filter = this.ctx.createBiquadFilter();
+                filter.type = 'highpass';
+                filter.frequency.setValueAtTime(2400, now);
+                const gain = this.ctx.createGain();
+                gain.gain.setValueAtTime(0.2, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.5);
+                noise.connect(filter);
+                filter.connect(gain);
+                gain.connect(this.ctx.destination);
+                noise.start(now);
+                noise.stop(now + 0.55);
+            }
+
+            playFireSizzle() {
+                if (!this.ctx || !this.noiseBuffer) return;
+                const now = this.ctx.currentTime;
+                const bass = this.ctx.createOscillator();
+                const bGain = this.ctx.createGain();
+                bass.type = 'sawtooth';
+                bass.frequency.setValueAtTime(140, now);
+                bass.frequency.exponentialRampToValueAtTime(40, now + 0.35);
+                bGain.gain.setValueAtTime(0.45, now);
+                bGain.gain.exponentialRampToValueAtTime(0.001, now + 0.4);
+                bass.connect(bGain);
+                bGain.connect(this.ctx.destination);
+                bass.start(now);
+                bass.stop(now + 0.42);
+
+                const noise = this.ctx.createBufferSource();
+                noise.buffer = this.noiseBuffer;
+                const filter = this.ctx.createBiquadFilter();
+                filter.type = 'bandpass';
+                filter.frequency.setValueAtTime(1600, now);
+                filter.Q.setValueAtTime(2.0, now);
+                const gain = this.ctx.createGain();
+                gain.gain.setValueAtTime(0.35, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.55);
+                noise.connect(filter);
+                filter.connect(gain);
+                gain.connect(this.ctx.destination);
+                noise.start(now);
+                noise.stop(now + 0.6);
+            }
         }
 
         const audio = new ArenaSoundEngine();
@@ -2059,6 +2448,26 @@
                 fauldPlate.position.y = -0.38 - t * 0.08;
                 torsoGroup.add(fauldPlate);
             }
+
+            // Bloody neck stump (revealed upon decapitation)
+            const neckStump = new THREE.Group();
+            neckStump.name = 'neckStump';
+            neckStump.position.y = 0.58 * bodyBulk;
+            neckStump.visible = false;
+            torsoGroup.add(neckStump);
+
+            const neckFlesh = new THREE.Mesh(
+                new THREE.CylinderGeometry(0.18 * bodyBulk, 0.20 * bodyBulk, 0.16, 12),
+                new THREE.MeshStandardMaterial({ color: 0x8b0000, roughness: 0.65, metalness: 0.1 })
+            );
+            neckStump.add(neckFlesh);
+
+            const neckBone = new THREE.Mesh(
+                new THREE.CylinderGeometry(0.07 * bodyBulk, 0.07 * bodyBulk, 0.20, 8),
+                new THREE.MeshStandardMaterial({ color: 0xfaf0e6, roughness: 0.85, metalness: 0.05 })
+            );
+            neckBone.position.y = 0.02;
+            neckStump.add(neckBone);
 
             // Head & Distinct Helmets
             const headGroup = new THREE.Group();
@@ -2390,6 +2799,12 @@
             swordGroup.rotation.x = Math.PI / 2;
             rightShoulder.add(swordGroup);
 
+            // Dynamic point light for elemental weapon rune glow
+            const swordRuneLight = new THREE.PointLight(0x00d0ff, 0, 4.5);
+            swordRuneLight.position.set(0, 0.8, 0);
+            swordRuneLight.name = 'swordRuneLight';
+            swordGroup.add(swordRuneLight);
+
             // 8 Distinct Unique 3D Weapons
             if (weaponType === 'morningstar' || weaponType === 'mace') {
                 const shaft = new THREE.Mesh(new THREE.CylinderGeometry(0.04, 0.045, 1.35, 8), new THREE.MeshStandardMaterial({ color: 0x241810, roughness: 0.85 }));
@@ -2581,6 +2996,25 @@
             }
 
             // Left Arm & Authentic 3D Shield
+            const bloodyStump = new THREE.Group();
+            bloodyStump.name = 'bloodyStump';
+            bloodyStump.visible = false;
+            leftShoulder.add(bloodyStump);
+
+            const fleshStump = new THREE.Mesh(
+                new THREE.CylinderGeometry(0.12 * bodyBulk, 0.10 * bodyBulk, 0.24, 10),
+                new THREE.MeshStandardMaterial({ color: 0x8b0000, roughness: 0.6, metalness: 0.1 })
+            );
+            fleshStump.position.y = -0.12;
+            bloodyStump.add(fleshStump);
+
+            const boneCore = new THREE.Mesh(
+                new THREE.CylinderGeometry(0.045 * bodyBulk, 0.04 * bodyBulk, 0.28, 8),
+                new THREE.MeshStandardMaterial({ color: 0xf5f0e6, roughness: 0.8, metalness: 0.05 })
+            );
+            boneCore.position.y = -0.14;
+            bloodyStump.add(boneCore);
+
             const lArm = new THREE.Mesh(new THREE.CylinderGeometry(0.1 * bodyBulk, 0.08 * bodyBulk, 0.45, 8), armorMat);
             lArm.position.y = -0.26;
             leftShoulder.add(lArm);
@@ -2797,12 +3231,21 @@
                 rightShoulder,
                 leftShoulder,
                 shieldGroup,
+                lArm,
+                lForearm,
+                lGauntlet,
+                bloodyStump,
+                neckStump,
                 leftLeg,
                 rightLeg,
                 lGreave,
                 rGreave,
                 swordGroup,
                 capeSegments,
+                capeMat,
+                armorMat,
+                trimMat,
+                plumeMat,
                 pauldronL: leftShoulder.getObjectByName('pauldronGroup'),
                 pauldronR: rightShoulder.getObjectByName('pauldronGroup')
             };
@@ -3055,11 +3498,16 @@
                                 crowdExcitementTimer = 3.0;
                                 showDamageNumber(e.pos.clone().add(new THREE.Vector3(0, 2.0, 0)), "IMPALED! -55 HP", "#ffd700");
                                 spawnBloodSplatter(e.pos);
-                                spawnClashSparks(e.pos);
                                 addCrowdFavor(20);
                                 shatterPauldron(e, 'right');
+                                if (e.hp <= e.maxHp * 0.45 && !e.isArmSevered && !e.isLion && e.hasShield) {
+                                    severEnemyShieldArm(e);
+                                }
                                 updateHUD();
-                                if (e.hp <= 0) onSingleEnemyKilled(e);
+                                if (e.hp <= 0) {
+                                    if (!e.isDecapitated && !e.isLion) decapitateEnemy(e);
+                                    onSingleEnemyKilled(e);
+                                }
                             }
                         }
                     });
@@ -3911,6 +4359,7 @@
             executionTimer: 0,
             activeGiftBuff: null,
             giftBuffTimer: 0,
+            activeRune: 'thunder',
             equippedCosmetics: {
                 armorColor: 0x8a9ba8,
                 trimColor: 0xd4af37,
@@ -4755,6 +5204,12 @@
                     piece.vel.x *= 0.6;
                     piece.vel.z *= 0.6;
                     piece.rotVel.multiplyScalar(0.7);
+
+                    if (piece.isSeveredHead || piece.isSeveredLimb) {
+                        if (Math.abs(piece.vel.y) > 0.4) {
+                            spawnBloodPuddle(piece.pos, 0.32);
+                        }
+                    }
                 }
 
                 if (piece.life <= 0) {
@@ -4762,6 +5217,298 @@
                     shatteredArmorPieces.splice(i, 1);
                 }
             }
+        }
+
+        // =========================================================
+        // FEATURE 5: GLADIATORIAL CARNAGE & SEVERED LIMBS
+        // =========================================================
+        const activeBloodSpurts = [];
+
+        function addArterialSpurt(enemy, type = 'arm') {
+            if (!enemy) return;
+            activeBloodSpurts.push({
+                enemy,
+                type,
+                timer: type === 'neck' ? 3.5 : 2.8,
+                spurtInterval: 0.14,
+                spurtClock: 0
+            });
+        }
+
+        function severEnemyShieldArm(enemy) {
+            if (!enemy || !enemy.rig || enemy.isArmSevered || enemy.isLion) return;
+            enemy.isArmSevered = true;
+            enemy.hasShield = false;
+            enemy.blockChance = 0;
+            enemy.isBlocking = false;
+            enemy.canBlock = false;
+
+            // Hide arm & shield parts
+            if (enemy.rig.lArm) enemy.rig.lArm.visible = false;
+            if (enemy.rig.lForearm) enemy.rig.lForearm.visible = false;
+            if (enemy.rig.lGauntlet) enemy.rig.lGauntlet.visible = false;
+            if (enemy.rig.shieldGroup) enemy.rig.shieldGroup.visible = false;
+            if (enemy.rig.pauldronL) enemy.rig.pauldronL.visible = false;
+
+            // Reveal bloody bone stump
+            if (enemy.rig.bloodyStump) enemy.rig.bloodyStump.visible = true;
+
+            audio.playLimbSever();
+            hitStopTimer = Math.max(hitStopTimer, 0.08);
+            cameraTrauma = Math.max(cameraTrauma, 0.65);
+
+            // Construct tumbling severed arm & shield physics composite mesh
+            const armMeshGroup = new THREE.Group();
+            const fleshColor = 0x8b0000;
+            const armorColor = enemy.rig.torso?.children[0]?.material?.color?.getHex() || 0x555555;
+            const aMat = new THREE.MeshStandardMaterial({ color: armorColor, metalness: 0.88, roughness: 0.22 });
+            const fMat = new THREE.MeshStandardMaterial({ color: fleshColor, roughness: 0.65 });
+
+            const armCyl = new THREE.Mesh(new THREE.CylinderGeometry(0.1, 0.08, 0.45, 8), aMat);
+            armCyl.position.y = 0.2;
+            armMeshGroup.add(armCyl);
+
+            const stumpPlug = new THREE.Mesh(new THREE.SphereGeometry(0.1, 8, 8), fMat);
+            stumpPlug.position.y = 0.42;
+            armMeshGroup.add(stumpPlug);
+
+            const boneCore = new THREE.Mesh(new THREE.CylinderGeometry(0.04, 0.035, 0.25, 8), new THREE.MeshStandardMaterial({ color: 0xfaf0e6, roughness: 0.85 }));
+            boneCore.position.y = 0.48;
+            armMeshGroup.add(boneCore);
+
+            const forearmCyl = new THREE.Mesh(new THREE.CylinderGeometry(0.09, 0.08, 0.42, 8), aMat);
+            forearmCyl.position.y = -0.2;
+            armMeshGroup.add(forearmCyl);
+
+            const gauntletBox = new THREE.Mesh(new THREE.BoxGeometry(0.12, 0.16, 0.1), aMat);
+            gauntletBox.position.set(0, -0.42, 0.05);
+            armMeshGroup.add(gauntletBox);
+
+            // Severed shield attached to forearm
+            const shieldPlate = new THREE.Mesh(new THREE.BoxGeometry(0.82, 1.25, 0.07), aMat);
+            shieldPlate.position.set(0.12, -0.2, 0.18);
+            armMeshGroup.add(shieldPlate);
+
+            const spawnPos = enemy.pos.clone().add(new THREE.Vector3(-0.55, 1.35, 0.1));
+            armMeshGroup.position.copy(spawnPos);
+            scene.add(armMeshGroup);
+
+            // Tumble velocity flung outwards and backward with heavy spin
+            const vel = new THREE.Vector3(-3.2 - Math.random() * 2.0, 5.0 + Math.random() * 2.0, (Math.random() - 0.5) * 3.0);
+            const rotVel = new THREE.Vector3(Math.random() * 9, Math.random() * 9, Math.random() * 9);
+
+            shatteredArmorPieces.push({
+                mesh: armMeshGroup,
+                pos: spawnPos,
+                vel,
+                rotVel,
+                life: 16.0,
+                isSeveredLimb: true
+            });
+
+            // Arterial blood burst and continuous arterial spurt
+            spawnBloodSplatter(spawnPos);
+            spawnBloodPuddle(spawnPos, 0.95);
+            addArterialSpurt(enemy, 'arm');
+
+            showDamageNumber(spawnPos, "⚔️ SHIELD ARM SEVERED!", "#ff1a1a");
+            showDamageNumber(spawnPos.clone().add(new THREE.Vector3(0, 0.55, 0)), "BLOCKING DESTROYED!", "#ffd700");
+            addCrowdFavor(18);
+
+            // Bleed damage over time
+            enemy.isBleeding = true;
+            enemy.bleedTimer = 6.0;
+            enemy.bleedTickTimer = 1.2;
+        }
+
+        function decapitateEnemy(enemy) {
+            if (!enemy || !enemy.rig || enemy.isDecapitated || enemy.isLion) return;
+            enemy.isDecapitated = true;
+
+            // Hide original head
+            if (enemy.rig.head) enemy.rig.head.visible = false;
+
+            // Reveal bloody neck stump on torso
+            if (enemy.rig.neckStump) enemy.rig.neckStump.visible = true;
+
+            audio.playDecapitationCrunch();
+
+            // Severed helmet & head physics mesh
+            const headMeshGroup = new THREE.Group();
+            const armorColor = enemy.rig.torso?.children[0]?.material?.color?.getHex() || 0x666666;
+            const helmMat = new THREE.MeshStandardMaterial({
+                color: armorColor,
+                metalness: 0.9,
+                roughness: 0.2
+            });
+            const fleshMat = new THREE.MeshStandardMaterial({ color: 0x8b0000, roughness: 0.7 });
+
+            const helm = new THREE.Mesh(new THREE.CylinderGeometry(0.24, 0.26, 0.38, 10), helmMat);
+            headMeshGroup.add(helm);
+
+            const dome = new THREE.Mesh(new THREE.SphereGeometry(0.24, 10, 8, 0, Math.PI * 2, 0, Math.PI * 0.5), helmMat);
+            dome.position.y = 0.19;
+            headMeshGroup.add(dome);
+
+            const visor = new THREE.Mesh(new THREE.BoxGeometry(0.3, 0.05, 0.14), new THREE.MeshBasicMaterial({ color: 0x050505 }));
+            visor.position.set(0, 0.05, 0.14);
+            headMeshGroup.add(visor);
+
+            const goreNeck = new THREE.Mesh(new THREE.CylinderGeometry(0.16, 0.14, 0.15, 8), fleshMat);
+            goreNeck.position.y = -0.22;
+            headMeshGroup.add(goreNeck);
+
+            const spawnPos = enemy.pos.clone().add(new THREE.Vector3(0, 1.85, 0));
+            headMeshGroup.position.copy(spawnPos);
+            scene.add(headMeshGroup);
+
+            // Flying trajectory: propelled up and rolling forward across the sand
+            const forwardDir = new THREE.Vector3(-Math.sin(enemy.rotY), 0, -Math.cos(enemy.rotY));
+            const vel = new THREE.Vector3(
+                forwardDir.x * (3.8 + Math.random() * 2) + (Math.random() - 0.5) * 2,
+                6.0 + Math.random() * 2.5,
+                forwardDir.z * (3.8 + Math.random() * 2) + (Math.random() - 0.5) * 2
+            );
+            const rotVel = new THREE.Vector3(Math.random() * 12 + 6, Math.random() * 10, Math.random() * 8);
+
+            shatteredArmorPieces.push({
+                mesh: headMeshGroup,
+                pos: spawnPos,
+                vel,
+                rotVel,
+                life: 18.0,
+                isSeveredHead: true
+            });
+
+            // High pressure arterial blood fountain shooting into the air
+            addArterialSpurt(enemy, 'neck');
+            spawnBloodSplatter(spawnPos);
+            spawnBloodPuddle(spawnPos, 1.15);
+
+            showDamageNumber(spawnPos.clone().add(new THREE.Vector3(0, 0.8, 0)), "💀 DECAPITATED!", "#ff0000");
+        }
+
+        function spawnSingleBloodDrop(pos, vel) {
+            const b = new THREE.Mesh(new THREE.SphereGeometry(0.045, 4, 4), new THREE.MeshBasicMaterial({ color: 0x8a0b0b }));
+            b.position.copy(pos);
+            scene.add(b);
+            bloodParticles.push({ mesh: b, vel, life: 0.65, maxLife: 0.65 });
+        }
+
+        function spawnLightningParticle(pos) {
+            const p = new THREE.Mesh(
+                new THREE.SphereGeometry(0.06, 4, 4),
+                new THREE.MeshBasicMaterial({ color: 0x00d0ff })
+            );
+            p.position.copy(pos).add(new THREE.Vector3((Math.random() - 0.5) * 0.4, (Math.random() - 0.5) * 0.4, (Math.random() - 0.5) * 0.4));
+            scene.add(p);
+            sparkParticles.push({
+                mesh: p,
+                vel: new THREE.Vector3((Math.random() - 0.5) * 4, Math.random() * 4 + 1, (Math.random() - 0.5) * 4),
+                life: 0.22,
+                maxLife: 0.22
+            });
+        }
+
+        function spawnFrostMistParticle(pos) {
+            const p = new THREE.Mesh(
+                new THREE.SphereGeometry(0.07, 4, 4),
+                new THREE.MeshBasicMaterial({ color: 0xa0e8ff, transparent: true, opacity: 0.7 })
+            );
+            p.position.copy(pos);
+            scene.add(p);
+            sparkParticles.push({
+                mesh: p,
+                vel: new THREE.Vector3((Math.random() - 0.5) * 0.8, Math.random() * 0.8 + 0.2, (Math.random() - 0.5) * 0.8),
+                life: 0.45,
+                maxLife: 0.45
+            });
+        }
+
+        function updateStatusEffects(dt) {
+            if (!gameActive) return;
+
+            // 1. Arterial Blood Spurts from severed limbs/heads
+            for (let i = activeBloodSpurts.length - 1; i >= 0; i--) {
+                const s = activeBloodSpurts[i];
+                s.timer -= dt;
+                s.spurtClock += dt;
+                if (s.spurtClock >= s.spurtInterval) {
+                    s.spurtClock = 0;
+                    if (s.type === 'neck') {
+                        const neckPos = s.enemy.pos.clone().add(new THREE.Vector3(0, 1.8, 0));
+                        for (let b = 0; b < 3; b++) {
+                            const vel = new THREE.Vector3(
+                                (Math.random() - 0.5) * 1.6,
+                                4.2 + Math.random() * 2.5,
+                                (Math.random() - 0.5) * 1.6
+                            );
+                            spawnSingleBloodDrop(neckPos, vel);
+                        }
+                    } else {
+                        const armPos = s.enemy.pos.clone().add(new THREE.Vector3(-0.55, 1.35, 0));
+                        for (let b = 0; b < 2; b++) {
+                            const vel = new THREE.Vector3(
+                                -2.5 - Math.random() * 1.6,
+                                2.0 + Math.random() * 1.8,
+                                (Math.random() - 0.5) * 1.4
+                            );
+                            spawnSingleBloodDrop(armPos, vel);
+                        }
+                    }
+                }
+                if (s.timer <= 0) {
+                    activeBloodSpurts.splice(i, 1);
+                }
+            }
+
+            // 2. Enemy Burn, Bleed, and Frost Slow Ticks
+            activeEnemies.forEach(e => {
+                if (e.isDead) return;
+
+                // Burning tick
+                if (e.burnTimer > 0) {
+                    e.burnTimer -= dt;
+                    e.burnTickTimer -= dt;
+                    if (e.burnTickTimer <= 0) {
+                        e.burnTickTimer = 1.0;
+                        e.hp = Math.max(0, e.hp - 6);
+                        spawnBladeSwingSparks(e.pos.clone().add(new THREE.Vector3(0, 1.2, 0)), 3);
+                        showDamageNumber(e.pos.clone().add(new THREE.Vector3(0, 1.6, 0)), "-6 🔥 BURN", "#ff5500");
+                        updateHUD();
+                        if (e.hp <= 0) onSingleEnemyKilled(e);
+                    }
+                }
+
+                // Bleeding tick from severed shield arm
+                if (e.bleedTimer > 0) {
+                    e.bleedTimer -= dt;
+                    e.bleedTickTimer -= dt;
+                    if (e.bleedTickTimer <= 0) {
+                        e.bleedTickTimer = 1.2;
+                        e.hp = Math.max(0, e.hp - 4);
+                        spawnBloodPuddle(e.pos, 0.35);
+                        showDamageNumber(e.pos.clone().add(new THREE.Vector3(0, 1.4, 0)), "-4 🩸 BLEED", "#cc0000");
+                        updateHUD();
+                        if (e.hp <= 0) onSingleEnemyKilled(e);
+                    }
+                }
+
+                // Frost slow
+                if (e.frostSlowTimer > 0) {
+                    e.frostSlowTimer -= dt;
+                    if (e.frostSlowTimer <= 0) {
+                        e.isChilled = false;
+                    } else if (Math.random() < 0.25) {
+                        const mistPos = e.pos.clone().add(new THREE.Vector3(
+                            (Math.random() - 0.5) * 0.7,
+                            0.7 + Math.random() * 0.8,
+                            (Math.random() - 0.5) * 0.7
+                        ));
+                        spawnFrostMistParticle(mistPos);
+                    }
+                }
+            });
         }
 
         // =========================================================
@@ -4819,12 +5566,14 @@
             audio.playCheer();
             audio.playFanfare();
 
-            showAnnouncement("💀 FATAL EXECUTION!", "THE SANDS CLAIM ANOTHER GLADIATOR!");
+            showAnnouncement("💀 FATAL EXECUTION!", "POLLICE VERSO &bull; DECAPITATED!");
             showDamageNumber(enemy.pos.clone().add(new THREE.Vector3(0, 2.2, 0)), "FATALITY!", "#ff0000");
 
-            shatterHelmet(enemy);
             shatterPauldron(enemy, 'left');
             shatterPauldron(enemy, 'right');
+            // Clean decapitation upon execution!
+            decapitateEnemy(enemy);
+
             spawnBloodSplatter(enemy.pos.clone().add(new THREE.Vector3(0, 1.4, 0)));
             spawnVictoryConfetti();
 
@@ -4937,11 +5686,338 @@
             }
         }
 
+        // =========================================================
+        // FEATURE 6: 3D GLADIATOR WORKSHOP, DYES & ENCHANTER'S FORGE
+        // =========================================================
+        const ELEMENTAL_RUNES = [
+            {
+                id: 'thunder',
+                name: "Jupiter's Thunder",
+                icon: "⚡",
+                color: "#00d0ff",
+                glowHex: 0x00d0ff,
+                procText: "+18 Shock & Chain Lightning",
+                desc: "3rd combo strikes & charged thrusts discharge celestial chain lightning to target & nearby foes for +18 shock damage."
+            },
+            {
+                id: 'frost',
+                name: "Boreas' Glacial Frost",
+                icon: "❄️",
+                color: "#7fe5ff",
+                glowHex: 0x7fe5ff,
+                procText: "-25% Enemy Speed & Chill",
+                desc: "Blades coated in permafrost. Strikes slow enemy sprint speed and attack cadence by 25% for 3.5 seconds."
+            },
+            {
+                id: 'fire',
+                name: "Vulcan's Hellfire",
+                icon: "🔥",
+                color: "#ff6600",
+                glowHex: 0xff6600,
+                procText: "Lingering Burn (4 Ticks)",
+                desc: "Smoldering volcanic embers ignite enemies on hit with a 4-second lingering burn ticking 4 times for damage."
+            },
+            {
+                id: 'steel',
+                name: "Honed Damascene Steel",
+                icon: "⚔️",
+                color: "#e6e6e6",
+                glowHex: null,
+                procText: "+15% Poise Damage",
+                desc: "Pure razor-honed folded Roman steel. Delivers +15% poise damage on all heavy strikes."
+            }
+        ];
+
+        const ROMAN_CAPE_DYES = [
+            { id: 'tyrian_crimson', name: "Tyrian Crimson", hex: 0x8b1515, css: "#8b1515", desc: "Imperial Roman royal murex purple-red." },
+            { id: 'caesar_gold', name: "Caesar's Gold", hex: 0xd4af37, css: "#d4af37", desc: "Triumphal golden laurel silk." },
+            { id: 'shadow_obsidian', name: "Shadow Obsidian", hex: 0x1a191d, css: "#1a191d", desc: "Gladiator executioner midnight cloak." },
+            { id: 'phantom_cyan', name: "Phantom Cyan", hex: 0x147d8e, css: "#147d8e", desc: "Spectral underworld teal weave." },
+            { id: 'praetorian_emerald', name: "Praetorian Emerald", hex: 0x1c613b, css: "#1c613b", desc: "Elite imperial guard jade velvet." },
+            { id: 'marble_white', name: "Senatorial Marble", hex: 0xdcd8cf, css: "#dcd8cf", desc: "Honorable patrician woven wool." }
+        ];
+
+        const ROMAN_ARMOR_FINISHES = [
+            { id: 'steel', name: "Burnished Steel", hex: 0x555860, css: "#555860", desc: "Classic high-carbon battle-hardened steel." },
+            { id: 'praetorian_gold', name: "Praetorian Gilded", hex: 0x9e8134, css: "#9e8134", desc: "Lavish gold leaf over heavy iron plate." },
+            { id: 'dark_damascene', name: "Dark Damascene", hex: 0x252229, css: "#252229", desc: "Intimidating black folded steel cuirass." },
+            { id: 'centurion_bronze', name: "Centurion Bronze", hex: 0x7b4b2a, css: "#7b4b2a", desc: "Ancient weathered archaic bronze patina." }
+        ];
+
+        function loadPlayerCustomizations() {
+            try {
+                const stored = localStorage.getItem('coliseum_gladiator_custom');
+                if (stored) {
+                    const data = JSON.parse(stored);
+                    if (data.activeRune) player.activeRune = data.activeRune;
+                    if (data.equippedCosmetics) Object.assign(player.equippedCosmetics, data.equippedCosmetics);
+                }
+            } catch(e) {}
+        }
+
+        function savePlayerCustomizations() {
+            try {
+                localStorage.setItem('coliseum_gladiator_custom', JSON.stringify({
+                    activeRune: player.activeRune,
+                    equippedCosmetics: player.equippedCosmetics
+                }));
+            } catch(e) {}
+        }
+
+        // 3D Mannequin Sub-Scene
+        let mannequinScene = null;
+        let mannequinCamera = null;
+        let mannequinRenderer = null;
+        let mannequinRig = null;
+        let mannequinAngle = 0;
+        let mannequinDragging = false;
+        let mannequinLastPointerX = 0;
+        let isMannequinActive = false;
+
+        function initMannequin() {
+            const canvas = document.getElementById('mannequin-canvas');
+            if (!canvas || mannequinRenderer) return;
+
+            mannequinScene = new THREE.Scene();
+            mannequinCamera = new THREE.PerspectiveCamera(40, 260 / 320, 0.1, 50);
+            mannequinCamera.position.set(0, 1.45, 3.8);
+            mannequinCamera.lookAt(0, 1.15, 0);
+
+            mannequinRenderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+            mannequinRenderer.setSize(260, 320);
+            mannequinRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+            mannequinRenderer.toneMapping = THREE.ACESFilmicToneMapping;
+            mannequinRenderer.toneMappingExposure = 1.35;
+
+            // Pedestal platform
+            const pedestal = new THREE.Mesh(
+                new THREE.CylinderGeometry(0.9, 0.95, 0.12, 32),
+                new THREE.MeshStandardMaterial({ color: 0x3a323c, metalness: 0.6, roughness: 0.4 })
+            );
+            pedestal.position.y = -0.06;
+            mannequinScene.add(pedestal);
+
+            const rim = new THREE.Mesh(
+                new THREE.TorusGeometry(0.92, 0.03, 8, 32),
+                new THREE.MeshStandardMaterial({ color: 0xd4af37, metalness: 0.95, roughness: 0.15 })
+            );
+            rim.rotation.x = Math.PI / 2;
+            rim.position.y = -0.01;
+            mannequinScene.add(rim);
+
+            // Lighting for Mannequin
+            const keyLight = new THREE.DirectionalLight(0xfffaed, 2.0);
+            keyLight.position.set(3, 5, 4);
+            mannequinScene.add(keyLight);
+
+            const rimLight = new THREE.DirectionalLight(0x7090ff, 1.2);
+            rimLight.position.set(-3, 3, -3);
+            mannequinScene.add(rimLight);
+
+            const ambLight = new THREE.AmbientLight(0x403050, 1.1);
+            mannequinScene.add(ambLight);
+
+            // Setup mouse & touch drag handlers
+            const viewport = document.getElementById('mannequin-viewport');
+            if (viewport) {
+                const onStart = (clientX) => {
+                    mannequinDragging = true;
+                    mannequinLastPointerX = clientX;
+                };
+                const onMove = (clientX) => {
+                    if (!mannequinDragging) return;
+                    const deltaX = clientX - mannequinLastPointerX;
+                    mannequinLastPointerX = clientX;
+                    mannequinAngle += deltaX * 0.018;
+                };
+                const onEnd = () => { mannequinDragging = false; };
+
+                viewport.addEventListener('mousedown', (e) => onStart(e.clientX));
+                window.addEventListener('mousemove', (e) => onMove(e.clientX));
+                window.addEventListener('mouseup', onEnd);
+
+                viewport.addEventListener('touchstart', (e) => {
+                    if (e.touches.length > 0) onStart(e.touches[0].clientX);
+                }, { passive: true });
+                window.addEventListener('touchmove', (e) => {
+                    if (e.touches.length > 0) onMove(e.touches[0].clientX);
+                }, { passive: true });
+                window.addEventListener('touchend', onEnd);
+            }
+
+            updateMannequinModel();
+        }
+
+        function updateMannequinModel() {
+            if (!mannequinScene) return;
+            if (mannequinRig && mannequinRig.root) {
+                mannequinScene.remove(mannequinRig.root);
+            }
+
+            const curClass = GLADIATOR_CLASSES[player.gladiatorClass] || GLADIATOR_CLASSES.knight;
+            const cos = player.equippedCosmetics;
+            mannequinRig = createKnightMesh(
+                cos.armorColor, cos.trimColor, cos.plumeColor, true,
+                curClass.weapon, cos.capeColor, curClass.shield,
+                { helmetStyle: cos.helmetStyle, pauldronStyle: cos.pauldronStyle }
+            );
+            mannequinScene.add(mannequinRig.root);
+            mannequinRig.root.rotation.y = mannequinAngle;
+
+            // Setup rune glow on mannequin sword
+            const swordLight = mannequinRig.swordGroup.getObjectByName('swordRuneLight');
+            if (swordLight) {
+                const rune = ELEMENTAL_RUNES.find(r => r.id === player.activeRune);
+                if (rune && rune.glowHex !== null) {
+                    swordLight.color.setHex(rune.glowHex);
+                    swordLight.intensity = 2.2;
+                } else {
+                    swordLight.intensity = 0;
+                }
+            }
+
+            // Update title
+            const titleElem = document.getElementById('mannequin-gladiator-title');
+            if (titleElem) {
+                const runeObj = ELEMENTAL_RUNES.find(r => r.id === player.activeRune);
+                const runeLabel = runeObj ? runeObj.name.toUpperCase() : 'PURE STEEL';
+                titleElem.innerHTML = `${curClass.name.toUpperCase()} &bull; ${runeLabel}`;
+            }
+        }
+
+        function renderMannequin(dt) {
+            if (!mannequinRenderer || !mannequinScene || !mannequinRig) return;
+            const time = performance.now() * 0.001;
+
+            if (!mannequinDragging) {
+                mannequinAngle += dt * 0.72;
+            }
+            mannequinRig.root.rotation.y = mannequinAngle;
+
+            // Idle breathing animation
+            mannequinRig.torso.position.y = 1.35 + Math.sin(time * 2.8) * 0.025;
+            mannequinRig.capeSegments.forEach((seg, sIdx) => {
+                seg.rotation.x = Math.PI * 0.08 + Math.sin(time * 4 + sIdx * 0.8) * 0.05;
+            });
+
+            mannequinRenderer.render(mannequinScene, mannequinCamera);
+        }
+
+        function renderWorkshopTabs() {
+            const tabs = document.querySelectorAll('.wtab-btn');
+            tabs.forEach(btn => {
+                btn.onclick = () => {
+                    const tabKey = btn.getAttribute('data-tab');
+                    tabs.forEach(t => t.classList.remove('active'));
+                    btn.classList.add('active');
+
+                    document.querySelectorAll('.wtab-content').forEach(c => c.classList.remove('active'));
+                    const targetContent = document.getElementById(`tab-content-${tabKey}`);
+                    if (targetContent) targetContent.classList.add('active');
+                };
+            });
+        }
+
+        function renderRunesGrid() {
+            const container = document.getElementById('runes-grid');
+            if (!container) return;
+            container.innerHTML = '';
+
+            ELEMENTAL_RUNES.forEach(r => {
+                const isActive = (player.activeRune === r.id);
+                const card = document.createElement('div');
+                card.className = `rune-card ${isActive ? 'active' : ''}`;
+                card.style.setProperty('--rune-glow', r.color);
+                card.innerHTML = `
+                    <div class="rune-header">
+                        <div class="rune-icon">${r.icon}</div>
+                        <div>
+                            <div class="rune-name" style="color: ${r.color};">${r.name}</div>
+                            <div class="rune-proc">${r.procText}</div>
+                        </div>
+                    </div>
+                    <div class="rune-desc">${r.desc}</div>
+                    <div class="rune-status" style="color: ${isActive ? '#00ffcc' : '#ffd700'};">
+                        ${isActive ? '✓ ACTIVE ENCHANTMENT' : '[ CLICK TO IMBUE ]'}
+                    </div>
+                `;
+                card.onclick = () => {
+                    player.activeRune = r.id;
+                    savePlayerCustomizations();
+                    if (r.id === 'thunder') audio.playLightningZap();
+                    else if (r.id === 'frost') audio.playFrostChime();
+                    else if (r.id === 'fire') audio.playFireSizzle();
+                    else audio.playRealSwordClash();
+
+                    updateMannequinModel();
+                    rebuildPlayerRig();
+                    renderRunesGrid();
+                };
+                container.appendChild(card);
+            });
+        }
+
+        function renderDyesGrid() {
+            const capeContainer = document.getElementById('cape-dyes-grid');
+            if (capeContainer) {
+                capeContainer.innerHTML = '';
+                ROMAN_CAPE_DYES.forEach(d => {
+                    const isActive = (player.equippedCosmetics.capeColor === d.hex);
+                    const card = document.createElement('div');
+                    card.className = `dye-card ${isActive ? 'active' : ''}`;
+                    card.innerHTML = `
+                        <div class="dye-swatch" style="background: ${d.css};"></div>
+                        <div class="dye-info">
+                            <div class="dye-title">${d.name}</div>
+                            <div class="dye-desc">${d.desc}</div>
+                        </div>
+                    `;
+                    card.onclick = () => {
+                        player.equippedCosmetics.capeColor = d.hex;
+                        savePlayerCustomizations();
+                        audio.playRealSwordWhoosh();
+                        updateMannequinModel();
+                        rebuildPlayerRig();
+                        renderDyesGrid();
+                    };
+                    capeContainer.appendChild(card);
+                });
+            }
+
+            const armorContainer = document.getElementById('armor-finish-grid');
+            if (armorContainer) {
+                armorContainer.innerHTML = '';
+                ROMAN_ARMOR_FINISHES.forEach(f => {
+                    const isActive = (player.equippedCosmetics.armorColor === f.hex);
+                    const card = document.createElement('div');
+                    card.className = `dye-card ${isActive ? 'active' : ''}`;
+                    card.innerHTML = `
+                        <div class="dye-swatch" style="background: ${f.css};"></div>
+                        <div class="dye-info">
+                            <div class="dye-title">${f.name}</div>
+                            <div class="dye-desc">${f.desc}</div>
+                        </div>
+                    `;
+                    card.onclick = () => {
+                        player.equippedCosmetics.armorColor = f.hex;
+                        savePlayerCustomizations();
+                        audio.playArmorShatter();
+                        updateMannequinModel();
+                        rebuildPlayerRig();
+                        renderDyesGrid();
+                    };
+                    armorContainer.appendChild(card);
+                });
+            }
+        }
+
         function equipTrophyCosmetic(trophyId) {
             const trophy = COLISEUM_TROPHIES.find(t => t.id === trophyId);
             if (!trophy) return;
             Object.assign(player.equippedCosmetics, trophy.cosmetic);
+            savePlayerCustomizations();
             rebuildPlayerRig();
+            updateMannequinModel();
             audio.playFanfare();
             renderArmoryGrid();
         }
@@ -5173,6 +6249,17 @@
                 currentLegAngle: 0,
                 isMoving: false,
                 weaponType: config.weaponType,
+                hasShield: !config.isLion && !!config.shieldType,
+                isArmSevered: false,
+                isDecapitated: false,
+                isBleeding: false,
+                bleedTimer: 0,
+                bleedTickTimer: 0,
+                burnTimer: 0,
+                burnTickTimer: 0,
+                isBurning: false,
+                frostSlowTimer: 0,
+                isChilled: false,
             };
             eObj.mesh.position.copy(eObj.pos);
             return eObj;
@@ -6222,6 +7309,40 @@
                         showDamageNumber(hitPos.clone().add(new THREE.Vector3(0, 0.6, 0)), "+15 FIRE BURN!", "#ff6600");
                     }
 
+                    // FEATURE 6: ELEMENTAL WEAPON RUNES
+                    if (player.activeRune === 'thunder') {
+                        if (step >= 3) {
+                            finalDmg += 18;
+                            audio.playLightningZap();
+                            spawnClashSparks(hitPos);
+                            showDamageNumber(hitPos.clone().add(new THREE.Vector3(0, 0.7, 0)), "+18 ⚡ JUPITER'S SHOCK!", "#00d0ff");
+                            activeEnemies.forEach(other => {
+                                if (other !== e && !other.isDead && e.pos.distanceTo(other.pos) < 7.0) {
+                                    other.hp = Math.max(0, other.hp - 12);
+                                    spawnClashSparks(other.pos.clone().add(new THREE.Vector3(0, 1.2, 0)));
+                                    showDamageNumber(other.pos.clone().add(new THREE.Vector3(0, 1.8, 0)), "-12 ⚡ CHAIN SHOCK", "#00d0ff");
+                                    if (other.hp <= 0) onSingleEnemyKilled(other);
+                                }
+                            });
+                        }
+                    } else if (player.activeRune === 'frost') {
+                        finalDmg += 6;
+                        e.frostSlowTimer = 3.5;
+                        e.isChilled = true;
+                        audio.playFrostChime();
+                        showDamageNumber(hitPos.clone().add(new THREE.Vector3(0, 0.7, 0)), "❄️ GLACIAL CHILL (-25% SPD)", "#7fe5ff");
+                    } else if (player.activeRune === 'fire') {
+                        finalDmg += 8;
+                        e.burnTimer = 4.0;
+                        e.burnTickTimer = 1.0;
+                        e.isBurning = true;
+                        audio.playFireSizzle();
+                        spawnBladeSwingSparks(hitPos, 4);
+                        showDamageNumber(hitPos.clone().add(new THREE.Vector3(0, 0.7, 0)), "🔥 HELLFIRE IGNITE!", "#ff5500");
+                    } else if (player.activeRune === 'steel') {
+                        poiseDmg = Math.round(poiseDmg * 1.15);
+                    }
+
                     e.hp = Math.max(0, e.hp - finalDmg);
                     e.poise = Math.max(0, e.poise - poiseDmg);
                     e.lastHitTime = performance.now() * 0.001;
@@ -6244,6 +7365,12 @@
 
                     if (e.hp <= 0) {
                         if (typeof abortEnemyCombo === 'function') abortEnemyCombo(e);
+                        // Decapitation chance on lethal finisher strikes
+                        if (!e.isDecapitated && !e.isLion && (step === 3 || step === 4 || player.isUltimateActive)) {
+                            if (Math.random() < 0.5) {
+                                decapitateEnemy(e);
+                            }
+                        }
                         onSingleEnemyKilled(e);
                     } else if (e.poise <= 0) {
                         if (typeof abortEnemyCombo === 'function') abortEnemyCombo(e);
@@ -6252,9 +7379,17 @@
                         e.poise = e.maxPoise;
                         e.consecutiveHitsTaken = 0;
                         shatterPauldron(e, 'left');
+                        // FEATURE 5: Sever shield arm on poise break when foe <= 45% HP
+                        if (e.hp <= e.maxHp * 0.45 && !e.isArmSevered && !e.isLion && e.hasShield) {
+                            severEnemyShieldArm(e);
+                        }
                         audio.playGuardBreak();
                         showDamageNumber(e.pos, "POISE BROKEN!", "#ffd700");
                     } else {
+                        // Charged thrust / heavy strike sever chance at <= 45% HP
+                        if (step === 4 && e.hp <= e.maxHp * 0.45 && !e.isArmSevered && !e.isLion && e.hasShield) {
+                            severEnemyShieldArm(e);
+                        }
                         // Impact flinch: fast recovery for tough arena champions
                         e.staggerTimer = 0.08;
                         if (e.isTelegraphing) {
@@ -6569,7 +7704,8 @@
                     moveVec.addScaledVector(tangent, 0.85);
                     if (moveVec.lengthSq() > 0.001) moveVec.normalize();
 
-                    e.pos.addScaledVector(moveVec, (e.speed * 0.8) * dt);
+                    const frostSpeedMult = (e.frostSlowTimer > 0) ? 0.75 : 1.0;
+                    e.pos.addScaledVector(moveVec, (e.speed * frostSpeedMult * 0.8) * dt);
 
                     // Occasional tactical guard
                     if (Math.random() < e.blockChance * 0.02) {
@@ -6579,11 +7715,12 @@
                     }
                 } else {
                     // READY TO ENGAGE & ATTACK (Aggressive sprint closure)
+                    const frostSpeedMult = (e.frostSlowTimer > 0) ? 0.75 : 1.0;
                     if (dist > 3.0) {
                         // Decisively close distance to player with sprint speed
                         e.isMoving = true;
-                        e.walkCycle += dt * 12;
-                        e.pos.addScaledVector(dir, (e.speed * 1.35) * dt);
+                        e.walkCycle += dt * 12 * frostSpeedMult;
+                        e.pos.addScaledVector(dir, (e.speed * frostSpeedMult * 1.35) * dt);
                         e.isBlocking = false;
                     } else {
                         // In striking range!
@@ -6593,8 +7730,8 @@
                         } else {
                             // Another enemy holds token; circle perimeter attentively
                             e.isMoving = true;
-                            e.walkCycle += dt * 7;
-                            e.pos.addScaledVector(tangent, (e.speed * 0.75) * dt);
+                            e.walkCycle += dt * 7 * frostSpeedMult;
+                            e.pos.addScaledVector(tangent, (e.speed * frostSpeedMult * 0.75) * dt);
                         }
                     }
                 }
@@ -6894,6 +8031,15 @@
                         const swordTipWorld = new THREE.Vector3(0, 1.3, 0);
                         swordTipWorld.applyMatrix4(rig.swordGroup.matrixWorld);
                         spawnBladeSwingSparks(swordTipWorld, 3);
+
+                        // Dynamic Elemental Rune Particle Trails on Blade
+                        if (player.activeRune === 'thunder' && Math.random() < 0.45) {
+                            spawnLightningParticle(swordTipWorld);
+                        } else if (player.activeRune === 'frost' && Math.random() < 0.4) {
+                            spawnFrostMistParticle(swordTipWorld);
+                        } else if (player.activeRune === 'fire' && Math.random() < 0.45) {
+                            spawnBladeSwingSparks(swordTipWorld, 2);
+                        }
 
                         if (player.comboTimer <= 0) {
                             player.isAttacking = false;
@@ -7383,6 +8529,7 @@
                 updateEmperorsGifts(dt);
                 updatePilumRacks(dt);
                 updateShatteredArmor(dt);
+                updateStatusEffects(dt);
                 checkExecutionOpportunity();
                 audio.updateWarDrums(dt, !introState.active);
             }
@@ -7419,6 +8566,11 @@
             updateCamera(dt);
 
             renderer.render(scene, camera);
+
+            // Render 360 rotating gladiator mannequin preview when workshop modal is open
+            if (isMannequinActive) {
+                renderMannequin(dt);
+            }
         }
 
         /* =========================================================================
@@ -7459,19 +8611,26 @@
             });
         });
 
-        // 2. Armory Modal Listeners
+        // 2. Armory & 3D Workshop Modal Listeners
         const armoryBtn = document.getElementById('btn-open-armory');
         if (armoryBtn) {
             armoryBtn.addEventListener('click', (e) => {
                 e.stopPropagation();
-                renderArmoryGrid();
                 document.getElementById('armory-modal').classList.add('active');
+                isMannequinActive = true;
+                initMannequin();
+                updateMannequinModel();
+                renderWorkshopTabs();
+                renderRunesGrid();
+                renderDyesGrid();
+                renderArmoryGrid();
             });
         }
         const armoryCloseBtn = document.getElementById('btn-close-armory');
         if (armoryCloseBtn) {
             armoryCloseBtn.addEventListener('click', () => {
                 document.getElementById('armory-modal').classList.remove('active');
+                isMannequinActive = false;
             });
         }
 
@@ -7532,8 +8691,21 @@
         window.applyEmperorsGiftBuff = applyEmperorsGiftBuff;
         window.shatterPauldron = shatterPauldron;
         window.shatterHelmet = shatterHelmet;
+        window.severEnemyShieldArm = severEnemyShieldArm;
+        window.decapitateEnemy = decapitateEnemy;
+        window.activeBloodSpurts = activeBloodSpurts;
+        window.ELEMENTAL_RUNES = ELEMENTAL_RUNES;
+        window.ROMAN_CAPE_DYES = ROMAN_CAPE_DYES;
+        window.ROMAN_ARMOR_FINISHES = ROMAN_ARMOR_FINISHES;
+        window.initMannequin = initMannequin;
+        window.updateMannequinModel = updateMannequinModel;
+        window.renderRunesGrid = renderRunesGrid;
+        Object.defineProperty(window, 'isMannequinActive', { get: () => isMannequinActive, set: v => isMannequinActive = v });
+        Object.defineProperty(window, 'gameActive', { get: () => gameActive, set: v => gameActive = v });
 
-        // Initialize Menu View on Load
+        // Load Persisted Customizations & Initialize Menu
+        loadPlayerCustomizations();
+        rebuildPlayerRig();
         openMainMenu();
         animate();
     </script>
